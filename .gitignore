@@ -1,0 +1,10 @@
+# Project exclude paths
+/.gradle/
+/persistence/build/
+/persistence/build
+/service/build/
+/service/build
+/web/build/
+.idea
+.gitignore
+.gradle
