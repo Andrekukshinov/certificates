@@ -1,0 +1,6 @@
+rootProject.name = 'certificates'
+include 'persistence'
+include 'web'
+include 'service'
+include 'service'
+
