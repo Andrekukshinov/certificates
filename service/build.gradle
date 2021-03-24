@@ -1,0 +1,12 @@
+dependencies {
+    implementation project(":persistence")
+
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.5'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-tx
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.5'
+
+    // https://mvnrepository.com/artifact/aopalliance/aopalliance
+    implementation group: 'aopalliance', name: 'aopalliance', version: '1.0'
+
+}

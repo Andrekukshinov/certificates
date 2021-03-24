@@ -1,0 +1,21 @@
+dependencies {
+    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.5'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-tx
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.5'
+
+    // https://mvnrepository.com/artifact/aopalliance/aopalliance
+    implementation group: 'aopalliance', name: 'aopalliance', version: '1.0'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+
+    // https://mvnrepository.com/artifact/com.mchange/c3p0
+    implementation group: 'com.mchange', name: 'c3p0', version: '0.9.5.5'
+
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.18'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.18'
+}
+
