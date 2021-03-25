@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class GiftCertificateFieldsExtractor implements FieldsExtractor<GiftCertificate> {
+public class GiftCertificateFieldsExtractor extends FieldsExtractorHelper implements FieldsExtractor<GiftCertificate> {
 
     private static final String ID = "id";
     private static final String CREATE_DATE = "create_date";
@@ -29,11 +29,5 @@ public class GiftCertificateFieldsExtractor implements FieldsExtractor<GiftCerti
         putToMapIfNotNull(result, certificate.getLastUpdateDate(), LAST_UPDATE);
         putToMapIfNotNull(result, certificate.getPrice(), PRICE);
         return result;
-    }
-
-    private void putToMapIfNotNull(Map<String, Object> result, Object objectToPut, String columnName) {
-        if (objectToPut != null) {
-            result.put(columnName, objectToPut);
-        }
     }
 }
