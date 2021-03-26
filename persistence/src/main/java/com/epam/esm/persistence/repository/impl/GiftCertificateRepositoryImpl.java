@@ -6,15 +6,19 @@ import com.epam.esm.persistence.extractor.FieldsExtractor;
 import com.epam.esm.persistence.repository.GiftCertificateRepository;
 import com.epam.esm.persistence.util.QueryCreator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
+import java.sql.Types;
 import java.util.*;
 
 
@@ -29,6 +33,7 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     private static final String GET_BY_ID = "SELECT * FROM " + TABLE_NAME + WHERE_ID;
 
     private final JdbcTemplate jdbc;
+    private final SimpleJdbcInsert jdbcInsert;
     private final FieldsExtractor<GiftCertificate> certificateExtractor;
     private final QueryCreator queryCreator;
     private final RowMapper<GiftCertificate> mapper;
@@ -37,9 +42,11 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     @Autowired
     public GiftCertificateRepositoryImpl(
             JdbcTemplate jdbc,
+            @Qualifier("jdbcInsertGift") SimpleJdbcInsert jdbcInsert,
             FieldsExtractor<GiftCertificate> certificateExtractor,
             QueryCreator queryCreator, RowMapper<GiftCertificate> mapper) {
         this.jdbc = jdbc;
+        this.jdbcInsert = jdbcInsert;
         this.certificateExtractor = certificateExtractor;
         this.queryCreator = queryCreator;
         this.mapper = mapper;
@@ -47,24 +54,11 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
 
     @Override
     public Long save(GiftCertificate certificate) throws PersistenceException {
-//        if (certificate.getId() != null) {
-//            throw new PersistenceException(ENTITY_ALREADY_EXISTS);
-//        }
         Map<String, Object> fieldsValuesMap = certificateExtractor.getFieldsValuesMap(certificate);
-        Set<String> keys = fieldsValuesMap.keySet();
-        String saveQuery = queryCreator.getSaveQuery(TABLE_NAME, keys);
-        Object[] valuesToBeInserted = fieldsValuesMap.values().toArray();
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        PreparedStatementCreator pSC = getPreparedStatementCreator(saveQuery, valuesToBeInserted);
-
-        return (long) jdbc.update(pSC, keyHolder);
-    }
-
-    private PreparedStatementCreator getPreparedStatementCreator(String saveQuery, Object[] valuesToBeInserted) {
-        PreparedStatementCreatorFactory pscFactory = new PreparedStatementCreatorFactory(saveQuery);
-        pscFactory.setReturnGeneratedKeys(true);
-        return pscFactory.newPreparedStatementCreator(valuesToBeInserted);
+        Set<String> strings = fieldsValuesMap.keySet();
+        jdbcInsert.setColumnNames(new ArrayList<>(strings));
+        Number number = jdbcInsert.executeAndReturnKey(fieldsValuesMap);
+        return number.longValue();
     }
 
     @Override
@@ -85,7 +79,9 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
 
     @Override
     public void saveGiftTags(Long certificateId, Set<Long> tagsIds) {
-        Set<String> fieldNames = Set.of(GIFT_CERTIFICATE_ID, TAG_ID);
+        Set<String> fieldNames = new LinkedHashSet<>();
+        fieldNames.add(GIFT_CERTIFICATE_ID);
+        fieldNames.add(TAG_ID);
         tagsIds.forEach(tagId -> {
             String saveQuery = queryCreator.getSaveQuery(TAGS_GIFT_CERTIFICATES, fieldNames);
             jdbc.update(saveQuery, certificateId, tagId);

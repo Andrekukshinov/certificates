@@ -10,12 +10,12 @@ public class DispatcherServletInitConfig extends AbstractAnnotationConfigDispatc
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[]{PersistenceConfig.class, ServiceConfiguration.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebConfiguration.class, PersistenceConfig.class, ServiceConfiguration.class};
+        return new Class[]{WebConfiguration.class};
     }
 
     @Override

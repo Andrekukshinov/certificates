@@ -4,6 +4,8 @@ import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.extractor.FieldsExtractor;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 

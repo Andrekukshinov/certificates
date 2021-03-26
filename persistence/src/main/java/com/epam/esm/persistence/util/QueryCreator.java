@@ -28,7 +28,7 @@ public class QueryCreator {
     public String getSaveQuery(String tableName, Set<String> fieldNames) {
         StringBuilder insertIntoPart = getInsertIntoPart(fieldNames, tableName);
         StringBuilder secondPart = new StringBuilder(VALUES);
-        secondPart.append(getValuesPart(fieldNames)).append(COMMA_SPACE);
+        secondPart.append(getValuesPart(fieldNames));
         secondPart.append(SEMI_COLUMN);
         return insertIntoPart.append(secondPart).toString();
     }

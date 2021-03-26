@@ -59,8 +59,9 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         return tagRepository.findTagsByNames(tagNames);
     }
 
+    //todo change equals & hash method (include id)
     private List<Long> getSavedAbsentTagsIds(Set<Tag> tags, Set<Tag> foundTags) throws PersistenceException {
-        Set<Tag> absentTags = tags.stream().filter(foundTags::contains).collect(Collectors.toSet());
+        Set<Tag> absentTags = tags.stream().filter(tag-> !foundTags.contains(tag)).collect(Collectors.toSet());
         List<Long> result = new ArrayList<>();
         for (Tag tag: absentTags) {
             result.add(tagRepository.save(tag));

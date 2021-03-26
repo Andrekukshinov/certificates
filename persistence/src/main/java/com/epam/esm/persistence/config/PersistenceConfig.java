@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -19,18 +19,19 @@ import java.beans.PropertyVetoException;
 @PropertySource(value = "classpath:/connectionPool.properties")
 public class PersistenceConfig {
 
-//    private static final String DRIVER_MYSQL = "driver.mysql";
+    //    private static final String DRIVER_MYSQL = "driver.mysql";
 //    private static final String URL = "url";
 //    private static final String PASSWORD = "password";
 //    private static final String USERNAME = "username";
 //    private static final String CONNECTIONS_MIN = "connections.min";
 //    private static final String CLOSE_METHOD = "close";
-private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/gift_certificates_management";
     private static final String PASSWORD = "root";
     private static final String USERNAME = "root";
     private static final int MAX_CONNECTIONS = 8;
 
+    //
     @Bean(destroyMethod = "close")
     public ComboPooledDataSource getMySqlDataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -56,6 +57,22 @@ private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
     @Bean
     public JdbcTemplate mySqlJdbcTemplate(DataSource source) {
         return new JdbcTemplate(source);
+    }
+
+    @Bean("jdbcInsertTag")
+    public SimpleJdbcInsert mySqlSimpleJdbcInsertTag(JdbcTemplate template) {
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(template);
+        jdbcInsert.setTableName("tag");
+        jdbcInsert.setGeneratedKeyName("id");
+        return jdbcInsert;
+    }
+
+    @Bean("jdbcInsertGift")
+    public SimpleJdbcInsert mySqlSimpleJdbcInsertGift(JdbcTemplate template) {
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(template);
+        jdbcInsert.setTableName("gift_certificate");
+        jdbcInsert.setGeneratedKeyName("id");
+        return jdbcInsert;
     }
 
     @Bean
