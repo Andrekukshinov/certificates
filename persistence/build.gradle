@@ -1,7 +1,4 @@
 dependencies {
-    // https://mvnrepository.com/artifact/com.google.guava/guava
-    implementation group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
-
     // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
     implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.5'
 
@@ -21,9 +18,8 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok:1.18.18'
 
-// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.2'
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.12.2'
 
-    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5"
 }
 
