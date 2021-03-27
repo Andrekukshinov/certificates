@@ -18,14 +18,6 @@ public class TagSimpleJdbcInsert  extends SimpleJdbcInsert implements Initializi
         super(jdbcTemplate);
     }
 
-//    public void setTagTableName() {
-//        withTableName(TABLE_NAME);
-//    }
-//
-//    public void setDefaultKey() {
-//        this.setGeneratedKeyName(KEY);
-//    }
-
     @Override
     public void afterPropertiesSet() throws Exception {
         this.withTableName(TABLE_NAME);
