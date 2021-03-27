@@ -1,12 +1,13 @@
 package com.epam.esm.persistence.config;
 
+import com.epam.esm.persistence.util.CertificateSimpleJdbcInsert;
+import com.epam.esm.persistence.util.TagSimpleJdbcInsert;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -31,7 +32,6 @@ public class PersistenceConfig {
     private static final String USERNAME = "root";
     private static final int MAX_CONNECTIONS = 8;
 
-    //
     @Bean(destroyMethod = "close")
     public ComboPooledDataSource getMySqlDataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -59,20 +59,14 @@ public class PersistenceConfig {
         return new JdbcTemplate(source);
     }
 
-    @Bean("jdbcInsertTag")
-    public SimpleJdbcInsert mySqlSimpleJdbcInsertTag(JdbcTemplate template) {
-        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(template);
-        jdbcInsert.setTableName("tag");
-        jdbcInsert.setGeneratedKeyName("id");
-        return jdbcInsert;
+    @Bean
+    public TagSimpleJdbcInsert tagSimpleJdbcInsert(JdbcTemplate jdbcTemplate) {
+        return new TagSimpleJdbcInsert(jdbcTemplate);
     }
 
-    @Bean("jdbcInsertGift")
-    public SimpleJdbcInsert mySqlSimpleJdbcInsertGift(JdbcTemplate template) {
-        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(template);
-        jdbcInsert.setTableName("gift_certificate");
-        jdbcInsert.setGeneratedKeyName("id");
-        return jdbcInsert;
+    @Bean
+    public CertificateSimpleJdbcInsert certificateSimpleJdbcInsert(JdbcTemplate jdbcTemplate) {
+        return new CertificateSimpleJdbcInsert(jdbcTemplate);
     }
 
     @Bean

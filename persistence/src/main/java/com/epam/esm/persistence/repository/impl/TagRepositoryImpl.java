@@ -1,16 +1,25 @@
 package com.epam.esm.persistence.repository.impl;
 
 import com.epam.esm.persistence.entity.Tag;
+import com.epam.esm.persistence.exception.PersistenceException;
 import com.epam.esm.persistence.extractor.FieldsExtractor;
 import com.epam.esm.persistence.mapper.TagRowMapper;
 import com.epam.esm.persistence.repository.TagRepository;
+import com.epam.esm.persistence.util.QueryCreator;
+import com.epam.esm.persistence.util.TagSimpleJdbcInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.object.SqlUpdate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 //plain and stupid
 @Repository
@@ -24,32 +33,30 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String GET_ALL_WHERE_NAME_IN = "SELECT * FROM tag WHERE name IN (%s)";
     private static final String GET_CERTIFICATE_TAGS =
             " SELECT T.id as id, name " +
-            " FROM tag AS T" +
-            " INNER JOIN tags_gift_certificates AS TGC ON T.id = TGC.tag_id" +
-            " WHERE TGC.gift_certificate_id =?";
-    private static final String ID = "id";
-    private static final String TAG = "tag";
+                    " FROM tag AS T" +
+                    " INNER JOIN tags_gift_certificates AS TGC ON T.id = TGC.tag_id" +
+                    " WHERE TGC.gift_certificate_id =?";
+
 
     private final JdbcTemplate jdbc;
     private final TagRowMapper mapper;
     private final FieldsExtractor<Tag> tagFieldsExtractor;
-    private final SimpleJdbcInsert jdbcInsert;
+        private final SimpleJdbcInsert jdbcInsert;
+
 
     @Autowired
     public TagRepositoryImpl(JdbcTemplate jdbc, TagRowMapper mapper,
                              FieldsExtractor<Tag> tagFieldsExtractor,
-                             @Qualifier("jdbcInsertTag")SimpleJdbcInsert jdbcInsert) {
+                             TagSimpleJdbcInsert jdbcInsert) {
         this.jdbc = jdbc;
         this.mapper = mapper;
         this.tagFieldsExtractor = tagFieldsExtractor;
         this.jdbcInsert = jdbcInsert;
     }
 
-    @Override
+        @Override
     public Long save(Tag tag) {
         Map<String, Object> fieldsValuesMap = tagFieldsExtractor.getFieldsValuesMap(tag);
-        Set<String> strings = fieldsValuesMap.keySet();
-        jdbcInsert.setColumnNames(new ArrayList<>(strings));
         Number number = jdbcInsert.executeAndReturnKey(fieldsValuesMap);
         return number.longValue();
     }
