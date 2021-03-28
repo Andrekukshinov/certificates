@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/gift")
 public class GiftCertificateController {
     private static final String ID = "id";
+
     private GiftCertificateService certificateService;
 
     @Autowired
@@ -34,5 +35,10 @@ public class GiftCertificateController {
     @DeleteMapping("/{id}")
     public void deleteCertificate(@PathVariable(ID) Long id) {
         certificateService.deleteCertificate(id);
+    }
+
+    @PutMapping
+    public void updateCertificate(@RequestBody GiftCertificate certificate) {
+        certificateService.updateCertificate(certificate);
     }
 }

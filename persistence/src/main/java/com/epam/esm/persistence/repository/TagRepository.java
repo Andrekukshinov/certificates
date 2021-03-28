@@ -11,4 +11,6 @@ public interface TagRepository extends CRDRepository<Tag> {
     Set<Tag> findTagsByNames(Set<String> tagName);
 
     Set<Tag> findCertificateTags(Long certificateId);
+
+    void deleteCertificateTags(Long certificateId);
 }

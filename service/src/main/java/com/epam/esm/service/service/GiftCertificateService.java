@@ -12,4 +12,6 @@ public interface GiftCertificateService {
     GiftCertificate getCertificateWithTagsById (Long id) throws ServiceException;
 
     void deleteCertificate(Long certificateId);
+
+    void updateCertificate(GiftCertificate certificate);
 }

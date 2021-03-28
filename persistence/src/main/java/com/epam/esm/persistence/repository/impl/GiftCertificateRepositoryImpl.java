@@ -16,6 +16,7 @@ import org.springframework.jdbc.object.SqlUpdate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Types;
 import java.util.*;
@@ -31,7 +32,9 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     private static final String WHERE_ID = " WHERE id = ?";
     private static final String GET_BY_ID = "SELECT * FROM " + TABLE_NAME + WHERE_ID;
     private static final String DELETE_CERTIFICATE = " DELETE FROM gift_certificate WHERE id = ?";
-    private static final String DELETE_CERTIFICATE_TAGS = " DELETE FROM tags_gift_certificates WHERE tags_gift_certificates.gift_certificate_id = ?";
+    private static final String DELETE_CERTIFICATE_TAGS = " DELETE FROM tags_gift_certificates" +
+            " WHERE tags_gift_certificates.gift_certificate_id = ?";
+    private static final String ID = "id";
 
     private final JdbcTemplate jdbc;
     private final SimpleJdbcInsert jdbcInsert;
@@ -77,10 +80,16 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
 
     @Override
     public void update(GiftCertificate certificate) {
-
+        Map<String, Object> fieldsValuesMap = certificateExtractor.getFieldsValuesMap(certificate);
+        Object updateParam = fieldsValuesMap.remove(ID);
+        String updateQuery = queryCreator.getUpdateQuery(TABLE_NAME, fieldsValuesMap.keySet(), ID);
+        ArrayList<Object> objects = new ArrayList<>(fieldsValuesMap.values());
+        objects.add(updateParam);
+        jdbc.update(updateQuery, objects.toArray());
     }
 
     @Override
+    @Transactional
     public void saveGiftTags(Long certificateId, Set<Long> tagsIds) {
         Set<String> fieldNames = new LinkedHashSet<>();
         fieldNames.add(GIFT_CERTIFICATE_ID);

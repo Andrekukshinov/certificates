@@ -1,19 +1,13 @@
 package com.epam.esm.persistence.repository.impl;
 
 import com.epam.esm.persistence.entity.Tag;
-import com.epam.esm.persistence.exception.PersistenceException;
 import com.epam.esm.persistence.extractor.FieldsExtractor;
 import com.epam.esm.persistence.mapper.TagRowMapper;
 import com.epam.esm.persistence.repository.TagRepository;
-import com.epam.esm.persistence.util.QueryCreator;
 import com.epam.esm.persistence.util.TagSimpleJdbcInsert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.object.SqlUpdate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
@@ -24,7 +18,7 @@ import java.util.Set;
 //plain and stupid
 @Repository
 public class TagRepositoryImpl implements TagRepository {
-    private static final String SAVE_TAG = "INSERT INTO tag(name) VALUES (?)";
+
     private static final String GET_BY_ID = "SELECT * FROM tag WHERE id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM tag WHERE name = ?";
     private static final String DELETE_TAG = "DELETE FROM tag WHERE id = ?";
@@ -36,6 +30,7 @@ public class TagRepositoryImpl implements TagRepository {
                     " FROM tag AS T" +
                     " INNER JOIN tags_gift_certificates AS TGC ON T.id = TGC.tag_id" +
                     " WHERE TGC.gift_certificate_id =?";
+    private static final String DEELETE_CERTIFICATE_TAGS = "DELETE FROM tags_gift_certificates WHERE gift_certificate_id =?";
 
 
     private final JdbcTemplate jdbc;
@@ -54,7 +49,7 @@ public class TagRepositoryImpl implements TagRepository {
         this.jdbcInsert = jdbcInsert;
     }
 
-        @Override
+    @Override
     public Long save(Tag tag) {
         Map<String, Object> fieldsValuesMap = tagFieldsExtractor.getFieldsValuesMap(tag);
         Number number = jdbcInsert.executeAndReturnKey(fieldsValuesMap);
@@ -87,5 +82,10 @@ public class TagRepositoryImpl implements TagRepository {
     @Override
     public Set<Tag> findCertificateTags(Long certificateId) {
         return Set.copyOf(jdbc.query(GET_CERTIFICATE_TAGS, mapper, certificateId));
+    }
+
+    @Override
+    public void deleteCertificateTags(Long certificateId) {
+        jdbc.update(DEELETE_CERTIFICATE_TAGS, certificateId );
     }
 }

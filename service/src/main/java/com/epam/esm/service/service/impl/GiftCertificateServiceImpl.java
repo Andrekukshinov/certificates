@@ -29,7 +29,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Transactional
     @Override
-    public void save(GiftCertificate certificate) throws PersistenceException {
+    public void save(GiftCertificate certificate) {
         Long certificateId = certificateRepository.save(certificate);
         Set<Tag> tags = certificate.getTags();
         if (tags != null && !tags.isEmpty()) {
@@ -53,7 +53,20 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         certificateRepository.delete(id);
     }
 
-    private void saveCertificateTags(Long certificateId, Set<Tag> tags) throws PersistenceException {
+    @Override
+    @Transactional
+    public void updateCertificate(GiftCertificate certificate) {
+        certificateRepository.update(certificate);
+        Set<Tag> tags = certificate.getTags();
+        Long certificateId = certificate.getId();
+        if (tags != null && tags.isEmpty()) {
+            tagRepository.deleteCertificateTags(certificateId);
+        } else if (tags != null) {
+            saveCertificateTags(certificateId, tags);
+        }
+    }
+
+    private void saveCertificateTags(Long certificateId, Set<Tag> tags) {
         Set<Tag> foundTags = getFoundTags(tags);
         Set<Long> foundTagsIds = foundTags.stream().map(Tag::getId).collect(Collectors.toSet());
         List<Long> savedAbsentTagsIds = getSavedAbsentTagsIds(tags, foundTags);
@@ -67,7 +80,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     //todo change equals & hash method (include id)
-    private List<Long> getSavedAbsentTagsIds(Set<Tag> tags, Set<Tag> foundTags) throws PersistenceException {
+    private List<Long> getSavedAbsentTagsIds(Set<Tag> tags, Set<Tag> foundTags) {
         Set<Tag> absentTags = tags.stream().filter(tag-> !foundTags.contains(tag)).collect(Collectors.toSet());
         List<Long> result = new ArrayList<>();
         for (Tag tag: absentTags) {
