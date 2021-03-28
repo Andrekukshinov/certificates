@@ -10,4 +10,6 @@ public interface GiftCertificateService {
     void save(GiftCertificate certificate) throws PersistenceException;
 
     GiftCertificate getCertificateWithTagsById (Long id) throws ServiceException;
+
+    void deleteCertificate(Long certificateId);
 }

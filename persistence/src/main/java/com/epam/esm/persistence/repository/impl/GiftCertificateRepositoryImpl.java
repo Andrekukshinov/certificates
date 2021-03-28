@@ -30,6 +30,8 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     private static final String TAG_ID = "tag_id";
     private static final String WHERE_ID = " WHERE id = ?";
     private static final String GET_BY_ID = "SELECT * FROM " + TABLE_NAME + WHERE_ID;
+    private static final String DELETE_CERTIFICATE = " DELETE FROM gift_certificate WHERE id = ?";
+    private static final String DELETE_CERTIFICATE_TAGS = " DELETE FROM tags_gift_certificates WHERE tags_gift_certificates.gift_certificate_id = ?";
 
     private final JdbcTemplate jdbc;
     private final SimpleJdbcInsert jdbcInsert;
@@ -51,7 +53,7 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     }
 
     @Override
-    public Long save(GiftCertificate certificate) throws PersistenceException {
+    public Long save(GiftCertificate certificate) {
         Map<String, Object> fieldsValuesMap = certificateExtractor.getFieldsValuesMap(certificate);
         Number number = jdbcInsert.executeAndReturnKey(fieldsValuesMap);
         return number.longValue();
@@ -64,8 +66,13 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteCertificateTags(Long id) {
+        jdbc.update(DELETE_CERTIFICATE_TAGS, id);
+    }
 
+    @Override
+    public void delete(Long id) {
+        jdbc.update(DELETE_CERTIFICATE, id);
     }
 
     @Override

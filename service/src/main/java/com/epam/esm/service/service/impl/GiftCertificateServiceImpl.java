@@ -46,6 +46,13 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         return certificate;
     }
 
+    @Transactional
+    @Override
+    public void deleteCertificate(Long id) {
+        certificateRepository.deleteCertificateTags(id);
+        certificateRepository.delete(id);
+    }
+
     private void saveCertificateTags(Long certificateId, Set<Tag> tags) throws PersistenceException {
         Set<Tag> foundTags = getFoundTags(tags);
         Set<Long> foundTagsIds = foundTags.stream().map(Tag::getId).collect(Collectors.toSet());

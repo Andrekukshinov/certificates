@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/gift")
 public class GiftCertificateController {
+    private static final String ID = "id";
     private GiftCertificateService certificateService;
 
     @Autowired
@@ -21,12 +22,17 @@ public class GiftCertificateController {
     }
 
     @GetMapping("/{id}")
-    public GiftCertificate getGiftCertificateById(@PathVariable("id") Long id) throws ServiceException {
+    public GiftCertificate getGiftCertificateById(@PathVariable(ID) Long id) throws ServiceException {
         return certificateService.getCertificateWithTagsById(id);
     }
 
     @PostMapping
     public void saveGiftCertificate(@RequestBody GiftCertificate certificate) throws PersistenceException {
         certificateService.save(certificate);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCertificate(@PathVariable(ID) Long id) {
+        certificateService.deleteCertificate(id);
     }
 }

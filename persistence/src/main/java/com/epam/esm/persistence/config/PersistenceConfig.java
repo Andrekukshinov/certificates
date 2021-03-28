@@ -7,12 +7,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = "com.epam.esm.persistence")
@@ -20,39 +25,32 @@ import java.beans.PropertyVetoException;
 @PropertySource(value = "classpath:/connectionPool.properties")
 public class PersistenceConfig {
 
-    //    private static final String DRIVER_MYSQL = "driver.mysql";
-//    private static final String URL = "url";
-//    private static final String PASSWORD = "password";
-//    private static final String USERNAME = "username";
-//    private static final String CONNECTIONS_MIN = "connections.min";
-//    private static final String CLOSE_METHOD = "close";
-    private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/gift_certificates_management";
-    private static final String PASSWORD = "root";
-    private static final String USERNAME = "root";
-    private static final int MAX_CONNECTIONS = 8;
+    private static final String DRIVER_MYSQL = "driver.mysql";
+    private static final String URL = "url";
+    private static final String PASSWORD = "password";
+    private static final String USERNAME = "username";
+    private static final String CONNECTIONS_MIN = "connections.min";
+    private static final String CLOSE_METHOD = "close";
+    private static final String CONNECTION_POOL_PROPERTIES = "connectionPool.properties";
 
-    @Bean(destroyMethod = "close")
-    public ComboPooledDataSource getMySqlDataSource() throws PropertyVetoException {
+    @Bean
+    public Resource getResource() {
+        return new ClassPathResource(CONNECTION_POOL_PROPERTIES);
+
+    }
+
+    @Bean(destroyMethod = CLOSE_METHOD)
+    public ComboPooledDataSource getMysqlDataSource(Resource resource) throws PropertyVetoException, IOException {
+        Properties properties = PropertiesLoaderUtils.loadProperties(resource);
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setDriverClass(MYSQL_DRIVER);
-        dataSource.setJdbcUrl(URL);
-        dataSource.setPassword(PASSWORD);
-        dataSource.setUser(USERNAME);
-        dataSource.setMinPoolSize(MAX_CONNECTIONS);
+        dataSource.setDriverClass(properties.getProperty(DRIVER_MYSQL));
+        dataSource.setJdbcUrl(properties.getProperty(URL));
+        dataSource.setPassword(properties.getProperty(PASSWORD));
+        dataSource.setUser(properties.getProperty(USERNAME));
+        String minConnectionsString = properties.getProperty(CONNECTIONS_MIN);
+        dataSource.setMinPoolSize(Integer.parseInt(minConnectionsString));
         return dataSource;
     }
-//    @Bean(destroyMethod = CLOSE_METHOD)
-//    public ComboPooledDataSource getMysqlDataSource(Environment environment) throws PropertyVetoException {
-//        ComboPooledDataSource dataSource = new ComboPooledDataSource();
-//        dataSource.setDriverClass(environment.getProperty(DRIVER_MYSQL));
-//        dataSource.setJdbcUrl(environment.getProperty(URL));
-//        dataSource.setPassword(environment.getProperty(PASSWORD));
-//        dataSource.setUser(environment.getProperty(USERNAME));
-//        String minConnectionsString = environment.getProperty(CONNECTIONS_MIN);
-//        dataSource.setMinPoolSize(Integer.parseInt(minConnectionsString));
-//        return dataSource;
-//    }
 
     @Bean
     public JdbcTemplate mySqlJdbcTemplate(DataSource source) {
