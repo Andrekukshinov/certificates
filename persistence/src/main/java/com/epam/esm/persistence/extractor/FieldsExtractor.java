@@ -1,7 +1,5 @@
 package com.epam.esm.persistence.extractor;
 
-import org.springframework.stereotype.Component;
-
 import java.util.Map;
 
 public interface FieldsExtractor<T> {

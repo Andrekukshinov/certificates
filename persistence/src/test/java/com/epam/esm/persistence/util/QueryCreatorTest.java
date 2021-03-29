@@ -1,5 +1,6 @@
 package com.epam.esm.persistence.util;
 
+import com.epam.esm.persistence.query.creator.QueryCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

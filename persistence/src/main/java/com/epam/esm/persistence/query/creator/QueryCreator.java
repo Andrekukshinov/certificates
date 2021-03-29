@@ -1,4 +1,4 @@
-package com.epam.esm.persistence.util;
+package com.epam.esm.persistence.query.creator;
 
 import org.springframework.stereotype.Component;
 

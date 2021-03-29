@@ -1,4 +1,4 @@
-package com.epam.esm.persistence.util;
+package com.epam.esm.persistence.serialization;
 
 
 import com.fasterxml.jackson.core.JsonParser;

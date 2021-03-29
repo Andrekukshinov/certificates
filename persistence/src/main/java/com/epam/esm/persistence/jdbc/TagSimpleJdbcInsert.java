@@ -1,4 +1,4 @@
-package com.epam.esm.persistence.util;
+package com.epam.esm.persistence.jdbc;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.JdbcTemplate;

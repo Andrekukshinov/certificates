@@ -2,9 +2,9 @@ package com.epam.esm.persistence.repository.impl;
 
 import com.epam.esm.persistence.entity.Tag;
 import com.epam.esm.persistence.extractor.FieldsExtractor;
+import com.epam.esm.persistence.jdbc.TagSimpleJdbcInsert;
 import com.epam.esm.persistence.mapper.TagRowMapper;
 import com.epam.esm.persistence.repository.TagRepository;
-import com.epam.esm.persistence.util.TagSimpleJdbcInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;

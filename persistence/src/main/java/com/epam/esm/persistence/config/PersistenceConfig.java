@@ -1,7 +1,7 @@
 package com.epam.esm.persistence.config;
 
-import com.epam.esm.persistence.util.CertificateSimpleJdbcInsert;
-import com.epam.esm.persistence.util.TagSimpleJdbcInsert;
+import com.epam.esm.persistence.jdbc.CertificateSimpleJdbcInsert;
+import com.epam.esm.persistence.jdbc.TagSimpleJdbcInsert;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

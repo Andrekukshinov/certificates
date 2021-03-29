@@ -1,4 +1,4 @@
-package com.epam.esm.persistence.util;
+package com.epam.esm.persistence.jdbc;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,7 +20,7 @@ public class CertificateSimpleJdbcInsert extends SimpleJdbcInsert implements Ini
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         this.withTableName(TABLE_NAME);
         this.setGeneratedKeyName(KEY);
     }

@@ -2,9 +2,9 @@ package com.epam.esm.persistence.repository.impl;
 
 import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.extractor.FieldsExtractor;
+import com.epam.esm.persistence.jdbc.CertificateSimpleJdbcInsert;
+import com.epam.esm.persistence.query.creator.QueryCreator;
 import com.epam.esm.persistence.repository.GiftCertificateRepository;
-import com.epam.esm.persistence.util.CertificateSimpleJdbcInsert;
-import com.epam.esm.persistence.util.QueryCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
