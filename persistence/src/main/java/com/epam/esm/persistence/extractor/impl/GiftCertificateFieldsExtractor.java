@@ -4,8 +4,6 @@ import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.extractor.FieldsExtractor;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,11 +22,11 @@ public class GiftCertificateFieldsExtractor extends FieldsExtractorHelper implem
     public Map<String, Object> getFieldsValuesMap(GiftCertificate certificate) {
         Map<String, Object> result = new HashMap<>();
         putToMapIfNotNull(result, certificate.getId(), ID);
+        putToMapIfNotNull(result, certificate.getLastUpdateDate(), LAST_UPDATE);
         putToMapIfNotNull(result, certificate.getCreateDate(), CREATE_DATE);
-        putToMapIfNotNull(result, certificate.getDescription(), DESCRIPTION);
         putToMapIfNotNull(result, certificate.getDuration(), DURATION);
         putToMapIfNotNull(result, certificate.getName(), NAME);
-        putToMapIfNotNull(result, certificate.getLastUpdateDate(), LAST_UPDATE);
+        putToMapIfNotNull(result, certificate.getDescription(), DESCRIPTION);
         putToMapIfNotNull(result, certificate.getPrice(), PRICE);
         return result;
     }

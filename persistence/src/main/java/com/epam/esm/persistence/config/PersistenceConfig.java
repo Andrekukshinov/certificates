@@ -36,7 +36,6 @@ public class PersistenceConfig {
     @Bean
     public Resource getResource() {
         return new ClassPathResource(CONNECTION_POOL_PROPERTIES);
-
     }
 
     @Bean(destroyMethod = CLOSE_METHOD)

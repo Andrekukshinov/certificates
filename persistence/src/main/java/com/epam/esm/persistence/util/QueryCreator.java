@@ -2,8 +2,9 @@ package com.epam.esm.persistence.util;
 
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
 @Component
 public class QueryCreator {
@@ -33,10 +34,9 @@ public class QueryCreator {
 
     public String getUpdateQuery(String tableName, Set<String> fieldNames, String updateParam) {
         StringBuilder query = new StringBuilder(UPDATE);
-        Set<String> paramsToUpdate = fieldNames.stream().filter(el -> !el.equals(updateParam)).collect(Collectors.toSet());
         query.append(tableName);
-        query.append(SET);
-        String setValuesPart = getQuestionsForValues("=?, ", paramsToUpdate);
+        query.append(" SET ");
+        String setValuesPart = getJoinedString("=?, ", fieldNames);
         query.append(setValuesPart).append("=?").append(" WHERE ").append(updateParam).append("=?");
         return query.toString();
     }
@@ -44,7 +44,7 @@ public class QueryCreator {
     private StringBuilder getInsertIntoPart(Set<String> fieldNames, String tableName) {
         StringBuilder insertIntoPart = new StringBuilder(INSERT_INTO).append(tableName);
         insertIntoPart.append(OPEN_BRACKET);
-        String fieldNamesForInsert = getQuestionsForValues(COMMA_SPACE, fieldNames);
+        String fieldNamesForInsert = getJoinedString(COMMA_SPACE, fieldNames);
         insertIntoPart.append(fieldNamesForInsert);
         insertIntoPart.append(CLOSING_BRACKET);
         return insertIntoPart;
@@ -52,13 +52,13 @@ public class QueryCreator {
 
     private StringBuilder getValuesPart(Set<String> fieldNames) {
         StringBuilder valuesPart = new StringBuilder(OPEN_BRACKET);
-        String questionsForValues = getQuestionsForValues(COMMA_SPACE, Collections.nCopies(fieldNames.size(), QUESTION));
+        String questionsForValues = getJoinedString(COMMA_SPACE, Collections.nCopies(fieldNames.size(), QUESTION));
         valuesPart.append(questionsForValues);
         valuesPart.append(CLOSING_BRACKET);
         return valuesPart;
     }
 
-    private String getQuestionsForValues(String joinWith, Collection<? extends String> insertedValues) {
-        return String.join(joinWith, insertedValues);
+    private String getJoinedString(String joinWith, Collection<? extends String> forJoining) {
+        return String.join(joinWith, forJoining);
     }
 }

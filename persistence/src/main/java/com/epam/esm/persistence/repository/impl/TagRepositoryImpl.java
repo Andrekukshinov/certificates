@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-//plain and stupid
 @Repository
 public class TagRepositoryImpl implements TagRepository {
 
@@ -25,12 +24,6 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String QUESTION = "?";
     private static final String COMMA = ", ";
     private static final String GET_ALL_WHERE_NAME_IN = "SELECT * FROM tag WHERE name IN (%s)";
-    private static final String GET_CERTIFICATE_TAGS =
-            " SELECT T.id as id, name " +
-                    " FROM tag AS T" +
-                    " INNER JOIN tags_gift_certificates AS TGC ON T.id = TGC.tag_id" +
-                    " WHERE TGC.gift_certificate_id =?";
-    private static final String DEELETE_CERTIFICATE_TAGS = "DELETE FROM tags_gift_certificates WHERE gift_certificate_id =?";
 
 
     private final JdbcTemplate jdbc;
@@ -77,15 +70,5 @@ public class TagRepositoryImpl implements TagRepository {
         String sqlNamesPlaceHolder = String.join(COMMA, Collections.nCopies(tagNames.size(), QUESTION));
         String query = String.format(GET_ALL_WHERE_NAME_IN, sqlNamesPlaceHolder);
         return Set.copyOf(jdbc.query(query, mapper, tagNames.toArray()));
-    }
-
-    @Override
-    public Set<Tag> findCertificateTags(Long certificateId) {
-        return Set.copyOf(jdbc.query(GET_CERTIFICATE_TAGS, mapper, certificateId));
-    }
-
-    @Override
-    public void deleteCertificateTags(Long certificateId) {
-        jdbc.update(DEELETE_CERTIFICATE_TAGS, certificateId );
     }
 }

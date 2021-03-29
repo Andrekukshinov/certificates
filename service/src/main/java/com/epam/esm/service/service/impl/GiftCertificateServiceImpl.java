@@ -2,29 +2,29 @@ package com.epam.esm.service.service.impl;
 
 import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.entity.Tag;
-import com.epam.esm.persistence.exception.PersistenceException;
 import com.epam.esm.persistence.repository.GiftCertificateRepository;
-import com.epam.esm.persistence.repository.TagRepository;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.service.GiftCertificateService;
+import com.epam.esm.service.service.TagGiftCertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     private static final String WRONG_CERTIFICATE = "wrong certificate";
+
     private final GiftCertificateRepository certificateRepository;
-    private final TagRepository tagRepository;
+    private final TagGiftCertificateService tagCertificateService;
 
     @Autowired
-    public GiftCertificateServiceImpl(GiftCertificateRepository certificateRepository, TagRepository tagRepository) {
+    public GiftCertificateServiceImpl(GiftCertificateRepository certificateRepository, TagGiftCertificateService tagCertificateService) {
         this.certificateRepository = certificateRepository;
-        this.tagRepository = tagRepository;
+        this.tagCertificateService = tagCertificateService;
     }
 
     @Transactional
@@ -33,7 +33,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         Long certificateId = certificateRepository.save(certificate);
         Set<Tag> tags = certificate.getTags();
         if (tags != null && !tags.isEmpty()) {
-            saveCertificateTags(certificateId, tags);
+            tagCertificateService.saveCertificateTags(certificateId, tags);
         }
     }
 
@@ -41,7 +41,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public GiftCertificate getCertificateWithTagsById(Long id) throws ServiceException {
         Optional<GiftCertificate> certificateOptional = certificateRepository.findById(id);
         GiftCertificate certificate = certificateOptional.orElseThrow(() -> new ServiceException(WRONG_CERTIFICATE));
-        Set<Tag> certificateTags = tagRepository.findCertificateTags(id);//todo think of creating abstract repo with common methods
+        Set<Tag> certificateTags = tagCertificateService.findCertificateTags(id);//todo think of creating abstract repo with common methods
         certificate.setTags(certificateTags);
         return certificate;
     }
@@ -49,7 +49,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Transactional
     @Override
     public void deleteCertificate(Long id) {
-        certificateRepository.deleteCertificateTags(id);
+        tagCertificateService.deleteCertificateTags(id);
         certificateRepository.delete(id);
     }
 
@@ -60,33 +60,10 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         Set<Tag> tags = certificate.getTags();
         Long certificateId = certificate.getId();
         if (tags != null && tags.isEmpty()) {
-            tagRepository.deleteCertificateTags(certificateId);
+            tagCertificateService.saveCertificateTags(certificateId, tags);
         } else if (tags != null) {
-            saveCertificateTags(certificateId, tags);
+            tagCertificateService.deleteCertificateTags(certificateId);
         }
-    }
-
-    private void saveCertificateTags(Long certificateId, Set<Tag> tags) {
-        Set<Tag> foundTags = getFoundTags(tags);
-        Set<Long> foundTagsIds = foundTags.stream().map(Tag::getId).collect(Collectors.toSet());
-        List<Long> savedAbsentTagsIds = getSavedAbsentTagsIds(tags, foundTags);
-        foundTagsIds.addAll(savedAbsentTagsIds);
-        certificateRepository.saveGiftTags(certificateId, foundTagsIds);
-    }
-
-    private Set<Tag> getFoundTags(Set<Tag> tags) {
-        Set<String> tagNames = tags.stream().map(Tag::getName).collect(Collectors.toSet());
-        return tagRepository.findTagsByNames(tagNames);
-    }
-
-    //todo change equals & hash method (include id)
-    private List<Long> getSavedAbsentTagsIds(Set<Tag> tags, Set<Tag> foundTags) {
-        Set<Tag> absentTags = tags.stream().filter(tag-> !foundTags.contains(tag)).collect(Collectors.toSet());
-        List<Long> result = new ArrayList<>();
-        for (Tag tag: absentTags) {
-            result.add(tagRepository.save(tag));
-        }
-        return result;
     }
 
     //getCert

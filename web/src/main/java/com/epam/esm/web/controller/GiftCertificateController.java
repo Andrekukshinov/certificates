@@ -5,17 +5,14 @@ import com.epam.esm.persistence.exception.PersistenceException;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.service.GiftCertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/gift")
+@RequestMapping("api/gifts")
 public class GiftCertificateController {
     private static final String ID = "id";
 
-    private GiftCertificateService certificateService;
+    private final GiftCertificateService certificateService;
 
     @Autowired
     public GiftCertificateController(GiftCertificateService certificateService) {
@@ -42,3 +39,4 @@ public class GiftCertificateController {
         certificateService.updateCertificate(certificate);
     }
 }
+//todo read about ways of creating urls

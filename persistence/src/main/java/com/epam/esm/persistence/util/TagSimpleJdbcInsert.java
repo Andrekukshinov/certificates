@@ -19,7 +19,7 @@ public class TagSimpleJdbcInsert  extends SimpleJdbcInsert implements Initializi
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         this.withTableName(TABLE_NAME);
         this.setGeneratedKeyName(KEY);
     }
