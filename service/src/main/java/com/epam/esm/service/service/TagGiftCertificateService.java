@@ -13,4 +13,5 @@ public interface TagGiftCertificateService {
     void deleteTags(Long tagId);
 
     Set<Tag> findCertificateTags(Long certificateId);
+
 }

@@ -1,6 +1,7 @@
 package com.epam.esm.service.service.impl;
 
 import com.epam.esm.persistence.entity.Tag;
+import com.epam.esm.persistence.model.TagGiftCertificateId;
 import com.epam.esm.persistence.repository.TagGiftCertificateRepository;
 import com.epam.esm.persistence.repository.TagRepository;
 import com.epam.esm.service.service.TagGiftCertificateService;
@@ -30,7 +31,11 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
         Set<Long> foundTagsIds = foundTags.stream().map(Tag::getId).collect(Collectors.toSet());
         List<Long> savedAbsentTagsIds = getSavedAbsentTagsIds(certificateTags, foundTags);
         foundTagsIds.addAll(savedAbsentTagsIds);
-        tagCertificateRepository.saveGiftCertificateTags(certificateId, foundTagsIds);
+        List<TagGiftCertificateId> ids = foundTagsIds
+                .stream()
+                .map(tagId -> new TagGiftCertificateId(certificateId, tagId))
+                .collect(Collectors.toList());
+        tagCertificateRepository.saveGiftCertificateTags(ids);
     }
 
     private Set<Tag> getFoundTags(Set<Tag> tags) {
@@ -61,4 +66,5 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
     public Set<Tag> findCertificateTags(Long certificateId) {
         return tagCertificateRepository.findCertificateTags(certificateId);
     }
+
 }

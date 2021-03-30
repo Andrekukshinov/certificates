@@ -1,6 +1,8 @@
 package com.epam.esm.persistence.util;
 
-import com.epam.esm.persistence.query.creator.QueryCreator;
+import com.epam.esm.persistence.model.SearchSpecification;
+import com.epam.esm.persistence.model.enums.SortDirection;
+import com.epam.esm.persistence.util.creator.QueryCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,5 +21,18 @@ class QueryCreatorTest {
          Assertions.assertEquals("UPDATE table SET name=? WHERE id=?", table);
 
      }
+
+      @Test
+      public void testSelect () {
+          SearchSpecification searchSpecification = new SearchSpecification("true", null, "", SortDirection.DESC, null);
+          QueryCreator queryCreator = new QueryCreator();
+          String expected = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
+                  "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
+                  "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
+                  "            WHERE t.name LIKE ?\n" +
+                  ")   ORDER BY NULL  ,create_date DESC ";
+          String query = queryCreator.getFindCertificateByCondition(searchSpecification);
+          Assertions.assertEquals(expected, query);
+      }
 
 }

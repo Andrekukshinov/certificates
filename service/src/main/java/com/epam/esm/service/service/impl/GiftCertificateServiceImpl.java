@@ -2,6 +2,7 @@ package com.epam.esm.service.service.impl;
 
 import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.entity.Tag;
+import com.epam.esm.persistence.model.SearchSpecification;
 import com.epam.esm.persistence.repository.GiftCertificateRepository;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.service.GiftCertificateService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -41,7 +43,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public GiftCertificate getCertificateWithTagsById(Long id) throws ServiceException {
         Optional<GiftCertificate> certificateOptional = certificateRepository.findById(id);
         GiftCertificate certificate = certificateOptional.orElseThrow(() -> new ServiceException(WRONG_CERTIFICATE));
-        Set<Tag> certificateTags = tagCertificateService.findCertificateTags(id);//todo think of creating abstract repo with common methods
+        Set<Tag> certificateTags = tagCertificateService.findCertificateTags(id);
         certificate.setTags(certificateTags);
         return certificate;
     }
@@ -64,6 +66,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         } else if (tags != null) {
             tagCertificateService.deleteCertificateTags(certificateId);
         }
+    }
+
+    @Override
+    public List<GiftCertificate> getBySpecification(SearchSpecification searchSpecification) {
+        return certificateRepository.findBySpecification(searchSpecification);
     }
 
     //getCert

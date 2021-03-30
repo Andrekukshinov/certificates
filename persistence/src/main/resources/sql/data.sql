@@ -1,12 +1,12 @@
 
-INSERT INTO gift_certificate(name, description, duration, create_date, last_update_date, price)
+INSERT INTO gift_certificates(name, description, duration, create_date, last_update_date, price)
 VALUES
 ('spa', 'family certificate', 3, '2021-03-25', '2021-03-25', 754),
 ('gym', 'for boss of the gym', 14, '2021-03-25', '2021-03-25', 300),
 ('pool', 'for better connection', 23, '2021-03-25', '2021-03-25', 354),
 ('club', 'for leatherman',9, '2021-03-25', '2021-03-25', 150);
 
-INSERT INTO tag(name)
+INSERT INTO tags(name)
     VALUE
     ('#activity'),
     ('#sports'),

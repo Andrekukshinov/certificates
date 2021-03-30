@@ -2,9 +2,9 @@ package com.epam.esm.persistence.repository.impl;
 
 import com.epam.esm.persistence.entity.Tag;
 import com.epam.esm.persistence.extractor.FieldsExtractor;
-import com.epam.esm.persistence.jdbc.TagSimpleJdbcInsert;
 import com.epam.esm.persistence.mapper.TagRowMapper;
 import com.epam.esm.persistence.repository.TagRepository;
+import com.epam.esm.persistence.util.jdbc.TagSimpleJdbcInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -18,12 +18,12 @@ import java.util.Set;
 @Repository
 public class TagRepositoryImpl implements TagRepository {
 
-    private static final String GET_BY_ID = "SELECT * FROM tag WHERE id = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM tag WHERE name = ?";
-    private static final String DELETE_TAG = "DELETE FROM tag WHERE id = ?";
+    private static final String GET_BY_ID = "SELECT * FROM tags WHERE id = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM tags WHERE name = ?";
+    private static final String DELETE_TAG = "DELETE FROM tags WHERE id = ?";
     private static final String QUESTION = "?";
     private static final String COMMA = ", ";
-    private static final String GET_ALL_WHERE_NAME_IN = "SELECT * FROM tag WHERE name IN (%s)";
+    private static final String GET_ALL_WHERE_NAME_IN = "SELECT * FROM tags WHERE name IN (%s)";
 
 
     private final JdbcTemplate jdbc;

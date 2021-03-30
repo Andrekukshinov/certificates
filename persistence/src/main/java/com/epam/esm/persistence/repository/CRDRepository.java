@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface CRDRepository<T> {
 
-    Long save(T t); //todo retutn object id
+    Long save(T t);
 
     Optional<T> findById(Long id);
 

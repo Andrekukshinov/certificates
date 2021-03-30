@@ -1,10 +1,5 @@
 package com.epam.esm.persistence.entity;
 
-import com.epam.esm.persistence.serialization.LocalDateDeserializer;
-import com.epam.esm.persistence.serialization.LocalDateSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,11 +7,7 @@ import java.util.Set;
 
 public class GiftCertificate implements Serializable {
     private Long id;
-    @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate createDate;
-    @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate lastUpdateDate;
     private String name;
     private String description;

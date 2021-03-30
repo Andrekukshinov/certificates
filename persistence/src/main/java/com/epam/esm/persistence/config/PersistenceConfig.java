@@ -1,7 +1,8 @@
 package com.epam.esm.persistence.config;
 
-import com.epam.esm.persistence.jdbc.CertificateSimpleJdbcInsert;
-import com.epam.esm.persistence.jdbc.TagSimpleJdbcInsert;
+import com.epam.esm.persistence.util.jdbc.GiftCertificateSimpleJdbcInsert;
+import com.epam.esm.persistence.util.jdbc.TagGiftCertificateSimpleJdbcInsert;
+import com.epam.esm.persistence.util.jdbc.TagSimpleJdbcInsert;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -62,8 +63,13 @@ public class PersistenceConfig {
     }
 
     @Bean
-    public CertificateSimpleJdbcInsert certificateSimpleJdbcInsert(JdbcTemplate jdbcTemplate) {
-        return new CertificateSimpleJdbcInsert(jdbcTemplate);
+    public TagGiftCertificateSimpleJdbcInsert tagGiftCertificateSimpleJdbcInsert(JdbcTemplate jdbcTemplate) {
+        return new TagGiftCertificateSimpleJdbcInsert(jdbcTemplate);
+    }
+
+    @Bean
+    public GiftCertificateSimpleJdbcInsert certificateSimpleJdbcInsert(JdbcTemplate jdbcTemplate) {
+        return new GiftCertificateSimpleJdbcInsert(jdbcTemplate);
     }
 
     @Bean
@@ -71,4 +77,3 @@ public class PersistenceConfig {
         return new DataSourceTransactionManager(source);
     }
 }
-// TODO: 24.03.2021 impl mappers, query creators, field extractors
