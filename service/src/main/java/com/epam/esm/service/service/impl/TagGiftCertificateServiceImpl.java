@@ -4,7 +4,9 @@ import com.epam.esm.persistence.entity.Tag;
 import com.epam.esm.persistence.model.TagGiftCertificateId;
 import com.epam.esm.persistence.repository.TagGiftCertificateRepository;
 import com.epam.esm.persistence.repository.TagRepository;
+import com.epam.esm.service.dto.TagDto;
 import com.epam.esm.service.service.TagGiftCertificateService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +18,13 @@ import java.util.stream.Collectors;
 @Service
 public class TagGiftCertificateServiceImpl implements TagGiftCertificateService {
 
+    private final ModelMapper modelMapper;
     private final TagRepository tagRepository;
     private final TagGiftCertificateRepository tagCertificateRepository;
 
     @Autowired
-    public TagGiftCertificateServiceImpl(TagRepository tagRepository, TagGiftCertificateRepository tagCertificateRepository) {
+    public TagGiftCertificateServiceImpl(ModelMapper modelMapper, TagRepository tagRepository, TagGiftCertificateRepository tagCertificateRepository) {
+        this.modelMapper = modelMapper;
         this.tagRepository = tagRepository;
         this.tagCertificateRepository = tagCertificateRepository;
     }
@@ -63,8 +67,11 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
     }
 
     @Override
-    public Set<Tag> findCertificateTags(Long certificateId) {
-        return tagCertificateRepository.findCertificateTags(certificateId);
+    public Set<TagDto> findCertificateTags(Long certificateId) {
+        Set<Tag> certificateTagsDto = tagCertificateRepository.findCertificateTags(certificateId);
+        return certificateTagsDto.stream()
+                .map(tag -> modelMapper.map(tag, TagDto.class))
+                .collect(Collectors.toSet());
     }
 
 }

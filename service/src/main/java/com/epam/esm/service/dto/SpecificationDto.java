@@ -1,17 +1,40 @@
-package com.epam.esm.persistence.model;
+package com.epam.esm.service.dto;
 
-public class SearchSpecification {
+import com.epam.esm.persistence.model.enums.SortDirection;
+
+public class SpecificationDto {
     private String tagName;
     private String certificateDescription;
     private String certificateName;
+    private SortDirection nameSortDir;
+    private SortDirection createDateSortDir;
 
-    public SearchSpecification(String tagName, String certificateDescription, String certificateName) {
+    public SpecificationDto(SortDirection createDateSortDir, SortDirection nameSortDir,
+                            String tagName, String certificateDescription, String certificateName) {
+        this.createDateSortDir = createDateSortDir;
+        this.nameSortDir = nameSortDir;
         this.tagName = tagName;
         this.certificateDescription = certificateDescription;
         this.certificateName = certificateName;
     }
 
-    public SearchSpecification() {
+    public SpecificationDto() {
+    }
+
+    public SortDirection getCreateDateSortDir() {
+        return createDateSortDir;
+    }
+
+    public void setCreateDateSortDir(SortDirection createDateSortDir) {
+        this.createDateSortDir = createDateSortDir;
+    }
+
+    public SortDirection getNameSortDir() {
+        return nameSortDir;
+    }
+
+    public void setNameSortDir(SortDirection nameSortDir) {
+        this.nameSortDir = nameSortDir;
     }
 
     public String getTagName() {
@@ -40,8 +63,10 @@ public class SearchSpecification {
 
     @Override
     public String toString() {
-        return "SearchSpecification{" +
-                "tagNameSearch='" + tagName + '\'' +
+        return "SpecificationDto{" +
+                "createDateSortDir=" + createDateSortDir +
+                ", nameSortDir=" + nameSortDir +
+                ", tagName='" + tagName + '\'' +
                 ", certificateDescription='" + certificateDescription + '\'' +
                 ", certificateName='" + certificateName + '\'' +
                 '}';
@@ -56,8 +81,14 @@ public class SearchSpecification {
             return false;
         }
 
-        SearchSpecification that = (SearchSpecification) o;
+        SpecificationDto that = (SpecificationDto) o;
 
+        if (getCreateDateSortDir() != that.getCreateDateSortDir()) {
+            return false;
+        }
+        if (getNameSortDir() != that.getNameSortDir()) {
+            return false;
+        }
         if (getTagName() != null ? !getTagName().equals(that.getTagName()) : that.getTagName() != null) {
             return false;
         }
@@ -69,7 +100,9 @@ public class SearchSpecification {
 
     @Override
     public int hashCode() {
-        int result = getTagName() != null ? getTagName().hashCode() : 0;
+        int result = getCreateDateSortDir() != null ? getCreateDateSortDir().hashCode() : 0;
+        result = 31 * result + (getNameSortDir() != null ? getNameSortDir().hashCode() : 0);
+        result = 31 * result + (getTagName() != null ? getTagName().hashCode() : 0);
         result = 31 * result + (getCertificateDescription() != null ? getCertificateDescription().hashCode() : 0);
         result = 31 * result + (getCertificateName() != null ? getCertificateName().hashCode() : 0);
         return result;

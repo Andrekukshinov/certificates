@@ -1,13 +1,13 @@
 package com.epam.esm.service.service;
 
-import com.epam.esm.persistence.entity.Tag;
+import com.epam.esm.service.dto.TagDto;
 
 import java.util.Optional;
 
 public interface TagService {
-    void saveTag(Tag tag);
+    void saveTag(TagDto tag);
 
     void deleteTag(Long tagId);
 
-    Optional<Tag> getTag(Long id);
+    Optional<TagDto> getTag(Long id);
 }

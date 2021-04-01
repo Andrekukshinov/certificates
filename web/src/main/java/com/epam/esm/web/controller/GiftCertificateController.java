@@ -1,14 +1,20 @@
 package com.epam.esm.web.controller;
 
-import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.exception.PersistenceException;
+import com.epam.esm.service.dto.GiftCertificateTagDto;
+import com.epam.esm.service.dto.GiftCertificateTagRequestDto;
+import com.epam.esm.service.dto.GiftCertificatesNoTagDto;
+import com.epam.esm.service.dto.SpecificationDto;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.service.GiftCertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/gifts")
+@RequestMapping("/gifts")
 public class GiftCertificateController {
     private static final String ID = "id";
 
@@ -20,12 +26,12 @@ public class GiftCertificateController {
     }
 
     @GetMapping("/{id}")
-    public GiftCertificate getGiftCertificateById(@PathVariable(ID) Long id) throws ServiceException {
-        return certificateService.getCertificateWithTagsById(id);
+    public ResponseEntity<GiftCertificateTagDto> getGiftCertificateById(@PathVariable(ID) Long id) throws ServiceException {
+        return ResponseEntity.ok(certificateService.getCertificateWithTagsById(id));
     }
 
     @PostMapping
-    public void saveGiftCertificate(@RequestBody GiftCertificate certificate) throws PersistenceException {
+    public void saveGiftCertificate(@RequestBody GiftCertificateTagRequestDto certificate) throws PersistenceException {
         certificateService.save(certificate);
     }
 
@@ -35,8 +41,12 @@ public class GiftCertificateController {
     }
 
     @PutMapping
-    public void updateCertificate(@RequestBody GiftCertificate certificate) {
-        certificateService.updateCertificate(certificate);
+    public void updateCertificate(@RequestBody GiftCertificateTagRequestDto certificateDto) {
+        certificateService.updateCertificate(certificateDto);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<GiftCertificatesNoTagDto>> getByParam(SpecificationDto specification) {
+        return ResponseEntity.ok(certificateService.getBySpecification(specification));
     }
 }
-//todo read about ways of creating urls

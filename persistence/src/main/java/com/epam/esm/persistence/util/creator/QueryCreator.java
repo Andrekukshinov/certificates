@@ -1,6 +1,7 @@
 package com.epam.esm.persistence.util.creator;
 
 import com.epam.esm.persistence.model.SearchSpecification;
+import com.epam.esm.persistence.model.SortSpecification;
 import com.epam.esm.persistence.model.enums.SortDirection;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,9 @@ public class QueryCreator {
             " id IN (\n" +
                     "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
                     "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
-                    "            WHERE t.name LIKE ?\n" +
+                    "            WHERE t.name LIKE CONCAT('#', ?)\n" +
                     ") ";
+
     private static final String FIND_CERTIFICATE_BY_CONDITION =
             " SELECT * " +
                     " FROM gift_certificates " +
@@ -25,16 +27,16 @@ public class QueryCreator {
                     " ORDER BY NULL %s ";
 
 
-    public String getFindCertificateByCondition(SearchSpecification searchSpecification) {
+    public String getFindCertificateByCondition(SearchSpecification searchSpecification, SortSpecification sortSpecification) {
         String query = FIND_CERTIFICATE_BY_CONDITION;
 
-        String nameCertificateSearch = searchSpecification.getNameCertificateSearch();
-        String descriptionCertificateSearch = searchSpecification.getDescriptionCertificateSearch();
-        String tagSearch = searchSpecification.getTagNameSearch();
+        String nameCertificateSearch = searchSpecification.getCertificateName();
+        String descriptionCertificateSearch = searchSpecification.getCertificateDescription();
+        String tagSearch = searchSpecification.getTagName();
         String searchCondition = getSearchCondition(nameCertificateSearch, descriptionCertificateSearch, tagSearch);
 
-        SortDirection createDateSortConditionDir = searchSpecification.getCreateDateSortConditionDir();
-        SortDirection nameSortConditionDir = searchSpecification.getNameSortConditionDir();
+        SortDirection createDateSortConditionDir = sortSpecification.getCreateDateSortDir();
+        SortDirection nameSortConditionDir = sortSpecification.getNameSortDir();
         String sort = getSortCondition(createDateSortConditionDir, nameSortConditionDir);
 
         return String.format(query, searchCondition, sort);
@@ -51,13 +53,13 @@ public class QueryCreator {
     }
 
     private String getPartSortCondition(SortDirection sortConditionDir, String sortCondition) {
-        return new StringBuilder(sortCondition).append(sortConditionDir).toString();
+        return sortCondition + sortConditionDir;
     }
 
     private String getSearchCondition(String nameCertificateSearch, String descriptionCertificateSearch,String tagSearch) {
         StringBuilder result = new StringBuilder();
         if (nameCertificateSearch != null) {
-            result.append(" AND name LIKE CONCAT('%', ?, '%' )");
+            result.append(" AND name LIKE CONCAT('%', ?, '%')");
         }
         if (descriptionCertificateSearch != null) {
             result.append(" AND description LIKE CONCAT('%', ?, '%')");

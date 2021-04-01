@@ -9,4 +9,6 @@ dependencies {
     // https://mvnrepository.com/artifact/aopalliance/aopalliance
     implementation group: 'aopalliance', name: 'aopalliance', version: '1.0'
 
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.0'
 }

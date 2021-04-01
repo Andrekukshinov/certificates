@@ -1,6 +1,7 @@
 package com.epam.esm.persistence.util;
 
 import com.epam.esm.persistence.model.SearchSpecification;
+import com.epam.esm.persistence.model.SortSpecification;
 import com.epam.esm.persistence.model.enums.SortDirection;
 import com.epam.esm.persistence.util.creator.QueryCreator;
 import org.junit.jupiter.api.Assertions;
@@ -24,14 +25,15 @@ class QueryCreatorTest {
 
       @Test
       public void testSelect () {
-          SearchSpecification searchSpecification = new SearchSpecification("true", null, "", SortDirection.DESC, null);
+          SearchSpecification searchSpecification = new SearchSpecification("true", null, "");
+          SortSpecification sortSpecification = new SortSpecification(SortDirection.DESC, null);
           QueryCreator queryCreator = new QueryCreator();
           String expected = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
                   "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
                   "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
-                  "            WHERE t.name LIKE ?\n" +
+                  "            WHERE t.name LIKE CONCAT('#', ?)\n" +
                   ")   ORDER BY NULL  ,create_date DESC ";
-          String query = queryCreator.getFindCertificateByCondition(searchSpecification);
+          String query = queryCreator.getFindCertificateByCondition(searchSpecification, sortSpecification);
           Assertions.assertEquals(expected, query);
       }
 

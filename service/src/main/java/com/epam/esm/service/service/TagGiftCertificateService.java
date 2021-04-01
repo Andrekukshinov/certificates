@@ -1,6 +1,7 @@
 package com.epam.esm.service.service;
 
 import com.epam.esm.persistence.entity.Tag;
+import com.epam.esm.service.dto.TagDto;
 
 import java.util.Set;
 
@@ -12,6 +13,6 @@ public interface TagGiftCertificateService {
 
     void deleteTags(Long tagId);
 
-    Set<Tag> findCertificateTags(Long certificateId);
+    Set<TagDto> findCertificateTags(Long certificateId);
 
 }

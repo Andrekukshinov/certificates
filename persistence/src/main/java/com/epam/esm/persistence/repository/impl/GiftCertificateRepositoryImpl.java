@@ -2,8 +2,9 @@ package com.epam.esm.persistence.repository.impl;
 
 import com.epam.esm.persistence.entity.GiftCertificate;
 import com.epam.esm.persistence.extractor.FieldsExtractor;
-import com.epam.esm.persistence.extractor.SpecificationExtractor;
+import com.epam.esm.persistence.extractor.SearchParametersExtractor;
 import com.epam.esm.persistence.model.SearchSpecification;
+import com.epam.esm.persistence.model.SortSpecification;
 import com.epam.esm.persistence.repository.GiftCertificateRepository;
 import com.epam.esm.persistence.util.creator.QueryCreator;
 import com.epam.esm.persistence.util.jdbc.GiftCertificateSimpleJdbcInsert;
@@ -33,7 +34,7 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     private final FieldsExtractor<GiftCertificate> certificateExtractor;
     private final QueryCreator queryCreator;
     private final RowMapper<GiftCertificate> mapper;
-    private final SpecificationExtractor specificationExtractor;
+    private final SearchParametersExtractor searchParametersExtractor;
 
     @Autowired
     public GiftCertificateRepositoryImpl(
@@ -41,13 +42,13 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
             GiftCertificateSimpleJdbcInsert jdbcInsert,
             FieldsExtractor<GiftCertificate> certificateExtractor,
             QueryCreator queryCreator, RowMapper<GiftCertificate> mapper,
-            SpecificationExtractor specificationExtractor) {
+            SearchParametersExtractor searchParametersExtractor) {
         this.jdbc = jdbc;
         this.jdbcInsert = jdbcInsert;
         this.certificateExtractor = certificateExtractor;
         this.queryCreator = queryCreator;
         this.mapper = mapper;
-        this.specificationExtractor = specificationExtractor;
+        this.searchParametersExtractor = searchParametersExtractor;
     }
 
     @Override
@@ -79,10 +80,10 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     }
 
     @Override
-    public List<GiftCertificate> findBySpecification(SearchSpecification specification) {
-        String qry = queryCreator.getFindCertificateByCondition(specification);
-        List<Object> values = specificationExtractor.getValues(specification);
-        return jdbc.query(qry, mapper, values);
+    public List<GiftCertificate> findBySpecification(SearchSpecification searchSpecification, SortSpecification sortSpecification) {
+        String qry = queryCreator.getFindCertificateByCondition(searchSpecification, sortSpecification);
+        List<Object> values = searchParametersExtractor.getValues(searchSpecification);
+        return jdbc.query(qry, mapper, values.toArray());
     }
 
 }

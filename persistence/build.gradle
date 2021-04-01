@@ -14,8 +14,4 @@ dependencies {
     // https://mvnrepository.com/artifact/com.mchange/c3p0
     implementation group: 'com.mchange', name: 'c3p0', version: '0.9.5.5'
 
-    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.18'
-
-    annotationProcessor 'org.projectlombok:lombok:1.18.18'
-
 }
