@@ -17,7 +17,7 @@ public class QueryCreator {
             " id IN (\n" +
                     "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
                     "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
-                    "            WHERE t.name LIKE CONCAT('#', ?)\n" +
+                    "            WHERE t.name LIKE ?\n" +
                     ") ";
 
     private static final String FIND_CERTIFICATE_BY_CONDITION =
@@ -46,7 +46,8 @@ public class QueryCreator {
         String sort = "";
         if (createDateSortConditionDir != null) {
             sort = getPartSortCondition(createDateSortConditionDir, " ,create_date ");
-        } if (nameSortConditionDir != null){
+        }
+        if (nameSortConditionDir != null) {
             sort = getPartSortCondition(nameSortConditionDir, " ,name ");
         }
         return sort;
@@ -56,7 +57,7 @@ public class QueryCreator {
         return sortCondition + sortConditionDir;
     }
 
-    private String getSearchCondition(String nameCertificateSearch, String descriptionCertificateSearch,String tagSearch) {
+    private String getSearchCondition(String nameCertificateSearch, String descriptionCertificateSearch, String tagSearch) {
         StringBuilder result = new StringBuilder();
         if (nameCertificateSearch != null) {
             result.append(" AND name LIKE CONCAT('%', ?, '%')");

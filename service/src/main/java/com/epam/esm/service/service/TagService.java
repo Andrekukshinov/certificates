@@ -1,13 +1,12 @@
 package com.epam.esm.service.service;
 
 import com.epam.esm.service.dto.TagDto;
-
-import java.util.Optional;
+import com.epam.esm.service.exception.ValidationException;
 
 public interface TagService {
-    void saveTag(TagDto tag);
+    void saveTag(TagDto tag) throws ValidationException;
 
     void deleteTag(Long tagId);
 
-    Optional<TagDto> getTag(Long id);
+    TagDto getTag(Long id);
 }

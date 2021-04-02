@@ -1,6 +1,6 @@
 package com.epam.esm.persistence.exception;
 
-public class PersistenceException extends Exception{
+public class PersistenceException extends Exception {
     public PersistenceException() {
         super();
     }

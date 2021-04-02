@@ -1,11 +1,9 @@
 package com.epam.esm.web.controller;
 
-import com.epam.esm.persistence.exception.PersistenceException;
 import com.epam.esm.service.dto.GiftCertificateTagDto;
-import com.epam.esm.service.dto.GiftCertificateTagRequestDto;
 import com.epam.esm.service.dto.GiftCertificatesNoTagDto;
 import com.epam.esm.service.dto.SpecificationDto;
-import com.epam.esm.service.exception.ServiceException;
+import com.epam.esm.service.exception.ValidationException;
 import com.epam.esm.service.service.GiftCertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +24,12 @@ public class GiftCertificateController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GiftCertificateTagDto> getGiftCertificateById(@PathVariable(ID) Long id) throws ServiceException {
+    public ResponseEntity<GiftCertificateTagDto> getGiftCertificateById(@PathVariable(ID) Long id) {
         return ResponseEntity.ok(certificateService.getCertificateWithTagsById(id));
     }
 
     @PostMapping
-    public void saveGiftCertificate(@RequestBody GiftCertificateTagRequestDto certificate) throws PersistenceException {
+    public void saveGiftCertificate(@RequestBody GiftCertificateTagDto certificate) throws ValidationException {
         certificateService.save(certificate);
     }
 
@@ -41,7 +39,7 @@ public class GiftCertificateController {
     }
 
     @PutMapping
-    public void updateCertificate(@RequestBody GiftCertificateTagRequestDto certificateDto) {
+    public void updateCertificate(@RequestBody GiftCertificateTagDto certificateDto) throws ValidationException {
         certificateService.updateCertificate(certificateDto);
     }
 

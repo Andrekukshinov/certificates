@@ -6,6 +6,7 @@ import com.epam.esm.persistence.mapper.TagRowMapper;
 import com.epam.esm.persistence.repository.TagRepository;
 import com.epam.esm.persistence.util.jdbc.TagSimpleJdbcInsert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -25,11 +26,10 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String COMMA = ", ";
     private static final String GET_ALL_WHERE_NAME_IN = "SELECT * FROM tags WHERE name IN (%s)";
 
-
     private final JdbcTemplate jdbc;
     private final TagRowMapper mapper;
     private final FieldsExtractor<Tag> tagFieldsExtractor;
-        private final SimpleJdbcInsert jdbcInsert;
+    private final SimpleJdbcInsert jdbcInsert;
 
 
     @Autowired
@@ -51,8 +51,7 @@ public class TagRepositoryImpl implements TagRepository {
 
     @Override
     public Optional<Tag> findById(Long id) {
-        Tag tag = jdbc.queryForObject(GET_BY_ID, mapper, id);
-        return Optional.ofNullable(tag);
+        return Optional.ofNullable(DataAccessUtils.singleResult(jdbc.query(GET_BY_ID, mapper, id)));
     }
 
     @Override
@@ -61,8 +60,8 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public Tag findByName(String name) {
-        return jdbc.queryForObject(GET_BY_NAME, mapper, name);
+    public Optional<Tag> findByName(String name) {
+        return Optional.ofNullable(DataAccessUtils.singleResult(jdbc.query(GET_BY_NAME, mapper, name)));
     }
 
     @Override

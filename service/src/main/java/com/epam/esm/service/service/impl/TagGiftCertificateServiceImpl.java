@@ -49,13 +49,14 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
 
     //todo change equals & hash method (include id)
     private List<Long> getSavedAbsentTagsIds(Set<Tag> tags, Set<Tag> foundTags) {
-        Set<Tag> absentTags = tags.stream().filter(tag-> !foundTags.contains(tag)).collect(Collectors.toSet());
+        Set<Tag> absentTags = tags.stream().filter(tag -> !foundTags.contains(tag)).collect(Collectors.toSet());
         List<Long> result = new ArrayList<>();
-        for (Tag tag: absentTags) {
+        for (Tag tag : absentTags) {
             result.add(tagRepository.save(tag));
         }
         return result;
     }
+
     @Override
     public void deleteCertificateTags(Long certificateId) {
         tagCertificateRepository.deleteCertificateTags(certificateId);

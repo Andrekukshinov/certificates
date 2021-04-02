@@ -1,11 +1,10 @@
 package com.epam.esm.web.controller;
 
 import com.epam.esm.service.dto.TagDto;
+import com.epam.esm.service.exception.ValidationException;
 import com.epam.esm.service.service.TagService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/tags")
@@ -19,14 +18,14 @@ public class TagController {
     }
 
     @PostMapping
-    public void saveTag(TagDto tag) {
+    public void saveTag(TagDto tag) throws ValidationException {
         tagService.saveTag(tag);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TagDto> getTagById(@PathVariable Long id) {
-        Optional<TagDto> tag = tagService.getTag(id);
-        return ResponseEntity.ok(tag.orElseThrow(() -> new RuntimeException("changeMe")));//fixme
+        TagDto tag = tagService.getTag(id);
+        return ResponseEntity.ok(tag);
     }
 
     @DeleteMapping("/{id}")
