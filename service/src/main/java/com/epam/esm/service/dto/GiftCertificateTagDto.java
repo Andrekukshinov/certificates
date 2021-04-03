@@ -1,20 +1,23 @@
 package com.epam.esm.service.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class GiftCertificateTagDto {
     private Long id;
-    private LocalDate createDate;
-    private LocalDate lastUpdateDate;
+    private LocalDateTime createDate;
+    private LocalDateTime lastUpdateDate;
     private String name;
     private String description;
     private BigDecimal price;
     private Short duration;
     private Set<TagDto> tags;
 
-    public GiftCertificateTagDto(Long id, LocalDate createDate, LocalDate lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<TagDto> tags) {
+    public GiftCertificateTagDto() {
+    }
+
+    public GiftCertificateTagDto(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<TagDto> tags) {
         this.id = id;
         this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -25,9 +28,6 @@ public class GiftCertificateTagDto {
         this.tags = tags;
     }
 
-    public GiftCertificateTagDto() {
-    }
-
     public Long getId() {
         return id;
     }
@@ -36,19 +36,19 @@ public class GiftCertificateTagDto {
         this.id = id;
     }
 
-    public LocalDate getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public LocalDate getLastUpdateDate() {
+    public LocalDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(LocalDate lastUpdateDate) {
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
@@ -103,54 +103,40 @@ public class GiftCertificateTagDto {
 
         GiftCertificateTagDto that = (GiftCertificateTagDto) o;
 
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) {
+        if (id != null ? !id.equals(that.id) : that.id != null) {
             return false;
         }
-        if (getCreateDate() != null ? !getCreateDate().equals(that.getCreateDate()) : that.getCreateDate() != null) {
+        if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) {
             return false;
         }
-        if (getLastUpdateDate() != null ? !getLastUpdateDate().equals(that.getLastUpdateDate()) : that.getLastUpdateDate() != null) {
+        if (lastUpdateDate != null ? !lastUpdateDate.equals(that.lastUpdateDate) : that.lastUpdateDate != null) {
             return false;
         }
-        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) {
+        if (name != null ? !name.equals(that.name) : that.name != null) {
             return false;
         }
-        if (getDescription() != null ? !getDescription().equals(that.getDescription()) : that.getDescription() != null) {
+        if (description != null ? !description.equals(that.description) : that.description != null) {
             return false;
         }
-        if (getPrice() != null ? !getPrice().equals(that.getPrice()) : that.getPrice() != null) {
+        if (price != null ? !price.equals(that.price) : that.price != null) {
             return false;
         }
-        if (getDuration() != null ? !getDuration().equals(that.getDuration()) : that.getDuration() != null) {
+        if (duration != null ? !duration.equals(that.duration) : that.duration != null) {
             return false;
         }
-        return getTags() != null ? getTags().equals(that.getTags()) : that.getTags() == null;
+        return tags != null ? tags.equals(that.tags) : that.tags == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getCreateDate() != null ? getCreateDate().hashCode() : 0);
-        result = 31 * result + (getLastUpdateDate() != null ? getLastUpdateDate().hashCode() : 0);
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
-        result = 31 * result + (getPrice() != null ? getPrice().hashCode() : 0);
-        result = 31 * result + (getDuration() != null ? getDuration().hashCode() : 0);
-        result = 31 * result + (getTags() != null ? getTags().hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
+        result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "GiftCertificateTagDto{" +
-                "id=" + id +
-                ", createDate=" + createDate +
-                ", lastUpdateDate=" + lastUpdateDate +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", duration=" + duration +
-                ", tags=" + tags +
-                '}';
     }
 }

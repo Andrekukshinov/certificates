@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface GiftCertificateRepository extends CRDRepository<GiftCertificate> {
-    void update(GiftCertificate certificate);
+    int update(GiftCertificate certificate);
 
     List<GiftCertificate> findBySpecification(SearchSpecification searchSpecification, SortSpecification sortSpecification);
 }

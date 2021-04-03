@@ -47,9 +47,9 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
         return tagRepository.findTagsByNames(tagNames);
     }
 
-    //todo change equals & hash method (include id)
     private List<Long> getSavedAbsentTagsIds(Set<Tag> tags, Set<Tag> foundTags) {
-        Set<Tag> absentTags = tags.stream().filter(tag -> !foundTags.contains(tag)).collect(Collectors.toSet());
+        Set<String> tagNames = foundTags.stream().map(Tag::getName).collect(Collectors.toSet());
+        Set<Tag> absentTags = tags.stream().filter(tag -> !tagNames.contains(tag.getName())).collect(Collectors.toSet());
         List<Long> result = new ArrayList<>();
         for (Tag tag : absentTags) {
             result.add(tagRepository.save(tag));

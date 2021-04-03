@@ -8,5 +8,5 @@ public interface CRDRepository<T> {
 
     Optional<T> findById(Long id);
 
-    void delete(Long id);
+    int delete(Long id);
 }

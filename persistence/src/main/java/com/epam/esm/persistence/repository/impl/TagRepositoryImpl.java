@@ -22,7 +22,6 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String GET_BY_ID = "SELECT * FROM tags WHERE id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM tags WHERE name = ?";
     private static final String DELETE_TAG = "DELETE FROM tags WHERE id = ?";
-    private static final String QUESTION = "?";
     private static final String COMMA = ", ";
     private static final String GET_ALL_WHERE_NAME_IN = "SELECT * FROM tags WHERE name IN (%s)";
 
@@ -55,8 +54,8 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public void delete(Long id) {
-        jdbc.update(DELETE_TAG, id);
+    public int delete(Long id) {
+        return jdbc.update(DELETE_TAG, id);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class TagRepositoryImpl implements TagRepository {
 
     @Override
     public Set<Tag> findTagsByNames(Set<String> tagNames) {
-        String sqlNamesPlaceHolder = String.join(COMMA, Collections.nCopies(tagNames.size(), QUESTION));
+        String sqlNamesPlaceHolder = String.join(COMMA, Collections.nCopies(tagNames.size(), "?"));
         String query = String.format(GET_ALL_WHERE_NAME_IN, sqlNamesPlaceHolder);
         return Set.copyOf(jdbc.query(query, mapper, tagNames.toArray()));
     }

@@ -50,7 +50,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleConflict(ValidationException ex, WebRequest request) {
         LOGGER.error(ex.getMessage(), ex);
         ExceptionModel body = new ExceptionModel(ex.getMessage(), BAD_REQUEST);
-        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @Override

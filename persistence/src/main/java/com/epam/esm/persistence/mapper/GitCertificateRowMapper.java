@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Component
 public class GitCertificateRowMapper implements RowMapper<GiftCertificate> {
@@ -26,8 +26,8 @@ public class GitCertificateRowMapper implements RowMapper<GiftCertificate> {
         String name = rs.getString(NAME);
         String description = rs.getString(DESCRIPTION);
         Short duration = rs.getShort(DURATION);
-        LocalDate createDate = rs.getObject(CREATE_DATE, LocalDate.class);
-        LocalDate lastUpdateDate = rs.getObject(LAST_UPDATE_DATE, LocalDate.class);
+        LocalDateTime createDate = rs.getObject(CREATE_DATE, LocalDateTime.class);
+        LocalDateTime lastUpdateDate = rs.getObject(LAST_UPDATE_DATE, LocalDateTime.class);
         BigDecimal price = rs.getBigDecimal(PRICE);
 
         return new GiftCertificate(id, createDate, lastUpdateDate, name, description, price, duration, null);

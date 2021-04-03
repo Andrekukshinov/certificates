@@ -4,10 +4,7 @@ import com.epam.esm.persistence.util.jdbc.GiftCertificateSimpleJdbcInsert;
 import com.epam.esm.persistence.util.jdbc.TagGiftCertificateSimpleJdbcInsert;
 import com.epam.esm.persistence.util.jdbc.TagSimpleJdbcInsert;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -40,6 +37,7 @@ public class PersistenceConfig {
     }
 
     @Bean(destroyMethod = CLOSE_METHOD)
+    @Profile("dev")
     public ComboPooledDataSource getMysqlDataSource(Resource resource) throws PropertyVetoException, IOException {
         Properties properties = PropertiesLoaderUtils.loadProperties(resource);
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -53,6 +51,7 @@ public class PersistenceConfig {
     }
 
     @Bean
+    @Profile("dev")
     public JdbcTemplate mySqlJdbcTemplate(DataSource source) {
         return new JdbcTemplate(source);
     }

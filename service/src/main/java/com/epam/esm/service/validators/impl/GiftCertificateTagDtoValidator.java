@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Component
@@ -57,13 +57,13 @@ public class GiftCertificateTagDtoValidator implements Validator<GiftCertificate
         }
     }
 
-    private void validateCreateDate(LocalDate createDate) throws ValidationException {
+    private void validateCreateDate(LocalDateTime createDate) throws ValidationException {
         if (createDate != null) {
             throw new ValidationException("create date cannot be specified!");
         }
     }
 
-    private void validateLastUpdateDate(LocalDate lastUpdateDate) throws ValidationException {
+    private void validateLastUpdateDate(LocalDateTime lastUpdateDate) throws ValidationException {
         if (lastUpdateDate != null) {
             throw new ValidationException("last update date cannot be specified!");
         }

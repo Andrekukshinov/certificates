@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -49,8 +49,8 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public void save(GiftCertificateTagDto certificateDto) throws ValidationException {
         validator.validate(certificateDto);
         GiftCertificate certificate = modelMapper.map(certificateDto, GiftCertificate.class);
-        certificate.setCreateDate(LocalDate.now());
-        certificate.setLastUpdateDate(LocalDate.now());
+        certificate.setCreateDate(LocalDateTime.now());
+        certificate.setLastUpdateDate(LocalDateTime.now());
         Long certificateId = certificateRepository.save(certificate);
         Set<Tag> tags = certificate.getTags();
         if (tags != null && !tags.isEmpty()) {
@@ -84,7 +84,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public void updateCertificate(GiftCertificateTagDto certificateDto) throws ValidationException {
         validator.validate(certificateDto);
         GiftCertificate certificate = modelMapper.map(certificateDto, GiftCertificate.class);
-        certificate.setLastUpdateDate(LocalDate.now());
+        certificate.setLastUpdateDate(LocalDateTime.now());
         certificateRepository.update(certificate);
         Set<Tag> tags = certificate.getTags();
         Long certificateId = certificate.getId();

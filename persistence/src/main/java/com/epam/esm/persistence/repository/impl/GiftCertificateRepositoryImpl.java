@@ -33,8 +33,8 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     private final SimpleJdbcInsert jdbcInsert;
     private final FieldsExtractor<GiftCertificate> certificateExtractor;
     private final QueryCreator queryCreator;
-    private final RowMapper<GiftCertificate> mapper;
     private final SearchParametersExtractor searchParametersExtractor;
+    private final RowMapper<GiftCertificate> mapper;
 
     @Autowired
     public GiftCertificateRepositoryImpl(
@@ -64,18 +64,18 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     }
 
     @Override
-    public void delete(Long id) {
-        jdbc.update(DELETE_CERTIFICATE, id);
+    public int delete(Long id) {
+        return jdbc.update(DELETE_CERTIFICATE, id);
     }
 
     @Override
-    public void update(GiftCertificate certificate) {
+    public int update(GiftCertificate certificate) {
         Map<String, Object> fieldsValuesMap = certificateExtractor.getFieldsValuesMap(certificate);
         Object updateParam = fieldsValuesMap.get(ID);
         String updateQuery = queryCreator.getUpdateQuery(TABLE_NAME, fieldsValuesMap.keySet(), ID);
         List<Object> objects = new ArrayList<>(fieldsValuesMap.values());
         objects.add(updateParam);
-        jdbc.update(updateQuery, objects.toArray());
+        return jdbc.update(updateQuery, objects.toArray());
     }
 
     @Override

@@ -2,20 +2,23 @@ package com.epam.esm.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class GiftCertificate implements Serializable {
     private Long id;
-    private LocalDate createDate;
-    private LocalDate lastUpdateDate;
+    private LocalDateTime createDate;
+    private LocalDateTime lastUpdateDate;
     private String name;
     private String description;
     private BigDecimal price;
     private Short duration;
     private Set<Tag> tags;
 
-    public GiftCertificate(Long id, LocalDate createDate, LocalDate lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<Tag> tags) {
+    public GiftCertificate() {
+    }
+
+    public GiftCertificate(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<Tag> tags) {
         this.id = id;
         this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -26,9 +29,6 @@ public class GiftCertificate implements Serializable {
         this.tags = tags;
     }
 
-    public GiftCertificate() {
-    }
-
     public Long getId() {
         return id;
     }
@@ -37,19 +37,19 @@ public class GiftCertificate implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public LocalDate getLastUpdateDate() {
+    public LocalDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(LocalDate lastUpdateDate) {
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 

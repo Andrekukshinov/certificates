@@ -1,4 +1,4 @@
-package com.epam.esm.persistence.convertor;
+package com.epam.esm.service.convertor;
 
 import com.epam.esm.persistence.model.enums.SortDirection;
 import org.springframework.core.convert.converter.Converter;
