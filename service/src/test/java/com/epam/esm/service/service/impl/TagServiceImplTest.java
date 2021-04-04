@@ -10,7 +10,7 @@ class TagServiceImplTest {
     @Test
     public void test() {
         Tag tag = new Tag(1L, "qw");
-        TagDto tagDto = new TagDto(1L, "qw");
+        TagDto tagDto = new TagDto("qw");
         ModelMapper modelMapper = new ModelMapper();
         TagDto map = modelMapper.map(tag, TagDto.class);
         Assertions.assertEquals(tagDto, map);

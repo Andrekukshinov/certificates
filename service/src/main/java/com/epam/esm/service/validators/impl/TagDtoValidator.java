@@ -16,14 +16,7 @@ public class TagDtoValidator implements Validator<TagDto> {
             throw new ValidationException("object should exist!");
         }
 
-        validateId(object.getId());
         validateName(object.getName());
-    }
-
-    private void validateId(Long id) throws ValidationException {
-        if (id != null && id > 0) {
-            throw new ValidationException("id must be more than 0!");
-        }
     }
 
     private void validateName(String name) throws ValidationException {

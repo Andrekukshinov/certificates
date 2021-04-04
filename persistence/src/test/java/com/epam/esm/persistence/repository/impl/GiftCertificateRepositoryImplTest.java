@@ -117,5 +117,6 @@ class GiftCertificateRepositoryImplTest {
         List<GiftCertificate> giftCertificates = repository.findBySpecification(searchSpecification, sortSpecification);
 
         assertThat(giftCertificates, is(expectedCertificates));
+        System.out.println(repository.findById(2L).get());
     }
 }
