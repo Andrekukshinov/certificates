@@ -69,5 +69,4 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 }
-// TODO: 02.04.2021 add id hashcode to tag hashcode, tests, javadocs
-//  OPTIONAL: date to iso(read about dateTime in mysql),
+// TODO: 02.04.2021 javadocs
