@@ -4,37 +4,65 @@ import com.epam.esm.persistence.model.SearchSpecification;
 import com.epam.esm.persistence.model.SortSpecification;
 import com.epam.esm.persistence.model.enums.SortDirection;
 import com.epam.esm.persistence.util.creator.QueryCreator;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Stream;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 class QueryCreatorTest {
+
+    private static Stream<Arguments> dataProvider() {
+        SearchSpecification tagCertificateName = new SearchSpecification("true", null, "");
+        SortSpecification descrSortAsc = new SortSpecification(SortDirection.DESC, null);
+        String tagCertificateQry =  " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
+                "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
+                "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
+                "            WHERE t.name LIKE ?\n" +
+                ")   ORDER BY NULL  ,create_date DESC ";
+
+        SearchSpecification certificateName = new SearchSpecification(null, null, "");
+        String certificateQry =  " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%')  ORDER BY NULL  ,create_date DESC ";
+
+        SearchSpecification fullSearch = new SearchSpecification("null", "null", "");
+        String completeQry = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND description LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
+                "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
+                "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
+                "            WHERE t.name LIKE ?\n" +
+                ")   ORDER BY NULL  ,create_date DESC ";
+
+
+        return Stream.of(
+                Arguments.of(tagCertificateName, descrSortAsc, tagCertificateQry),
+                Arguments.of(certificateName, descrSortAsc, certificateQry),
+                Arguments.of(fullSearch, descrSortAsc, completeQry)
+        );
+    }
+
     @Test
-    public void test() {
+    public void testGetUpdateQueryShouldReturnUpdateQuery() {
         Map<String, Object> values = new LinkedHashMap<>();
         String id = "id";
         values.put("name", 1);
         values.put(id, 1);
         QueryCreator queryCreator = new QueryCreator();
         String table = queryCreator.getUpdateQuery("table", values.keySet(), id);
-        Assertions.assertEquals("UPDATE table SET name=?, id=? WHERE id=?", table);
+        assertThat(table, is("UPDATE table SET name=?, id=? WHERE id=?"));
 
     }
 
-    @Test
-    public void testSelect() {
-        SearchSpecification searchSpecification = new SearchSpecification("true", null, "");
-        SortSpecification sortSpecification = new SortSpecification(SortDirection.DESC, null);
+    @ParameterizedTest
+    @MethodSource("dataProvider")
+    public void testGetFindCertificateByConditionShouldReturnQueryBasedOnSpecification(SearchSpecification search, SortSpecification sort, String expected) {
         QueryCreator queryCreator = new QueryCreator();
-        String expected = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
-                "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
-                "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
-                "            WHERE t.name LIKE ?\n" +
-                ")   ORDER BY NULL  ,create_date DESC ";
-        String query = queryCreator.getFindCertificateByCondition(searchSpecification, sortSpecification);
-        Assertions.assertEquals(expected, query);
+        String query = queryCreator.getFindCertificateByCondition(search, sort);
+        assertThat(query, is(expected));
     }
 
 }

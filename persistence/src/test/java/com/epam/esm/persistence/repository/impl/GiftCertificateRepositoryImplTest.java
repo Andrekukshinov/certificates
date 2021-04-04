@@ -58,8 +58,6 @@ class GiftCertificateRepositoryImplTest {
     private static final GiftCertificate FOR_UPDATING =
             new GiftCertificate(3L, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(755), Short.valueOf("3"), null);
 
-
-
     private static Stream<Arguments> dataProvider() {
          SearchSpecification findFirstAndFourth = new SearchSpecification("people", "e", "p");
          SearchSpecification findFirstThirdAndFourth = new SearchSpecification(null, "e", "p");

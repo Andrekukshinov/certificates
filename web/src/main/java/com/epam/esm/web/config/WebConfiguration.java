@@ -21,7 +21,6 @@ import java.util.List;
 @ComponentScan(basePackages = "com.epam.esm.web")
 public class WebConfiguration implements WebMvcConfigurer {
 
-
     @Bean
     public ObjectMapper getMapper() {
         JavaTimeModule module = new JavaTimeModule();

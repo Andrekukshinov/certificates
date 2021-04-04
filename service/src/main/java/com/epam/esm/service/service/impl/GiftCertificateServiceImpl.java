@@ -70,7 +70,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         certificate.setTags(tags);
         return modelMapper.map(certificate, GiftCertificateTagDto.class);
     }
-    //map struct
 
     @Transactional
     @Override
@@ -88,7 +87,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         certificateRepository.update(certificate);
         Set<Tag> tags = certificate.getTags();
         Long certificateId = certificate.getId();
-        if (tags != null && tags.isEmpty()) {
+        if (tags != null && !tags.isEmpty()) {
             tagCertificateService.saveCertificateTags(certificateId, tags);
         } else if (tags != null) {
             tagCertificateService.deleteCertificateTags(certificateId);
