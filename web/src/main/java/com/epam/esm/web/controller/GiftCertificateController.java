@@ -45,6 +45,7 @@ public class GiftCertificateController {
 
     @GetMapping("/search")
     public ResponseEntity<List<GiftCertificatesNoTagDto>> getByParam(SpecificationDto specification) {
-        return ResponseEntity.ok(certificateService.getBySpecification(specification));
+        List<GiftCertificatesNoTagDto> bySpecification = certificateService.getBySpecification(specification);
+        return ResponseEntity.ok(bySpecification);
     }
 }

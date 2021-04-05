@@ -18,7 +18,7 @@ public class TagController {
     }
 
     @PostMapping
-    public void saveTag(TagDto tag) throws ValidationException {
+    public void saveTag(@RequestBody TagDto tag) throws ValidationException {
         tagService.saveTag(tag);
     }
 

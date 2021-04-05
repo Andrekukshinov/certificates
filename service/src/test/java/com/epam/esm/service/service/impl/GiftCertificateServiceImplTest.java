@@ -81,7 +81,7 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testSaveShouldSaveCertificateWithTagsWhenEntityValid() throws ValidationException {
+    void testSaveShouldSaveCertificateWithTagsWhenEntityValid() throws ValidationException {
         when(modelMapper.map(any(), any())).thenReturn(FIRST);
         when(certificateRepository.save(any()))
                 .thenAnswer((object) -> object.getArgument(0, GiftCertificate.class).getId());
@@ -95,7 +95,7 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testSaveShouldSaveCertificateNotTagsWhenEntityValid() throws ValidationException {
+    void testSaveShouldSaveCertificateNotTagsWhenEntityValid() throws ValidationException {
         when(modelMapper.map(any(), any())).thenReturn(NO_TAGS_CERTIFICATE);
         when(certificateRepository.save(any()))
                 .thenAnswer((object) -> object.getArgument(0, GiftCertificate.class).getId());
@@ -109,7 +109,7 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testSaveShouldThrowExceptionWhenObjectInvalid() throws ValidationException {
+    void testSaveShouldThrowExceptionWhenObjectInvalid() throws ValidationException {
         doThrow(ValidationException.class).when(validator).validate(any());
         when(certificateRepository.save(any()))
                 .thenAnswer((object) -> object.getArgument(0, GiftCertificate.class).getId());
@@ -124,7 +124,7 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testGetCertificateWithTagsByIdShouldReturnDtoObjectWhenFound() {
+    void testGetCertificateWithTagsByIdShouldReturnDtoObjectWhenFound() {
         when(certificateRepository.findById(any())).thenReturn(Optional.of(FIRST));
         when(modelMapper.map(FIRST, GiftCertificateTagDto.class)).thenReturn(DTO);
         when(modelMapper.map(PEOPLE_TAG, Tag.class)).thenReturn(PEOPLE_TAG);
@@ -137,7 +137,7 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testGetCertificateWithTagsByIdShouldThrowEntityNotFoundExceptionWhenNotFound() {
+    void testGetCertificateWithTagsByIdShouldThrowEntityNotFoundExceptionWhenNotFound() {
         when(certificateRepository.findById(CERTIFICATE_ID_DEFAULT_ID)).thenReturn(Optional.empty());
 
         EntityNotFoundException entityNotFoundException = assertThrows(EntityNotFoundException.class, () -> service.getCertificateWithTagsById(CERTIFICATE_ID_DEFAULT_ID));
@@ -146,7 +146,7 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testUpdateCertificateShouldInvokeSaveCertificateTagsWhenTagsFound() throws ValidationException {
+    void testUpdateCertificateShouldInvokeSaveCertificateTagsWhenTagsFound() throws ValidationException {
         when(modelMapper.map(any(), any())).thenReturn(FIRST);
         when(certificateRepository.update(any())).thenReturn(1);
 
@@ -159,7 +159,7 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testUpdateCertificateShouldInvokeDeleteCertificateTagsWhenTagsNotFound() throws ValidationException {
+    void testUpdateCertificateShouldInvokeDeleteCertificateTagsWhenTagsNotFound() throws ValidationException {
         when(modelMapper.map(any(), any())).thenReturn(EMPTY_TAGS_CERTIFICATE);
         when(certificateRepository.update(any())).thenReturn(1);
 
@@ -172,14 +172,13 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testUpdateCertificateShouldThrowExceptionWhenObjectInvalid() throws ValidationException {
+    void testUpdateCertificateShouldThrowExceptionWhenObjectInvalid() throws ValidationException {
         doThrow(ValidationException.class).when(validator).validate(any());
         when(certificateRepository.update(any()))
                 .thenAnswer((object) -> object.getArgument(0, GiftCertificate.class).getId());
 
-        ValidationException validationException = assertThrows(ValidationException.class, () -> service.updateCertificate(DTO));
+        assertThrows(ValidationException.class, () -> service.updateCertificate(DTO));
 
-        assertThat(validationException.getClass(), is(ValidationException.class));
         verify(tagCertificateService, times(0)).saveCertificateTags(FIRST.getId(), TAGS);
         verify(validator, times(1)).validate(DTO);
         verify(certificateRepository, times(0)).update(FIRST);
@@ -187,7 +186,7 @@ class GiftCertificateServiceImplTest {
     }
 
     @Test
-    public void testGetBySpecificationShouldReturnListOfDtoEntitiesWhenFound() {
+    void testGetBySpecificationShouldReturnListOfDtoEntitiesWhenFound() {
         SpecificationDto searchSpecificationDto = new SpecificationDto();
         SearchSpecification search = new SearchSpecification("people", "e", "a");
         SortSpecification sort = new SortSpecification(SortDirection.ASC, SortDirection.ASC);
@@ -204,7 +203,7 @@ class GiftCertificateServiceImplTest {
     }
 
      @Test
-     public void testDeleteCertificateShouldInvokeMethods () {
+     void testDeleteCertificateShouldInvokeMethods () {
          service.deleteCertificate(CERTIFICATE_ID_DEFAULT_ID);
 
          verify(tagCertificateService, times(1)).deleteCertificateTags(1L);

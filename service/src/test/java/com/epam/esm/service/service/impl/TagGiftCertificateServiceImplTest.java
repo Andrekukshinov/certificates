@@ -18,6 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+
 class TagGiftCertificateServiceImplTest {
 
     private static final long CERTIFICATE_ID_DEFAULT_ID = 1L;

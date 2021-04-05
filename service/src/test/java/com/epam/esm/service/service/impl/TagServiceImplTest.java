@@ -51,25 +51,24 @@ class TagServiceImplTest {
     }
 
     @Test
-    public void testSaveTagShouldVerifyRepositoryCallWhenObjectValid() throws ValidationException {
+    void testSaveTagShouldVerifyRepositoryCallWhenObjectValid() throws ValidationException {
         service.saveTag(any());
 
         verify(tagRepository, times(1)).save(any());
     }
 
     @Test
-    public void testSaveTagShouldThrowValidationExceptionWhenInvalidObject() throws ValidationException {
+    void testSaveTagShouldThrowValidationExceptionWhenInvalidObject() throws ValidationException {
         doThrow(ValidationException.class).when(validator).validate(any());
         when(modelMapper.map(any(), any())).thenReturn(PEOPLE_TAG);
 
-        ValidationException validationException = assertThrows(ValidationException.class, () -> service.saveTag(PEOPLE_TAG_DTO));
+        assertThrows(ValidationException.class, () -> service.saveTag(PEOPLE_TAG_DTO));
 
-        assertThat(validationException.getClass(), is(ValidationException.class));
         verify(tagRepository, times(0)).save(any());
     }
 
     @Test
-    public void testDeleteTagShouldInvokeServiceAndRepository() {
+    void testDeleteTagShouldInvokeServiceAndRepository() {
         service.deleteTag(CERTIFICATE_ID_DEFAULT_ID);
 
         verify(tagRepository, times(1)).delete(any());
@@ -77,7 +76,7 @@ class TagServiceImplTest {
     }
 
     @Test
-    public void testGetTagShouldReturnTagWhenFound() {
+    void testGetTagShouldReturnTagWhenFound() {
         when(tagRepository.findById(any())).thenReturn(Optional.of(PEOPLE_TAG));
         when(modelMapper.map(any(), any())).thenReturn(PEOPLE_TAG_DTO);
 
@@ -88,7 +87,7 @@ class TagServiceImplTest {
     }
 
     @Test
-    public void testGetTagShouldThrowEntityNotFoundExceptionWhenNotFound() {
+    void testGetTagShouldThrowEntityNotFoundExceptionWhenNotFound() {
         when(tagRepository.findById(any())).thenThrow(new EntityNotFoundException());
         when(modelMapper.map(any(), any())).thenReturn(PEOPLE_TAG_DTO);
 

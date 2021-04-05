@@ -21,14 +21,14 @@ class QueryCreatorTest {
     private static Stream<Arguments> dataProvider() {
         SearchSpecification tagCertificateName = new SearchSpecification("true", null, "");
         SortSpecification descrSortAsc = new SortSpecification(SortDirection.DESC, null);
-        String tagCertificateQry =  " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
+        String tagCertificateQry = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
                 "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
                 "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
                 "            WHERE t.name LIKE ?\n" +
                 ")   ORDER BY NULL  ,create_date DESC ";
 
         SearchSpecification certificateName = new SearchSpecification(null, null, "");
-        String certificateQry =  " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%')  ORDER BY NULL  ,create_date DESC ";
+        String certificateQry = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%')  ORDER BY NULL  ,create_date DESC ";
 
         SearchSpecification fullSearch = new SearchSpecification("null", "null", "");
         String completeQry = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND description LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
@@ -36,7 +36,6 @@ class QueryCreatorTest {
                 "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
                 "            WHERE t.name LIKE ?\n" +
                 ")   ORDER BY NULL  ,create_date DESC ";
-
 
         return Stream.of(
                 Arguments.of(tagCertificateName, descrSortAsc, tagCertificateQry),
@@ -46,7 +45,7 @@ class QueryCreatorTest {
     }
 
     @Test
-    public void testGetUpdateQueryShouldReturnUpdateQuery() {
+    void testGetUpdateQueryShouldReturnUpdateQuery() {
         Map<String, Object> values = new LinkedHashMap<>();
         String id = "id";
         values.put("name", 1);
@@ -59,7 +58,7 @@ class QueryCreatorTest {
 
     @ParameterizedTest
     @MethodSource("dataProvider")
-    public void testGetFindCertificateByConditionShouldReturnQueryBasedOnSpecification(SearchSpecification search, SortSpecification sort, String expected) {
+    void testGetFindCertificateByConditionShouldReturnQueryBasedOnSpecification(SearchSpecification search, SortSpecification sort, String expected) {
         QueryCreator queryCreator = new QueryCreator();
         String query = queryCreator.getFindCertificateByCondition(search, sort);
         assertThat(query, is(expected));

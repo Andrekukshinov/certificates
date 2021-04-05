@@ -11,9 +11,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -27,6 +29,7 @@ import static org.hamcrest.Matchers.is;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestConfiguration.class})
 @ActiveProfiles("test")
+@Transactional
 class GiftCertificateRepositoryImplTest {
     private static final Long EXPECTED_SAVED_ID = 5L;
     private static final int EXPECTED_AMOUNT = 1;
@@ -78,6 +81,7 @@ class GiftCertificateRepositoryImplTest {
     private GiftCertificateRepositoryImpl repository;
 
     @Test
+    @Rollback
     void testFindByIdShouldReturnObjectWhenFound() {
         Optional<GiftCertificate> certificateOptional = repository.findById(1L);
 
@@ -86,6 +90,7 @@ class GiftCertificateRepositoryImplTest {
     }
 
     @Test
+    @Rollback
     void testSaveShouldReturnObjectIdWhenSaved() {
         Long id = repository.save(FOR_SAVING);
 
@@ -93,6 +98,7 @@ class GiftCertificateRepositoryImplTest {
     }
 
     @Test
+    @Rollback
     void testDeleteShouldReturnDeletedObjectsAmountWhenDeleted() {
          int amount  = repository.delete(2L);
 
@@ -100,6 +106,7 @@ class GiftCertificateRepositoryImplTest {
     }
 
     @Test
+    @Rollback
     void testUpdateShouldReturnUpdatedObjectsAmountWhenUpdated() {
          int amount  = repository.update(FOR_UPDATING);
 
@@ -115,6 +122,5 @@ class GiftCertificateRepositoryImplTest {
         List<GiftCertificate> giftCertificates = repository.findBySpecification(searchSpecification, sortSpecification);
 
         assertThat(giftCertificates, is(expectedCertificates));
-        System.out.println(repository.findById(2L).get());
     }
 }

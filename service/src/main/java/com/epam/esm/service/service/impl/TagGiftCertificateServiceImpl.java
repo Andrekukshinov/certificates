@@ -43,18 +43,22 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
     }
 
     private Set<Tag> getFoundTags(Set<Tag> tags) {
-        Set<String> tagNames = tags.stream().map(Tag::getName).collect(Collectors.toSet());
+        Set<String> tagNames = getSetTagNames(tags);
         return tagRepository.findTagsByNames(tagNames);
     }
 
     private List<Long> getSavedAbsentTagsIds(Set<Tag> tags, Set<Tag> foundTags) {
-        Set<String> tagNames = foundTags.stream().map(Tag::getName).collect(Collectors.toSet());
+        Set<String> tagNames = getSetTagNames(foundTags);
         Set<Tag> absentTags = tags.stream().filter(tag -> !tagNames.contains(tag.getName())).collect(Collectors.toSet());
         List<Long> result = new ArrayList<>();
         for (Tag tag : absentTags) {
             result.add(tagRepository.save(tag));
         }
         return result;
+    }
+
+    private Set<String> getSetTagNames(Set<Tag> tags) {
+        return tags.stream().map(Tag::getName).collect(Collectors.toSet());
     }
 
     @Override

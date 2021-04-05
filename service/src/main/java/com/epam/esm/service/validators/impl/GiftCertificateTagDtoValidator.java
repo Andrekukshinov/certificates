@@ -82,10 +82,12 @@ public class GiftCertificateTagDtoValidator implements Validator<GiftCertificate
     }
 
     private void validateCertificateTags(Set<TagDto> tags) throws ValidationException {
-        if (tags != null) {
-            for (TagDto tag : tags) {
-                tagDtoValidator.validate(tag);
-            }
+        if (tags == null) {
+            return;
         }
+        for (TagDto tag : tags) {
+            tagDtoValidator.validate(tag);
+        }
+
     }
 }

@@ -8,8 +8,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StringToSortDirectionConvertorTest {
+
      @Test
-     public void testConvertShouldConvertWhenValid () {
+     void testConvertShouldConvertWhenValid () {
          StringToSortDirectionConvertor convertor = new StringToSortDirectionConvertor();
 
          SortDirection asc = convertor.convert("ASC");
@@ -18,7 +19,7 @@ class StringToSortDirectionConvertorTest {
      }
 
      @Test
-     public void testConvertShouldThrowIllegalArgumentExceptionWhenInvalid () {
+     void testConvertShouldThrowIllegalArgumentExceptionWhenInvalid () {
          StringToSortDirectionConvertor convertor = new StringToSortDirectionConvertor();
 
          assertThrows(IllegalArgumentException.class, () -> convertor.convert("ASCY"));

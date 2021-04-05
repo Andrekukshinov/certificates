@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 @Profile("test")
 public class TestConfiguration {
     @Bean
-    @Profile("test")
     public DataSource getTestDataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
                 .addScript("classpath:sql/schema.sql")
@@ -27,13 +26,11 @@ public class TestConfiguration {
     }
 
     @Bean
-    @Profile("test")
     public GiftCertificateSimpleJdbcInsert certificateSimpleJdbcInsert(JdbcTemplate jdbcTemplate) {
         return new GiftCertificateSimpleJdbcInsert(jdbcTemplate);
     }
 
     @Bean
-    @Profile("test")
     public JdbcTemplate h2JdbcTemplate(DataSource source) {
         return new JdbcTemplate(source);
     }

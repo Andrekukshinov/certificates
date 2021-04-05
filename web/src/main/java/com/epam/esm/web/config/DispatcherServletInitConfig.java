@@ -12,8 +12,7 @@ public class DispatcherServletInitConfig extends AbstractAnnotationConfigDispatc
 
     @Override
     protected void registerDispatcherServlet(ServletContext servletContext) {
-        servletContext.setInitParameter(
-                "spring.profiles.active", "dev");
+        servletContext.setInitParameter("spring.profiles.active", "dev");
         super.registerDispatcherServlet(servletContext);
     }
 
