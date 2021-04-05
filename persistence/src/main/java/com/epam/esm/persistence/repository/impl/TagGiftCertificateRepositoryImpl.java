@@ -69,7 +69,7 @@ public class TagGiftCertificateRepositoryImpl implements TagGiftCertificateRepos
     }
 
     @Override
-    public void deleteTags(Long tagId) {
+    public void deleteTagFromCertificates(Long tagId) {
         jdbc.update(DELETE_TAGS, tagId);
     }
 

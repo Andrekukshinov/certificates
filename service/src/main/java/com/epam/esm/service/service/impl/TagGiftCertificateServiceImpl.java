@@ -68,7 +68,7 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
 
     @Override
     public void deleteTags(Long tagId) {
-        tagCertificateRepository.deleteTags(tagId);
+        tagCertificateRepository.deleteTagFromCertificates(tagId);
     }
 
     @Override

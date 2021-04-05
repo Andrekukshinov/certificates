@@ -70,7 +70,7 @@ class TagGiftCertificateServiceImplTest {
     void testDeleteTagsVerifyTagCertificateCall() {
         service.deleteTags(CERTIFICATE_ID_DEFAULT_ID);
 
-        verify(tagCertificateRepository, times(1)).deleteTags(any());
+        verify(tagCertificateRepository, times(1)).deleteTagFromCertificates(any());
 
     }
 

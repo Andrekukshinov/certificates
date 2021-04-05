@@ -59,11 +59,6 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public Optional<Tag> findByName(String name) {
-        return Optional.ofNullable(DataAccessUtils.singleResult(jdbc.query(GET_BY_NAME, mapper, name)));
-    }
-
-    @Override
     public Set<Tag> findTagsByNames(Set<String> tagNames) {
         String sqlNamesPlaceHolder = String.join(COMMA, Collections.nCopies(tagNames.size(), "?"));
         String query = String.format(GET_ALL_WHERE_NAME_IN, sqlNamesPlaceHolder);
