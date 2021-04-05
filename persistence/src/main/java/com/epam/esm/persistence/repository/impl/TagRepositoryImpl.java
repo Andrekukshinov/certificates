@@ -20,7 +20,6 @@ import java.util.Set;
 public class TagRepositoryImpl implements TagRepository {
 
     private static final String GET_BY_ID = "SELECT * FROM tags WHERE id = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM tags WHERE name = ?";
     private static final String DELETE_TAG = "DELETE FROM tags WHERE id = ?";
     private static final String COMMA = ", ";
     private static final String GET_ALL_WHERE_NAME_IN = "SELECT * FROM tags WHERE name IN (%s)";

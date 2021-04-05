@@ -18,13 +18,12 @@ import java.util.Optional;
 @Service
 public class TagServiceImpl implements TagService {
 
+    private static final String WRONG_TAG = "tag with id = %d not found";
+
     private final TagRepository tagRepository;
     private final TagGiftCertificateService tagCertificateService;
     private final ModelMapper modelMapper;
     private final Validator<TagDto> validator;
-
-    private static final String WRONG_TAG = "tag with id = %d not found";
-
 
     @Autowired
     public TagServiceImpl(TagRepository tagRepository, TagGiftCertificateService tagCertificateService, ModelMapper modelMapper, Validator<TagDto> validator) {

@@ -13,6 +13,7 @@ import java.util.Set;
 
 @Component
 public class GiftCertificateTagDtoValidator implements Validator<GiftCertificateTagDto> {
+
     private static final int MAX_NAME_LENGTH = 50;
     private static final int MAX_DESCRIPTION_LENGTH = 255;
 

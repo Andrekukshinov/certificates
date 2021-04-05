@@ -26,6 +26,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger LOGGER = LogManager.getLogger(ControllerExceptionHandler.class);
     private static final int INTERNAL_SERVER_ERROR = 500_01;
     private static final int ENTITY_NOT_FOUND_EXCEPTION = 404_01;
+    private static final int NOT_FOUND_EXCEPTION = 404_00;
     private static final int BAD_REQUEST = 400_00;
     private static final String INTERNAL_SERVER_ERROR_MESSAGE = "Internal server error";
     private static final String INVALID_FIELD = "invalid field: ";
@@ -57,7 +58,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         LOGGER.error(ex.getMessage(), ex);
-        ExceptionModel body = new ExceptionModel(ex.getMessage(), BAD_REQUEST);
+        ExceptionModel body = new ExceptionModel(ex.getMessage(), NOT_FOUND_EXCEPTION);
         return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
@@ -69,4 +70,3 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 }
-// TODO: 02.04.2021 javadocs

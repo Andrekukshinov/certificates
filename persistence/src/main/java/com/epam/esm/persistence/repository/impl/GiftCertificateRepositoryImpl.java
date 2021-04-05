@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-
 @Repository
 public class GiftCertificateRepositoryImpl implements GiftCertificateRepository {
     private static final String TABLE_NAME = "gift_certificates";
