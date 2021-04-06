@@ -29,6 +29,11 @@ public interface TagGiftCertificateService {
      */
     void deleteTags(Long tagId);
 
+    /**
+     * Method for receiving all certificate tags by specified id
+     * @param certificateId to look for tags with
+     * @return set of certificate tags
+     */
     Set<TagDto> findCertificateTags(Long certificateId);
 
 }

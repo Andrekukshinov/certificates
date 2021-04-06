@@ -42,6 +42,15 @@ public class QueryCreator {
         return String.format(query, searchCondition, sort);
     }
 
+    public String getUpdateQuery(String tableName, Set<String> fieldNames, String updateParam) {
+        StringBuilder query = new StringBuilder(UPDATE);
+        query.append(tableName);
+        query.append(" SET ");
+        String setValuesPart = getJoinedString("=?, ", fieldNames);
+        query.append(setValuesPart).append("=?").append(" WHERE ").append(updateParam).append("=?");
+        return query.toString();
+    }
+
     private String getSortCondition(SortDirection createDateSortConditionDir, SortDirection nameSortConditionDir) {
         String sort = "";
         if (createDateSortConditionDir != null) {
@@ -69,15 +78,6 @@ public class QueryCreator {
             result.append(" AND ").append(SEARCH_CERTIFICATE_BY_TAG_NAME);
         }
         return result.toString();
-    }
-
-    public String getUpdateQuery(String tableName, Set<String> fieldNames, String updateParam) {
-        StringBuilder query = new StringBuilder(UPDATE);
-        query.append(tableName);
-        query.append(" SET ");
-        String setValuesPart = getJoinedString("=?, ", fieldNames);
-        query.append(setValuesPart).append("=?").append(" WHERE ").append(updateParam).append("=?");
-        return query.toString();
     }
 
     private String getJoinedString(String joinWith, Collection<? extends String> forJoining) {

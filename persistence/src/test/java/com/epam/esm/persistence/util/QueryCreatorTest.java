@@ -18,6 +18,8 @@ import static org.hamcrest.Matchers.is;
 
 class QueryCreatorTest {
 
+    private static final QueryCreator queryCreator = new QueryCreator();
+
     private static Stream<Arguments> dataProvider() {
         SearchSpecification tagCertificateName = new SearchSpecification("true", null, "");
         SortSpecification descrSortAsc = new SortSpecification(SortDirection.DESC, null);
@@ -50,7 +52,6 @@ class QueryCreatorTest {
         String id = "id";
         values.put("name", 1);
         values.put(id, 1);
-        QueryCreator queryCreator = new QueryCreator();
         String table = queryCreator.getUpdateQuery("table", values.keySet(), id);
         assertThat(table, is("UPDATE table SET name=?, id=? WHERE id=?"));
 
@@ -59,7 +60,6 @@ class QueryCreatorTest {
     @ParameterizedTest
     @MethodSource("dataProvider")
     void testGetFindCertificateByConditionShouldReturnQueryBasedOnSpecification(SearchSpecification search, SortSpecification sort, String expected) {
-        QueryCreator queryCreator = new QueryCreator();
         String query = queryCreator.getFindCertificateByCondition(search, sort);
         assertThat(query, is(expected));
     }

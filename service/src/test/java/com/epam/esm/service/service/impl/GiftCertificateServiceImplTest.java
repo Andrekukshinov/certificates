@@ -34,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-//@ExtendWith(MockitoExtension.class)
 class GiftCertificateServiceImplTest {
 
     private static final LocalDateTime DATE = LocalDateTime.parse("2021-03-25T00:00:00");
