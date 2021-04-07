@@ -125,7 +125,6 @@ public class GiftCertificatesNoTagDto {
         return result;
     }
 
-
     public static final Builder getBuilder() {
         return new Builder();
     }

@@ -140,7 +140,6 @@ public class GiftCertificateTagDto {
         return result;
     }
 
-
     public static final Builder getBuilder() {
         return new Builder();
     }
