@@ -17,7 +17,7 @@ public class GiftCertificateTagDto {
     public GiftCertificateTagDto() {
     }
 
-    public GiftCertificateTagDto(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<TagDto> tags) {
+    private GiftCertificateTagDto(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<TagDto> tags) {
         this.id = id;
         this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -138,5 +138,67 @@ public class GiftCertificateTagDto {
         result = 31 * result + (duration != null ? duration.hashCode() : 0);
         result = 31 * result + (tags != null ? tags.hashCode() : 0);
         return result;
+    }
+
+
+    public static final Builder getBuilder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private Long id;
+        private LocalDateTime createDate;
+        private LocalDateTime lastUpdateDate;
+        private String name;
+        private String description;
+        private BigDecimal price;
+        private Short duration;
+        private Set<TagDto> tags;
+
+        private Builder(){}
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setCreateDate(LocalDateTime createDate) {
+            this.createDate = createDate;
+            return this;
+        }
+
+        public Builder setLastUpdateDate(LocalDateTime lastUpdateDate) {
+            this.lastUpdateDate = lastUpdateDate;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setDuration(Short duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public Builder setTags(Set<TagDto> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public GiftCertificateTagDto build(){
+            return new GiftCertificateTagDto(id, createDate, lastUpdateDate, name, description, price, duration, tags);
+        }
     }
 }

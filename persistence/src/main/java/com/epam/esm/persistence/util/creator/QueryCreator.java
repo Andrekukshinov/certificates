@@ -3,6 +3,7 @@ package com.epam.esm.persistence.util.creator;
 import com.epam.esm.persistence.model.SearchSpecification;
 import com.epam.esm.persistence.model.SortSpecification;
 import com.epam.esm.persistence.model.enums.SortDirection;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -27,7 +28,7 @@ public class QueryCreator {
                     " ORDER BY NULL %s ";
 
 
-    public String getFindCertificateByCondition(SearchSpecification searchSpecification, SortSpecification sortSpecification) {
+    public String getSelectSpecificationQuery(SearchSpecification searchSpecification, SortSpecification sortSpecification) {
         String query = FIND_CERTIFICATE_BY_CONDITION;
 
         String nameCertificateSearch = searchSpecification.getCertificateName();
@@ -52,7 +53,7 @@ public class QueryCreator {
     }
 
     private String getSortCondition(SortDirection createDateSortConditionDir, SortDirection nameSortConditionDir) {
-        String sort = "";
+        String sort = StringUtils.EMPTY;
         if (createDateSortConditionDir != null) {
             sort = getPartSortCondition(createDateSortConditionDir, " ,create_date ");
         }
@@ -84,6 +85,3 @@ public class QueryCreator {
         return String.join(joinWith, forJoining);
     }
 }
-
-
-

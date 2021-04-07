@@ -2,7 +2,7 @@ package com.epam.esm.persistence.repository.impl;
 
 import com.epam.esm.persistence.entity.Tag;
 import com.epam.esm.persistence.extractor.impl.TagGiftCertificateIdFieldsExtractor;
-import com.epam.esm.persistence.mapper.GitCertificateRowMapper;
+import com.epam.esm.persistence.mapper.GiftCertificateRowMapper;
 import com.epam.esm.persistence.mapper.TagRowMapper;
 import com.epam.esm.persistence.model.TagGiftCertificateId;
 import com.epam.esm.persistence.repository.TagGiftCertificateRepository;
@@ -33,13 +33,13 @@ public class TagGiftCertificateRepositoryImpl implements TagGiftCertificateRepos
 
     private final JdbcTemplate jdbc;
     private final TagRowMapper tagRowMapper;
-    private final GitCertificateRowMapper certificateRowMapper;
+    private final GiftCertificateRowMapper certificateRowMapper;
     private final SimpleJdbcInsert jdbcInsert;
     private final TagGiftCertificateIdFieldsExtractor extractor;
 
     @Autowired
     public TagGiftCertificateRepositoryImpl(JdbcTemplate jdbc, TagRowMapper tagRowMapper,
-                                            GitCertificateRowMapper certificateRowMapper,
+                                            GiftCertificateRowMapper certificateRowMapper,
                                             TagGiftCertificateSimpleJdbcInsert jdbcInsert,
                                             TagGiftCertificateIdFieldsExtractor extractor) {
         this.jdbc = jdbc;

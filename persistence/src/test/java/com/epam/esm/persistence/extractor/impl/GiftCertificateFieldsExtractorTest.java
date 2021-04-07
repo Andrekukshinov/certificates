@@ -26,7 +26,15 @@ class GiftCertificateFieldsExtractorTest {
     private static final BigDecimal PRICE_VAL = new BigDecimal(3);
 
     private static final GiftCertificate OBJECT =
-            new GiftCertificate(LONG_VAL, DATE, DATE, STRING_VAL, STRING_VAL, PRICE_VAL, Short.valueOf(STRING_VAL), null);
+             GiftCertificate.getBuilder()
+                     .setId(LONG_VAL)
+                     .setCreateDate(DATE)
+                     .setLastUpdateDate(DATE)
+                     .setName(STRING_VAL)
+                     .setDescription(STRING_VAL)
+                     .setPrice(PRICE_VAL)
+                     .setDuration(Short.valueOf(STRING_VAL))
+                     .build();
 
     @Test
     void testGetFieldsValuesMapShouldBuildMapWihAllObjects() {

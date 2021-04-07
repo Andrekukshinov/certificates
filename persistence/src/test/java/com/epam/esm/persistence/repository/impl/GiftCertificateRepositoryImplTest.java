@@ -43,23 +43,64 @@ class GiftCertificateRepositoryImplTest {
     private static final String CLUP = "clup";
     private static final String CLUP_GIFT = "for leatherman";
 
-    private static final GiftCertificate FOR_SAVING =
-            new GiftCertificate(null, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(754), Short.valueOf("3"), null);
+    private static final GiftCertificate FOR_SAVING = GiftCertificate.getBuilder()
+                    .setCreateDate(DATE)
+                    .setLastUpdateDate(DATE)
+                    .setName(SPA)
+                    .setDescription(FAMILY_CERTIFICATE)
+                    .setPrice(new BigDecimal(754))
+                    .setDuration(Short.valueOf("3"))
+                    .build();
 
-    private static final GiftCertificate FIRST =
-            new GiftCertificate(1L, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(754), Short.valueOf("3"), null);
+    private static final GiftCertificate FIRST = GiftCertificate.getBuilder()
+            .setId(1L)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(SPA)
+            .setDescription(FAMILY_CERTIFICATE)
+            .setPrice(new BigDecimal(754))
+            .setDuration(Short.valueOf("3"))
+            .build();
 
-    private static final GiftCertificate SECOND =
-            new GiftCertificate(2L, DATE, DATE, GYM, GYM_CERTIFICATE, new BigDecimal(300), Short.valueOf("14"),null);
+    private static final GiftCertificate SECOND = GiftCertificate.getBuilder()
+            .setId(2L)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(GYM)
+            .setDescription(GYM_CERTIFICATE)
+            .setPrice(new BigDecimal(300))
+            .setDuration(Short.valueOf("14"))
+            .build();
 
-    private static final GiftCertificate THIRD =
-            new GiftCertificate(3L, DATE, DATE, POOL, CONNECTION_POOL, new BigDecimal(354), Short.valueOf("23"), null);
+    private static final GiftCertificate THIRD =  GiftCertificate.getBuilder()
+            .setId(3L)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(POOL)
+            .setDescription(CONNECTION_POOL)
+            .setPrice(new BigDecimal(354))
+            .setDuration(Short.valueOf("23"))
+            .build();
 
-    private static final GiftCertificate FOURTH =
-            new GiftCertificate(4L, DATE, DATE, CLUP, CLUP_GIFT, new BigDecimal(150), Short.valueOf("9"), null);
+    private static final GiftCertificate FOURTH = GiftCertificate.getBuilder()
+            .setId(4L)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(CLUP)
+            .setDescription(CLUP_GIFT)
+            .setPrice(new BigDecimal(150))
+            .setDuration(Short.valueOf("9"))
+            .build();
 
-    private static final GiftCertificate FOR_UPDATING =
-            new GiftCertificate(3L, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(755), Short.valueOf("3"), null);
+    private static final GiftCertificate FOR_UPDATING = GiftCertificate.getBuilder()
+            .setId(3L)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(SPA)
+            .setDescription(FAMILY_CERTIFICATE)
+            .setPrice(new BigDecimal(755))
+            .setDuration(Short.valueOf("3"))
+            .build();
 
     private static Stream<Arguments> dataProvider() {
          SearchSpecification findFirstAndFourth = new SearchSpecification("people", "e", "p");

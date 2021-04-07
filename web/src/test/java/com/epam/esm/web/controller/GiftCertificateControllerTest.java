@@ -37,19 +37,26 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 class GiftCertificateControllerTest {
     private static final LocalDateTime DATE = LocalDateTime.parse("2021-04-05T13:45:21");
 
-    private static final GiftCertificateTagDto OBJECT =
-            new GiftCertificateTagDto(
-                    1L, DATE,
-                    DATE, "name",
-                    "desc", new BigDecimal(5), Short.valueOf("3"), new HashSet<>()
-            );
+    private static final GiftCertificateTagDto OBJECT = GiftCertificateTagDto.getBuilder()
+            .setId(1L)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName("name")
+            .setDescription("desc")
+            .setPrice(new BigDecimal(5))
+            .setDuration(Short.valueOf("3"))
+            .setTags(new HashSet<>())
+            .build();
 
-    private static final GiftCertificatesNoTagDto OBJECT_NO_TAGS =
-            new GiftCertificatesNoTagDto(
-                    1L, DATE,
-                    DATE, "name",
-                    "desc", new BigDecimal(5), Short.valueOf("3")
-            );
+    private static final GiftCertificatesNoTagDto OBJECT_NO_TAGS = GiftCertificatesNoTagDto.getBuilder()
+            .setId(1L)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName("name")
+            .setDescription("desc")
+            .setPrice(new BigDecimal(5))
+            .setDuration(Short.valueOf("3"))
+            .build();
 
     private static final JavaTimeModule MODULE = new JavaTimeModule();
     private static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder.json()

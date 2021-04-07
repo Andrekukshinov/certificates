@@ -18,7 +18,7 @@ public class GiftCertificate implements Serializable {
     public GiftCertificate() {
     }
 
-    public GiftCertificate(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<Tag> tags) {
+    private GiftCertificate(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<Tag> tags) {
         this.id = id;
         this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -153,5 +153,66 @@ public class GiftCertificate implements Serializable {
                 ", duration=" + duration +
                 ", tags=" + tags +
                 '}';
+    }
+
+    public static final Builder getBuilder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private Long id;
+        private LocalDateTime createDate;
+        private LocalDateTime lastUpdateDate;
+        private String name;
+        private String description;
+        private BigDecimal price;
+        private Short duration;
+        private Set<Tag> tags;
+
+        private Builder(){}
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setCreateDate(LocalDateTime createDate) {
+            this.createDate = createDate;
+            return this;
+        }
+
+        public Builder setLastUpdateDate(LocalDateTime lastUpdateDate) {
+            this.lastUpdateDate = lastUpdateDate;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setDuration(Short duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public Builder setTags(Set<Tag> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public GiftCertificate build(){
+            return new GiftCertificate(id, createDate, lastUpdateDate, name, description, price, duration, tags);
+        }
     }
 }

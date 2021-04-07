@@ -28,6 +28,7 @@ public class PersistenceConfig {
     private static final String PASSWORD = "password";
     private static final String USERNAME = "username";
     private static final String CONNECTIONS_MIN = "connections.min";
+    private static final String CONNECTIONS_MAX = "connections.max";
     private static final String CLOSE_METHOD = "close";
     private static final String CONNECTION_POOL_PROPERTIES = "connectionPool.properties";
 
@@ -46,7 +47,9 @@ public class PersistenceConfig {
         dataSource.setPassword(properties.getProperty(PASSWORD));
         dataSource.setUser(properties.getProperty(USERNAME));
         String minConnectionsString = properties.getProperty(CONNECTIONS_MIN);
+        String maxConnectionsString = properties.getProperty(CONNECTIONS_MAX);
         dataSource.setMinPoolSize(Integer.parseInt(minConnectionsString));
+        dataSource.setMaxPoolSize(Integer.parseInt(maxConnectionsString));
         return dataSource;
     }
 

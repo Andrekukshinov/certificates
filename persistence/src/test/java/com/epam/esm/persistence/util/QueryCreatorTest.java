@@ -60,7 +60,7 @@ class QueryCreatorTest {
     @ParameterizedTest
     @MethodSource("dataProvider")
     void testGetFindCertificateByConditionShouldReturnQueryBasedOnSpecification(SearchSpecification search, SortSpecification sort, String expected) {
-        String query = queryCreator.getFindCertificateByCondition(search, sort);
+        String query = queryCreator.getSelectSpecificationQuery(search, sort);
         assertThat(query, is(expected));
     }
 

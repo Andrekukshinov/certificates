@@ -79,7 +79,7 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
 
     @Override
     public List<GiftCertificate> findBySpecification(SearchSpecification searchSpecification, SortSpecification sortSpecification) {
-        String qry = queryCreator.getFindCertificateByCondition(searchSpecification, sortSpecification);
+        String qry = queryCreator.getSelectSpecificationQuery(searchSpecification, sortSpecification);
         List<Object> values = searchParametersExtractor.getValues(searchSpecification);
         return jdbc.query(qry, mapper, values.toArray());
     }

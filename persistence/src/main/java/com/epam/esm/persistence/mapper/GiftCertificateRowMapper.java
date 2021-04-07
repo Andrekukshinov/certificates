@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 @Component
-public class GitCertificateRowMapper implements RowMapper<GiftCertificate> {
+public class GiftCertificateRowMapper implements RowMapper<GiftCertificate> {
 
     private static final String ID = "id";
     private static final String NAME = "name";
@@ -30,6 +30,14 @@ public class GitCertificateRowMapper implements RowMapper<GiftCertificate> {
         LocalDateTime lastUpdateDate = rs.getObject(LAST_UPDATE_DATE, LocalDateTime.class);
         BigDecimal price = rs.getBigDecimal(PRICE);
 
-        return new GiftCertificate(id, createDate, lastUpdateDate, name, description, price, duration, null);
+        return GiftCertificate.getBuilder()
+                .setId(id)
+                .setCreateDate(createDate)
+                .setLastUpdateDate(lastUpdateDate)
+                .setName(name)
+                .setDescription(description)
+                .setPrice(price)
+                .setDuration(duration)
+                .build();
     }
 }

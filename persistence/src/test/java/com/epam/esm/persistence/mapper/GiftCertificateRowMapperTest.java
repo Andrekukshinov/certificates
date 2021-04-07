@@ -17,7 +17,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-class GitCertificateRowMapperTest {
+class GiftCertificateRowMapperTest {
     private static final String CREATE_DATE = "create_date";
     private static final String LAST_UPDATE_DATE = "last_update_date";
     private static final long LONG_VAL = 1L;
@@ -28,7 +28,7 @@ class GitCertificateRowMapperTest {
     private ResultSet rs;
 
     @InjectMocks
-    private GitCertificateRowMapper mapper;
+    private GiftCertificateRowMapper mapper;
 
     @BeforeEach
     void init() {
@@ -44,8 +44,16 @@ class GitCertificateRowMapperTest {
         when(rs.getBigDecimal(any())).thenReturn(PRICE);
         when(rs.getObject(CREATE_DATE, LocalDateTime.class)).thenReturn(DATE);
         when(rs.getObject(LAST_UPDATE_DATE, LocalDateTime.class)).thenReturn(DATE);
-        GiftCertificate expected =
-                new GiftCertificate(LONG_VAL, DATE, DATE, STRING_VAL, STRING_VAL, PRICE, shortVal, null);
+        GiftCertificate expected = GiftCertificate.getBuilder()
+                        .setId(LONG_VAL)
+                        .setCreateDate(DATE)
+                        .setLastUpdateDate(DATE)
+                        .setName(STRING_VAL)
+                        .setDescription(STRING_VAL)
+                        .setPrice(PRICE)
+                        .setDuration(shortVal)
+                        .build();
+
 
         GiftCertificate actual = mapper.mapRow(rs, 0);
 

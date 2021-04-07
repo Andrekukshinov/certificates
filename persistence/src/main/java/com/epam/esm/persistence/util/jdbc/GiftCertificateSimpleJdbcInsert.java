@@ -14,7 +14,6 @@ public class GiftCertificateSimpleJdbcInsert extends SimpleJdbcInsert implements
         super(dataSource);
     }
 
-
     public GiftCertificateSimpleJdbcInsert(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
     }

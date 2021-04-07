@@ -47,20 +47,58 @@ class GiftCertificateServiceImplTest {
     private static final TagDto PEOPLE_TAG_DTO = new TagDto("PEOPLE");
     private static final Set<TagDto> TAGS_DTO = Set.of(PEOPLE_TAG_DTO);
 
-    private static final GiftCertificate FIRST =
-            new GiftCertificate(CERTIFICATE_ID_DEFAULT_ID, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(754), Short.valueOf("3"), TAGS);
+    private static final GiftCertificate FIRST = GiftCertificate.getBuilder()
+            .setId(CERTIFICATE_ID_DEFAULT_ID)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(SPA)
+            .setDescription(FAMILY_CERTIFICATE)
+            .setPrice(new BigDecimal(754))
+            .setDuration(Short.valueOf("3"))
+            .setTags(TAGS)
+            .build();
 
-    private static final GiftCertificate EMPTY_TAGS_CERTIFICATE =
-            new GiftCertificate(CERTIFICATE_ID_DEFAULT_ID, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(754), Short.valueOf("3"), new HashSet<>());
+    private static final GiftCertificate EMPTY_TAGS_CERTIFICATE = GiftCertificate.getBuilder()
+            .setId(CERTIFICATE_ID_DEFAULT_ID)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(SPA)
+            .setDescription(FAMILY_CERTIFICATE)
+            .setPrice(new BigDecimal(754))
+            .setDuration(Short.valueOf("3"))
+            .setTags(new HashSet<>())
+            .build();
 
-    private static final GiftCertificate NO_TAGS_CERTIFICATE =
-            new GiftCertificate(CERTIFICATE_ID_DEFAULT_ID, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(754), Short.valueOf("3"), null);
+    private static final GiftCertificate NO_TAGS_CERTIFICATE = GiftCertificate.getBuilder()
+            .setId(CERTIFICATE_ID_DEFAULT_ID)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(SPA)
+            .setDescription(FAMILY_CERTIFICATE)
+            .setPrice(new BigDecimal(754))
+            .setDuration(Short.valueOf("3"))
+            .build();
 
-    private static final GiftCertificateTagDto DTO =
-            new GiftCertificateTagDto(CERTIFICATE_ID_DEFAULT_ID, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(754), Short.valueOf("3"), TAGS_DTO);
+    private static final GiftCertificateTagDto DTO = GiftCertificateTagDto.getBuilder()
+            .setId(CERTIFICATE_ID_DEFAULT_ID)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(SPA)
+            .setDescription(FAMILY_CERTIFICATE)
+            .setPrice(new BigDecimal(754))
+            .setDuration(Short.valueOf("3"))
+            .setTags(TAGS_DTO)
+            .build();
 
-    private static final GiftCertificatesNoTagDto NO_TAGS_DTO =
-            new GiftCertificatesNoTagDto(CERTIFICATE_ID_DEFAULT_ID, DATE, DATE, SPA, FAMILY_CERTIFICATE, new BigDecimal(754), Short.valueOf("3"));
+    private static final GiftCertificatesNoTagDto NO_TAGS_DTO = GiftCertificatesNoTagDto.getBuilder()
+            .setId(CERTIFICATE_ID_DEFAULT_ID)
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(SPA)
+            .setDescription(FAMILY_CERTIFICATE)
+            .setPrice(new BigDecimal(754))
+            .setDuration(Short.valueOf("3"))
+            .build();
 
     @Mock
     private GiftCertificateRepository certificateRepository;

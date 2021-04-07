@@ -20,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GiftCertificateTagDtoValidatorTest {
     private static final LocalDateTime DATE = LocalDateTime.parse("2021-03-25T00:00:00");
+    private static final String SPA = "SPA";
+    private static final String FAMILY_CERTIFICATE = "FAMILY_CERTIFICATE";
 
     @Mock
     private Validator<TagDto> tagDtoValidator;
@@ -34,25 +36,65 @@ class GiftCertificateTagDtoValidatorTest {
 
 
     private static Stream<Arguments> dataProvider() {
-        GiftCertificateTagDto invalidId =
-                new GiftCertificateTagDto(-1L, DATE, DATE, "SPA", "FAMILY_CERTIFICATE", new BigDecimal(754), Short.valueOf("3"), null);
-        GiftCertificateTagDto createDateSpecified =
-                new GiftCertificateTagDto(1L, DATE, DATE, "SPA", "FAMILY_CERTIFICATE", new BigDecimal(754), Short.valueOf("3"), null);
-        GiftCertificateTagDto updateDateDateSpecified =
-                new GiftCertificateTagDto(1L, null, DATE, "SPA", "FAMILY_CERTIFICATE", new BigDecimal(754), Short.valueOf("3"), null);
+        GiftCertificateTagDto invalidId = GiftCertificateTagDto.getBuilder()
+                .setId(-1L)
+                .setCreateDate(DATE)
+                .setLastUpdateDate(DATE)
+                .setName(SPA)
+                .setDescription(FAMILY_CERTIFICATE)
+                .setPrice(new BigDecimal(754))
+                .setDuration(Short.valueOf("3"))
+                .build();
+        GiftCertificateTagDto createDateSpecified = GiftCertificateTagDto.getBuilder()
+                .setId(11L)
+                .setCreateDate(DATE)
+                .setLastUpdateDate(DATE)
+                .setName(SPA)
+                .setDescription(FAMILY_CERTIFICATE)
+                .setPrice(new BigDecimal(754))
+                .setDuration(Short.valueOf("3"))
+                .build();
+        GiftCertificateTagDto updateDateDateSpecified =  GiftCertificateTagDto.getBuilder()
+                .setId(-1L)
+                .setLastUpdateDate(DATE)
+                .setName(SPA)
+                .setDescription(FAMILY_CERTIFICATE)
+                .setPrice(new BigDecimal(754))
+                .setDuration(Short.valueOf("3"))
+                .build();
         String tooLongName = "123456789012345678901234567890123456789012345678901";
-        GiftCertificateTagDto longName =
-                new GiftCertificateTagDto(1L, null, null, tooLongName, "FAMILY_CERTIFICATE", new BigDecimal(754), Short.valueOf("3"), null);
+        GiftCertificateTagDto longName = GiftCertificateTagDto.getBuilder()
+                .setId(-1L)
+                .setName(tooLongName)
+                .setDescription(FAMILY_CERTIFICATE)
+                .setPrice(new BigDecimal(754))
+                .setDuration(Short.valueOf("3"))
+                .build();
         String tooLongDescription = "1123456789012345678901234567890123456789012345678901123456789012" +
                 "3456789012345678901234567890123456789011234567890123456789012345678901234567890123456" +
                 "7890112345678901234567890123456789012345678901234567890112345678901234567890123456789" +
                 "0123456789012345678901";
-        GiftCertificateTagDto longDescr =
-                new GiftCertificateTagDto(1L, null, null, "tooLongName", tooLongDescription, new BigDecimal(754), Short.valueOf("3"), null);
-        GiftCertificateTagDto invalidPrice =
-                new GiftCertificateTagDto(1L, null, null, "tooLongName", "tooLongDescription", new BigDecimal(-754), Short.valueOf("3"), null);
-        GiftCertificateTagDto invalidDuration =
-                new GiftCertificateTagDto(1L, null, null, "tooLongName", "tooLongDescription", new BigDecimal(754), Short.valueOf("-3"), null);
+        GiftCertificateTagDto longDescr = GiftCertificateTagDto.getBuilder()
+                .setId(-1L)
+                .setName(SPA)
+                .setDescription(tooLongDescription)
+                .setPrice(new BigDecimal(754))
+                .setDuration(Short.valueOf("3"))
+                .build();
+        GiftCertificateTagDto invalidPrice = GiftCertificateTagDto.getBuilder()
+                .setId(-1L)
+                .setName(tooLongName)
+                .setDescription(FAMILY_CERTIFICATE)
+                .setPrice(new BigDecimal(-754))
+                .setDuration(Short.valueOf("3"))
+                .build();
+        GiftCertificateTagDto invalidDuration = GiftCertificateTagDto.getBuilder()
+                .setId(-1L)
+                .setName(tooLongName)
+                .setDescription(FAMILY_CERTIFICATE)
+                .setPrice(new BigDecimal(754))
+                .setDuration(Short.valueOf("-3"))
+                .build();
 
         return Stream.of(
                 Arguments.of(invalidId, "id must be more than 0!"),
