@@ -22,7 +22,7 @@ public class QueryCreator {
                     ") ";
 
     private static final String FIND_CERTIFICATE_BY_CONDITION =
-            " SELECT * " +
+            " SELECT id, name, description, duration, create_date, last_update_date, price " +
                     " FROM gift_certificates " +
                     " WHERE TRUE %s " +
                     " ORDER BY NULL %s ";
