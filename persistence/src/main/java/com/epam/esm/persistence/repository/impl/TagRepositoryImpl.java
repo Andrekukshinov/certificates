@@ -19,10 +19,10 @@ import java.util.Set;
 @Repository
 public class TagRepositoryImpl implements TagRepository {
 
-    private static final String GET_BY_ID = "SELECT * FROM tags WHERE id = ?";
+    private static final String GET_BY_ID = "SELECT id, name FROM tags WHERE id = ?";
     private static final String DELETE_TAG = "DELETE FROM tags WHERE id = ?";
     private static final String COMMA = ", ";
-    private static final String GET_ALL_WHERE_NAME_IN = "SELECT * FROM tags WHERE name IN (%s)";
+    private static final String GET_ALL_WHERE_NAME_IN = "SELECT id, name FROM tags WHERE name IN (%s)";
 
     private final JdbcTemplate jdbc;
     private final TagRowMapper mapper;

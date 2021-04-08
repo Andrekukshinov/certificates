@@ -24,7 +24,7 @@ import java.util.Optional;
 public class GiftCertificateRepositoryImpl implements GiftCertificateRepository {
     private static final String TABLE_NAME = "gift_certificates";
     private static final String WHERE_ID = " WHERE id = ?";
-    private static final String GET_BY_ID = "SELECT * FROM " + TABLE_NAME + WHERE_ID;
+    private static final String GET_BY_ID = "SELECT id, name, description, duration, create_date, last_update_date, price FROM " + TABLE_NAME + WHERE_ID;
     private static final String DELETE_CERTIFICATE = " DELETE FROM gift_certificates WHERE id = ?";
     private static final String ID = "id";
 
