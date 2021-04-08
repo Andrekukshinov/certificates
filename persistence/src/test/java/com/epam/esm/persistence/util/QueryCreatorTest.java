@@ -23,17 +23,17 @@ class QueryCreatorTest {
     private static Stream<Arguments> dataProvider() {
         SearchSpecification tagCertificateName = new SearchSpecification("true", null, "");
         SortSpecification descrSortAsc = new SortSpecification(SortDirection.DESC, null);
-        String tagCertificateQry = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
+        String tagCertificateQry = " SELECT id, name, description, duration, create_date, last_update_date, price  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
                 "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
                 "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
                 "            WHERE t.name LIKE ?\n" +
                 ")   ORDER BY NULL  ,create_date DESC ";
 
         SearchSpecification certificateName = new SearchSpecification(null, null, "");
-        String certificateQry = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%')  ORDER BY NULL  ,create_date DESC ";
+        String certificateQry = " SELECT id, name, description, duration, create_date, last_update_date, price  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%')  ORDER BY NULL  ,create_date DESC ";
 
         SearchSpecification fullSearch = new SearchSpecification("null", "null", "");
-        String completeQry = " SELECT *  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND description LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
+        String completeQry = " SELECT id, name, description, duration, create_date, last_update_date, price  FROM gift_certificates  WHERE TRUE  AND name LIKE CONCAT('%', ?, '%') AND description LIKE CONCAT('%', ?, '%') AND  id IN (\n" +
                 "           SELECT tgc.gift_certificate_id FROM tags_gift_certificates AS tgc\n" +
                 "            INNER JOIN tags AS t ON tgc.tag_id = t.id \n" +
                 "            WHERE t.name LIKE ?\n" +
