@@ -44,7 +44,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleConflict(EntityNotFoundException ex, WebRequest request) {
         LOGGER.error(ex.getMessage(), ex);
         ExceptionModel body = new ExceptionModel(ex.getMessage(), ENTITY_NOT_FOUND_EXCEPTION);
-        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(value = ValidationException.class)

@@ -156,6 +156,7 @@ class GiftCertificateRepositoryImplTest {
 
     @ParameterizedTest
     @MethodSource("dataProvider")
+    @Rollback
     void testFindBySpecificationShouldReturnListOfObjects(
                 SearchSpecification searchSpecification,
                 SortSpecification sortSpecification,
