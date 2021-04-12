@@ -63,6 +63,7 @@ public class GiftCertificateTagDtoSaveValidator extends AbstractGiftCertificateD
         super.validatePriceValue(price);
     }
 
+    @Override
     protected void validateCertificateTags(Set<TagDto> tags) throws ValidationException {
         if (tags == null) {
             return;

@@ -31,6 +31,7 @@ public class GiftCertificateTagDtoUpdateValidator extends AbstractGiftCertificat
         validateCertificateTags(object.getTags());
     }
 
+    @Override
     protected void validateCertificateTags(Set<TagDto> tags) throws ValidationException {
         if (tags == null) {
             return;
