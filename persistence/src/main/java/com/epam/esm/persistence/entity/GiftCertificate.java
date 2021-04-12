@@ -12,13 +12,13 @@ public class GiftCertificate implements Serializable {
     private String name;
     private String description;
     private BigDecimal price;
-    private Short duration;
+    private Integer duration;
     private Set<Tag> tags;
 
     public GiftCertificate() {
     }
 
-    private GiftCertificate(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<Tag> tags) {
+    private GiftCertificate(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Integer duration, Set<Tag> tags) {
         this.id = id;
         this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -77,11 +77,11 @@ public class GiftCertificate implements Serializable {
         this.price = price;
     }
 
-    public Short getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Short duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -166,7 +166,7 @@ public class GiftCertificate implements Serializable {
         private String name;
         private String description;
         private BigDecimal price;
-        private Short duration;
+        private Integer duration;
         private Set<Tag> tags;
 
         private Builder(){}
@@ -201,7 +201,7 @@ public class GiftCertificate implements Serializable {
             return this;
         }
 
-        public Builder setDuration(Short duration) {
+        public Builder setDuration(Integer duration) {
             this.duration = duration;
             return this;
         }

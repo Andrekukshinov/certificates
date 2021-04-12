@@ -49,7 +49,7 @@ class GiftCertificateRepositoryImplTest {
                     .setName(SPA)
                     .setDescription(FAMILY_CERTIFICATE)
                     .setPrice(new BigDecimal(754))
-                    .setDuration(Short.valueOf("3"))
+                    .setDuration(3)
                     .build();
 
     private static final GiftCertificate FIRST = GiftCertificate.getBuilder()
@@ -59,7 +59,7 @@ class GiftCertificateRepositoryImplTest {
             .setName(SPA)
             .setDescription(FAMILY_CERTIFICATE)
             .setPrice(new BigDecimal(754))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .build();
 
     private static final GiftCertificate SECOND = GiftCertificate.getBuilder()
@@ -69,7 +69,7 @@ class GiftCertificateRepositoryImplTest {
             .setName(GYM)
             .setDescription(GYM_CERTIFICATE)
             .setPrice(new BigDecimal(300))
-            .setDuration(Short.valueOf("14"))
+            .setDuration(14)
             .build();
 
     private static final GiftCertificate THIRD =  GiftCertificate.getBuilder()
@@ -79,7 +79,7 @@ class GiftCertificateRepositoryImplTest {
             .setName(POOL)
             .setDescription(CONNECTION_POOL)
             .setPrice(new BigDecimal(354))
-            .setDuration(Short.valueOf("23"))
+            .setDuration(23)
             .build();
 
     private static final GiftCertificate FOURTH = GiftCertificate.getBuilder()
@@ -89,7 +89,7 @@ class GiftCertificateRepositoryImplTest {
             .setName(CLUP)
             .setDescription(CLUP_GIFT)
             .setPrice(new BigDecimal(150))
-            .setDuration(Short.valueOf("9"))
+            .setDuration(9)
             .build();
 
     private static final GiftCertificate FOR_UPDATING = GiftCertificate.getBuilder()
@@ -99,7 +99,7 @@ class GiftCertificateRepositoryImplTest {
             .setName(SPA)
             .setDescription(FAMILY_CERTIFICATE)
             .setPrice(new BigDecimal(755))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .build();
 
     private static Stream<Arguments> dataProvider() {

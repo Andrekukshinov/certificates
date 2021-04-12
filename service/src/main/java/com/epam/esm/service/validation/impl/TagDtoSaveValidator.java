@@ -1,21 +1,17 @@
-package com.epam.esm.service.validators.impl;
+package com.epam.esm.service.validation.impl;
 
 import com.epam.esm.service.dto.TagDto;
 import com.epam.esm.service.exception.ValidationException;
-import com.epam.esm.service.validators.Validator;
+import com.epam.esm.service.validation.SaveValidator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TagDtoValidator implements Validator<TagDto> {
+public class TagDtoSaveValidator implements SaveValidator<TagDto> {
 
     private static final int MAX_NAME_LENGTH = 50;
 
     @Override
     public void validate(TagDto object) throws ValidationException {
-        if (object == null) {
-            throw new ValidationException("object should exist!");
-        }
-
         validateName(object.getName());
     }
 

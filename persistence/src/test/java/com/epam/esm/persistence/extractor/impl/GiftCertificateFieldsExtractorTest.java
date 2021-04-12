@@ -33,7 +33,7 @@ class GiftCertificateFieldsExtractorTest {
                      .setName(STRING_VAL)
                      .setDescription(STRING_VAL)
                      .setPrice(PRICE_VAL)
-                     .setDuration(Short.valueOf(STRING_VAL))
+                     .setDuration(1)
                      .build();
 
     @Test
@@ -44,7 +44,7 @@ class GiftCertificateFieldsExtractorTest {
                 ID, LONG_VAL,
                 CREATE_DATE, DATE,
                 DESCRIPTION, STRING_VAL,
-                DURATION, Short.valueOf(STRING_VAL),
+                DURATION, Integer.valueOf(STRING_VAL),
                 NAME, STRING_VAL,
                 LAST_UPDATE, DATE,
                 PRICE, PRICE_VAL

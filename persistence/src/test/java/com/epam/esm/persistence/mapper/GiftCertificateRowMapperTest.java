@@ -39,8 +39,8 @@ class GiftCertificateRowMapperTest {
     void testMapRowShouldReturnCertificateObject() throws SQLException {
         when(rs.getString(any())).thenReturn(STRING_VAL);
         when(rs.getLong(any())).thenReturn(LONG_VAL);
-        Short shortVal = Short.valueOf(STRING_VAL);
-        when(rs.getShort(any())).thenReturn(shortVal);
+        Integer shortVal = Integer.valueOf(STRING_VAL);
+        when(rs.getInt(any())).thenReturn(shortVal);
         when(rs.getBigDecimal(any())).thenReturn(PRICE);
         when(rs.getObject(CREATE_DATE, LocalDateTime.class)).thenReturn(DATE);
         when(rs.getObject(LAST_UPDATE_DATE, LocalDateTime.class)).thenReturn(DATE);

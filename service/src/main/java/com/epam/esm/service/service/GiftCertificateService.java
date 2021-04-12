@@ -36,9 +36,10 @@ public interface GiftCertificateService {
     /**
      * Method that performs validation for given dto object and performs update action
      * @param certificateDto dto to be validated and performed logics with
+     * @param updateId certificate param to be updated by
      * @throws ValidationException in case of validation error occur
      */
-    void updateCertificate(GiftCertificateTagDto certificateDto) throws ValidationException;
+    void updateCertificate(GiftCertificateTagDto certificateDto, Long updateId) throws ValidationException;
 
     /**
      * Method that returns list of GiftCertificateTag dto entities based on

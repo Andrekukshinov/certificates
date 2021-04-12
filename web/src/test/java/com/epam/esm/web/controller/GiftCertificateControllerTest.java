@@ -44,7 +44,7 @@ class GiftCertificateControllerTest {
             .setName("name")
             .setDescription("desc")
             .setPrice(new BigDecimal(5))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .setTags(new HashSet<>())
             .build();
 
@@ -55,7 +55,7 @@ class GiftCertificateControllerTest {
             .setName("name")
             .setDescription("desc")
             .setPrice(new BigDecimal(5))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .build();
 
     private static final JavaTimeModule MODULE = new JavaTimeModule();
@@ -105,9 +105,10 @@ class GiftCertificateControllerTest {
     @Test
     void testSaveGiftCertificateShouldSaveAndReturnStatusOk() throws Exception {
         byte[] bytes = MAPPER.writeValueAsBytes(OBJECT);
+        doNothing().when(certificateService).save(any());
 
         mockMvc.perform(post("/gifts").content(bytes).contentType(APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().is2xxSuccessful());
         verify(certificateService, times(1)).save(OBJECT);
 
     }
@@ -115,7 +116,7 @@ class GiftCertificateControllerTest {
     @Test
     void testDeleteCertificateAndExpectStatusOk() throws Exception {
         mockMvc.perform(delete("/gifts/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().is2xxSuccessful());
 
         verify(certificateService, times(1)).deleteCertificate(1L);
     }
@@ -125,9 +126,9 @@ class GiftCertificateControllerTest {
     void testUpdateCertificateShouldReturnStatusOk() throws Exception {
         byte[] bytes = MAPPER.writeValueAsBytes(OBJECT);
 
-        mockMvc.perform(put("/gifts").content(bytes).contentType(APPLICATION_JSON))
-                .andExpect(status().isOk());
-        verify(certificateService, times(1)).updateCertificate(OBJECT);
+        mockMvc.perform(put("/gifts/1").content(bytes).contentType(APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
+        verify(certificateService, times(1)).updateCertificate(OBJECT, 1L);
     }
 
     @Test

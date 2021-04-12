@@ -1,6 +1,10 @@
 dependencies {
     implementation project(":persistence")
 
+    // https://mvnrepository.com/artifact/javax.validation/validation-api
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+
     // https://mvnrepository.com/artifact/org.springframework/spring-tx
     implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.5'
 

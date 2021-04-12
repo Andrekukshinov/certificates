@@ -1,9 +1,9 @@
-package com.epam.esm.service.validators.impl;
+package com.epam.esm.service.validation.impl;
 
 import com.epam.esm.service.dto.GiftCertificateTagDto;
 import com.epam.esm.service.dto.TagDto;
 import com.epam.esm.service.exception.ValidationException;
-import com.epam.esm.service.validators.Validator;
+import com.epam.esm.service.validation.SaveValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,16 +18,16 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class GiftCertificateTagDtoValidatorTest {
+class GiftCertificateTagDtoUpdateValidatorTest {
     private static final LocalDateTime DATE = LocalDateTime.parse("2021-03-25T00:00:00");
     private static final String SPA = "SPA";
     private static final String FAMILY_CERTIFICATE = "FAMILY_CERTIFICATE";
 
     @Mock
-    private Validator<TagDto> tagDtoValidator;
+    private SaveValidator<TagDto> tagDtoUpdateValidator;
 
     @InjectMocks
-    private GiftCertificateTagDtoValidator validator;
+    private GiftCertificateTagDtoUpdateValidator validator;
 
     @BeforeEach
     void init() {
@@ -36,15 +36,6 @@ class GiftCertificateTagDtoValidatorTest {
 
 
     private static Stream<Arguments> dataProvider() {
-        GiftCertificateTagDto invalidId = GiftCertificateTagDto.getBuilder()
-                .setId(-1L)
-                .setCreateDate(DATE)
-                .setLastUpdateDate(DATE)
-                .setName(SPA)
-                .setDescription(FAMILY_CERTIFICATE)
-                .setPrice(new BigDecimal(754))
-                .setDuration(Short.valueOf("3"))
-                .build();
         GiftCertificateTagDto createDateSpecified = GiftCertificateTagDto.getBuilder()
                 .setId(11L)
                 .setCreateDate(DATE)
@@ -52,7 +43,7 @@ class GiftCertificateTagDtoValidatorTest {
                 .setName(SPA)
                 .setDescription(FAMILY_CERTIFICATE)
                 .setPrice(new BigDecimal(754))
-                .setDuration(Short.valueOf("3"))
+                .setDuration(3)
                 .build();
         GiftCertificateTagDto updateDateDateSpecified =  GiftCertificateTagDto.getBuilder()
                 .setId(-1L)
@@ -60,7 +51,7 @@ class GiftCertificateTagDtoValidatorTest {
                 .setName(SPA)
                 .setDescription(FAMILY_CERTIFICATE)
                 .setPrice(new BigDecimal(754))
-                .setDuration(Short.valueOf("3"))
+                .setDuration(3)
                 .build();
         String tooLongName = "123456789012345678901234567890123456789012345678901";
         GiftCertificateTagDto longName = GiftCertificateTagDto.getBuilder()
@@ -68,7 +59,7 @@ class GiftCertificateTagDtoValidatorTest {
                 .setName(tooLongName)
                 .setDescription(FAMILY_CERTIFICATE)
                 .setPrice(new BigDecimal(754))
-                .setDuration(Short.valueOf("3"))
+                .setDuration(3)
                 .build();
         String tooLongDescription = "1123456789012345678901234567890123456789012345678901123456789012" +
                 "3456789012345678901234567890123456789011234567890123456789012345678901234567890123456" +
@@ -79,32 +70,30 @@ class GiftCertificateTagDtoValidatorTest {
                 .setName(SPA)
                 .setDescription(tooLongDescription)
                 .setPrice(new BigDecimal(754))
-                .setDuration(Short.valueOf("3"))
+                .setDuration(3)
                 .build();
         GiftCertificateTagDto invalidPrice = GiftCertificateTagDto.getBuilder()
                 .setId(-1L)
                 .setName(tooLongName)
                 .setDescription(FAMILY_CERTIFICATE)
                 .setPrice(new BigDecimal(-754))
-                .setDuration(Short.valueOf("3"))
+                .setDuration(3)
                 .build();
         GiftCertificateTagDto invalidDuration = GiftCertificateTagDto.getBuilder()
                 .setId(-1L)
                 .setName(tooLongName)
                 .setDescription(FAMILY_CERTIFICATE)
                 .setPrice(new BigDecimal(754))
-                .setDuration(Short.valueOf("-3"))
+                .setDuration(3)
                 .build();
 
         return Stream.of(
-                Arguments.of(invalidId, "id must be more than 0!"),
                 Arguments.of(longName, "name cannot be longer than 50 symbols!"),
                 Arguments.of(longDescr, "description cannot be longer than 255 symbols!"),
                 Arguments.of(createDateSpecified, "create date cannot be specified!"),
                 Arguments.of(updateDateDateSpecified, "last update date cannot be specified!"),
                 Arguments.of(invalidDuration, "duration cannot be negative!"),
-                Arguments.of(invalidPrice, "price cannot be negative!"),
-                Arguments.of(null, "object should exist!")
+                Arguments.of(invalidPrice, "price cannot be negative!")
         );
     }
 

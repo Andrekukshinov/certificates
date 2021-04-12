@@ -32,7 +32,10 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
     @Override
     public void saveCertificateTags(Long certificateId, Set<Tag> certificateTags) {
         Set<Tag> foundTags = getFoundTags(certificateTags);
-        Set<Long> foundTagsIds = foundTags.stream().map(Tag::getId).collect(Collectors.toSet());
+        Set<Long> foundTagsIds = foundTags
+                .stream()
+                .map(Tag::getId)
+                .collect(Collectors.toSet());
         List<Long> savedAbsentTagsIds = getSavedAbsentTagsIds(certificateTags, foundTags);
         foundTagsIds.addAll(savedAbsentTagsIds);
         List<TagGiftCertificateId> ids = foundTagsIds
@@ -49,7 +52,10 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
 
     private List<Long> getSavedAbsentTagsIds(Set<Tag> tags, Set<Tag> foundTags) {
         Set<String> tagNames = getSetTagNames(foundTags);
-        Set<Tag> absentTags = tags.stream().filter(tag -> !tagNames.contains(tag.getName())).collect(Collectors.toSet());
+        Set<Tag> absentTags = tags
+                .stream()
+                .filter(tag -> !tagNames.contains(tag.getName()))
+                .collect(Collectors.toSet());
         List<Long> result = new ArrayList<>();
         for (Tag tag : absentTags) {
             result.add(tagRepository.save(tag));
@@ -58,7 +64,10 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
     }
 
     private Set<String> getSetTagNames(Set<Tag> tags) {
-        return tags.stream().map(Tag::getName).collect(Collectors.toSet());
+        return tags
+                .stream()
+                .map(Tag::getName)
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -74,7 +83,8 @@ public class TagGiftCertificateServiceImpl implements TagGiftCertificateService 
     @Override
     public Set<TagDto> findCertificateTags(Long certificateId) {
         Set<Tag> certificateTagsDto = tagCertificateRepository.findCertificateTags(certificateId);
-        return certificateTagsDto.stream()
+        return certificateTagsDto
+                .stream()
                 .map(tag -> modelMapper.map(tag, TagDto.class))
                 .collect(Collectors.toSet());
     }

@@ -6,7 +6,7 @@ import com.epam.esm.service.dto.TagDto;
 import com.epam.esm.service.exception.EntityNotFoundException;
 import com.epam.esm.service.exception.ValidationException;
 import com.epam.esm.service.service.TagGiftCertificateService;
-import com.epam.esm.service.validators.Validator;
+import com.epam.esm.service.validation.SaveValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -40,7 +40,7 @@ class TagServiceImplTest {
     @Mock
     private ModelMapper modelMapper;
     @Mock
-    private Validator<TagDto> validator;
+    private SaveValidator<TagDto> updateValidator;
 
     @InjectMocks
     private TagServiceImpl service;
@@ -59,7 +59,7 @@ class TagServiceImplTest {
 
     @Test
     void testSaveTagShouldThrowValidationExceptionWhenInvalidObject() throws ValidationException {
-        doThrow(ValidationException.class).when(validator).validate(any());
+        doThrow(ValidationException.class).when(updateValidator).validate(any());
         when(modelMapper.map(any(), any())).thenReturn(PEOPLE_TAG);
 
         assertThrows(ValidationException.class, () -> service.saveTag(PEOPLE_TAG_DTO));

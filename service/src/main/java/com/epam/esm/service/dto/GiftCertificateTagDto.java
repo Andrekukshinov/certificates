@@ -2,6 +2,7 @@ package com.epam.esm.service.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 public class GiftCertificateTagDto {
@@ -11,13 +12,13 @@ public class GiftCertificateTagDto {
     private String name;
     private String description;
     private BigDecimal price;
-    private Short duration;
+    private Integer duration;
     private Set<TagDto> tags;
 
     public GiftCertificateTagDto() {
     }
 
-    private GiftCertificateTagDto(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration, Set<TagDto> tags) {
+    private GiftCertificateTagDto(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Integer duration, Set<TagDto> tags) {
         this.id = id;
         this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -76,11 +77,11 @@ public class GiftCertificateTagDto {
         this.price = price;
     }
 
-    public Short getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Short duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -100,44 +101,13 @@ public class GiftCertificateTagDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         GiftCertificateTagDto that = (GiftCertificateTagDto) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) {
-            return false;
-        }
-        if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) {
-            return false;
-        }
-        if (lastUpdateDate != null ? !lastUpdateDate.equals(that.lastUpdateDate) : that.lastUpdateDate != null) {
-            return false;
-        }
-        if (name != null ? !name.equals(that.name) : that.name != null) {
-            return false;
-        }
-        if (description != null ? !description.equals(that.description) : that.description != null) {
-            return false;
-        }
-        if (price != null ? !price.equals(that.price) : that.price != null) {
-            return false;
-        }
-        if (duration != null ? !duration.equals(that.duration) : that.duration != null) {
-            return false;
-        }
-        return tags != null ? tags.equals(that.tags) : that.tags == null;
+        return getId().equals(that.getId()) && getCreateDate().equals(that.getCreateDate()) && getLastUpdateDate().equals(that.getLastUpdateDate()) && getName().equals(that.getName()) && getDescription().equals(that.getDescription()) && getPrice().equals(that.getPrice()) && getDuration().equals(that.getDuration()) && getTags().equals(that.getTags());
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
-        result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (duration != null ? duration.hashCode() : 0);
-        result = 31 * result + (tags != null ? tags.hashCode() : 0);
-        return result;
+        return Objects.hash(getId(), getCreateDate(), getLastUpdateDate(), getName(), getDescription(), getPrice(), getDuration(), getTags());
     }
 
     public static final Builder getBuilder() {
@@ -151,7 +121,7 @@ public class GiftCertificateTagDto {
         private String name;
         private String description;
         private BigDecimal price;
-        private Short duration;
+        private Integer duration;
         private Set<TagDto> tags;
 
         private Builder(){}
@@ -186,7 +156,7 @@ public class GiftCertificateTagDto {
             return this;
         }
 
-        public Builder setDuration(Short duration) {
+        public Builder setDuration(Integer duration) {
             this.duration = duration;
             return this;
         }

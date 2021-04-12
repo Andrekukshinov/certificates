@@ -9,10 +9,10 @@ public class GiftCertificatesNoTagDto {
     private LocalDateTime lastUpdateDate;
     private String name;
     private String description;
+    private Integer duration;
     private BigDecimal price;
-    private Short duration;
 
-    private GiftCertificatesNoTagDto(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Short duration) {
+    private GiftCertificatesNoTagDto(Long id, LocalDateTime createDate, LocalDateTime lastUpdateDate, String name, String description, BigDecimal price, Integer duration) {
         this.id = id;
         this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -73,11 +73,11 @@ public class GiftCertificatesNoTagDto {
         this.price = price;
     }
 
-    public Short getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Short duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -136,7 +136,7 @@ public class GiftCertificatesNoTagDto {
         private String name;
         private String description;
         private BigDecimal price;
-        private Short duration;
+        private Integer duration;
 
         private Builder(){}
 
@@ -170,7 +170,7 @@ public class GiftCertificatesNoTagDto {
             return this;
         }
 
-        public Builder setDuration(Short duration) {
+        public Builder setDuration(Integer duration) {
             this.duration = duration;
             return this;
         }

@@ -6,13 +6,14 @@ import com.epam.esm.service.dto.SpecificationDto;
 import com.epam.esm.service.exception.ValidationException;
 import com.epam.esm.service.service.GiftCertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/gifts")
+@RequestMapping("/certificates")
 public class GiftCertificateController {
     private static final String ID = "id";
 
@@ -29,21 +30,25 @@ public class GiftCertificateController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void saveGiftCertificate(@RequestBody GiftCertificateTagDto certificate) throws ValidationException {
+
         certificateService.save(certificate);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCertificate(@PathVariable(ID) Long id) {
         certificateService.deleteCertificate(id);
     }
 
-    @PutMapping
-    public void updateCertificate(@RequestBody GiftCertificateTagDto certificateDto) throws ValidationException {
-        certificateService.updateCertificate(certificateDto);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateCertificate(@RequestBody GiftCertificateTagDto certificateDto, @PathVariable Long id) throws ValidationException {
+        certificateService.updateCertificate(certificateDto, id);
     }
 
-    @GetMapping("/search")
+    @GetMapping()
     public ResponseEntity<List<GiftCertificatesNoTagDto>> getByParam(SpecificationDto specification) {
         List<GiftCertificatesNoTagDto> bySpecification = certificateService.getBySpecification(specification);
         return ResponseEntity.ok(bySpecification);

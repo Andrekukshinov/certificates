@@ -51,7 +51,7 @@ class TagControllerTest {
         byte[] bytes = MAPPER.writeValueAsBytes(TAG_DTO);
 
         mockMvc.perform(post("/tags").content(bytes).contentType(APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().is2xxSuccessful());
         verify(service, times(1)).saveTag(TAG_DTO);
     }
 
@@ -69,7 +69,7 @@ class TagControllerTest {
     @Test
     void testDeleteTagShouldReturnOkStatus() throws Exception {
         mockMvc.perform(delete("/tags/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().is2xxSuccessful());
 
         verify(service, times(1)).deleteTag(1L);
     }

@@ -13,7 +13,8 @@ import com.epam.esm.service.dto.TagDto;
 import com.epam.esm.service.exception.EntityNotFoundException;
 import com.epam.esm.service.exception.ValidationException;
 import com.epam.esm.service.service.TagGiftCertificateService;
-import com.epam.esm.service.validators.Validator;
+import com.epam.esm.service.validation.SaveValidator;
+import com.epam.esm.service.validation.UpdateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -54,7 +55,7 @@ class GiftCertificateServiceImplTest {
             .setName(SPA)
             .setDescription(FAMILY_CERTIFICATE)
             .setPrice(new BigDecimal(754))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .setTags(TAGS)
             .build();
 
@@ -65,7 +66,7 @@ class GiftCertificateServiceImplTest {
             .setName(SPA)
             .setDescription(FAMILY_CERTIFICATE)
             .setPrice(new BigDecimal(754))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .setTags(new HashSet<>())
             .build();
 
@@ -76,7 +77,7 @@ class GiftCertificateServiceImplTest {
             .setName(SPA)
             .setDescription(FAMILY_CERTIFICATE)
             .setPrice(new BigDecimal(754))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .build();
 
     private static final GiftCertificateTagDto DTO = GiftCertificateTagDto.getBuilder()
@@ -86,7 +87,7 @@ class GiftCertificateServiceImplTest {
             .setName(SPA)
             .setDescription(FAMILY_CERTIFICATE)
             .setPrice(new BigDecimal(754))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .setTags(TAGS_DTO)
             .build();
 
@@ -97,13 +98,15 @@ class GiftCertificateServiceImplTest {
             .setName(SPA)
             .setDescription(FAMILY_CERTIFICATE)
             .setPrice(new BigDecimal(754))
-            .setDuration(Short.valueOf("3"))
+            .setDuration(3)
             .build();
 
     @Mock
     private GiftCertificateRepository certificateRepository;
     @Mock
-    private Validator<GiftCertificateTagDto> validator;
+    private UpdateValidator<GiftCertificateTagDto> updateValidator;
+    @Mock
+    private SaveValidator<GiftCertificateTagDto> saveValidator;
     @Mock
     private ModelMapper modelMapper;
     @Mock
@@ -126,7 +129,7 @@ class GiftCertificateServiceImplTest {
         service.save(DTO);
 
         verify(tagCertificateService, times(1)).saveCertificateTags(any(), any());
-        verify(validator, times(1)).validate(DTO);
+        verify(saveValidator, times(1)).validate(DTO);
         verify(certificateRepository, times(1)).save(FIRST);
         verify(modelMapper, times(1)).map(DTO, GiftCertificate.class);
     }
@@ -140,14 +143,15 @@ class GiftCertificateServiceImplTest {
         service.save(DTO);
 
         verify(tagCertificateService, times(0)).saveCertificateTags(any(), any());
-        verify(validator, times(1)).validate(DTO);
+        verify(saveValidator, times(1)).validate(DTO);
         verify(certificateRepository, times(1)).save(NO_TAGS_CERTIFICATE);
         verify(modelMapper, times(1)).map(DTO, GiftCertificate.class);
     }
 
     @Test
     void testSaveShouldThrowExceptionWhenObjectInvalid() throws ValidationException {
-        doThrow(ValidationException.class).when(validator).validate(any());
+        doThrow(ValidationException.class).when(saveValidator).validate(any());
+        when(certificateRepository.findById(any())).thenReturn(Optional.of(FIRST));
         when(certificateRepository.save(any()))
                 .thenAnswer((object) -> object.getArgument(0, GiftCertificate.class).getId());
 
@@ -155,7 +159,7 @@ class GiftCertificateServiceImplTest {
 
         assertThat(validationException.getClass(), is(ValidationException.class));
         verify(tagCertificateService, times(0)).saveCertificateTags(FIRST.getId(), TAGS);
-        verify(validator, times(1)).validate(DTO);
+        verify(saveValidator, times(1)).validate(DTO);
         verify(certificateRepository, times(0)).update(FIRST);
         verify(modelMapper, times(0)).map(DTO, GiftCertificate.class);
     }
@@ -186,11 +190,12 @@ class GiftCertificateServiceImplTest {
     void testUpdateCertificateShouldInvokeSaveCertificateTagsWhenTagsFound() throws ValidationException {
         when(modelMapper.map(any(), any())).thenReturn(FIRST);
         when(certificateRepository.update(any())).thenReturn(1);
+        when(certificateRepository.findById(any())).thenReturn(Optional.of(FIRST));
 
-        service.updateCertificate(DTO);
+        service.updateCertificate(DTO, CERTIFICATE_ID_DEFAULT_ID);
 
         verify(tagCertificateService, times(1)).saveCertificateTags(FIRST.getId(), TAGS);
-        verify(validator, times(1)).validate(DTO);
+        verify(updateValidator, times(1)).validate(DTO);
         verify(certificateRepository, times(1)).update(FIRST);
         verify(modelMapper, times(1)).map(DTO, GiftCertificate.class);
     }
@@ -198,27 +203,45 @@ class GiftCertificateServiceImplTest {
     @Test
     void testUpdateCertificateShouldInvokeDeleteCertificateTagsWhenTagsNotFound() throws ValidationException {
         when(modelMapper.map(any(), any())).thenReturn(EMPTY_TAGS_CERTIFICATE);
+        when(certificateRepository.findById(any())).thenReturn(Optional.of(FIRST));
         when(certificateRepository.update(any())).thenReturn(1);
 
-        service.updateCertificate(DTO);
+        service.updateCertificate(DTO, CERTIFICATE_ID_DEFAULT_ID);
 
         verify(tagCertificateService, times(1)).deleteCertificateTags(FIRST.getId());
-        verify(validator, times(1)).validate(DTO);
+        verify(updateValidator, times(1)).validate(DTO);
         verify(certificateRepository, times(1)).update(EMPTY_TAGS_CERTIFICATE);
         verify(modelMapper, times(1)).map(DTO, GiftCertificate.class);
     }
 
     @Test
     void testUpdateCertificateShouldThrowExceptionWhenObjectInvalid() throws ValidationException {
-        doThrow(ValidationException.class).when(validator).validate(any());
+        doThrow(ValidationException.class).when(updateValidator).validate(any());
         when(certificateRepository.update(any()))
                 .thenAnswer((object) -> object.getArgument(0, GiftCertificate.class).getId());
+        when(certificateRepository.findById(any())).thenReturn(Optional.of(FIRST));
 
-        assertThrows(ValidationException.class, () -> service.updateCertificate(DTO));
+        assertThrows(ValidationException.class, () -> service.updateCertificate(DTO, CERTIFICATE_ID_DEFAULT_ID));
 
         verify(tagCertificateService, times(0)).saveCertificateTags(FIRST.getId(), TAGS);
-        verify(validator, times(1)).validate(DTO);
+        verify(updateValidator, times(1)).validate(DTO);
         verify(certificateRepository, times(0)).update(FIRST);
+        verify(modelMapper, times(0)).map(DTO, GiftCertificate.class);
+    }
+
+    @Test
+    void testUpdateCertificateShouldThrowExceptionWhenIdInvalid() throws ValidationException {
+        doThrow(ValidationException.class).when(updateValidator).validate(any());
+        when(certificateRepository.update(any()))
+                .thenAnswer((object) -> object.getArgument(0, GiftCertificate.class).getId());
+        when(certificateRepository.findById(any())).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> service.updateCertificate(DTO, CERTIFICATE_ID_DEFAULT_ID));
+
+        verify(tagCertificateService, times(0)).saveCertificateTags(FIRST.getId(), TAGS);
+        verify(updateValidator, times(0)).validate(DTO);
+        verify(certificateRepository, times(0)).update(FIRST);
+        verify(certificateRepository, times(1)).findById(CERTIFICATE_ID_DEFAULT_ID);
         verify(modelMapper, times(0)).map(DTO, GiftCertificate.class);
     }
 
