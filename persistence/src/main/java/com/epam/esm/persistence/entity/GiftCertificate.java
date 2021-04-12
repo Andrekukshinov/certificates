@@ -1,11 +1,10 @@
 package com.epam.esm.persistence.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class GiftCertificate implements Serializable {
+public class GiftCertificate {
     private Long id;
     private LocalDateTime createDate;
     private LocalDateTime lastUpdateDate;
