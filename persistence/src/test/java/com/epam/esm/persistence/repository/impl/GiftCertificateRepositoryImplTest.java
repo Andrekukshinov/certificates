@@ -44,13 +44,13 @@ class GiftCertificateRepositoryImplTest {
     private static final String CLUP_GIFT = "for leatherman";
 
     private static final GiftCertificate FOR_SAVING = GiftCertificate.getBuilder()
-                    .setCreateDate(DATE)
-                    .setLastUpdateDate(DATE)
-                    .setName(SPA)
-                    .setDescription(FAMILY_CERTIFICATE)
-                    .setPrice(new BigDecimal(754))
-                    .setDuration(3)
-                    .build();
+            .setCreateDate(DATE)
+            .setLastUpdateDate(DATE)
+            .setName(SPA)
+            .setDescription(FAMILY_CERTIFICATE)
+            .setPrice(new BigDecimal(754))
+            .setDuration(3)
+            .build();
 
     private static final GiftCertificate FIRST = GiftCertificate.getBuilder()
             .setId(1L)
@@ -72,7 +72,7 @@ class GiftCertificateRepositoryImplTest {
             .setDuration(14)
             .build();
 
-    private static final GiftCertificate THIRD =  GiftCertificate.getBuilder()
+    private static final GiftCertificate THIRD = GiftCertificate.getBuilder()
             .setId(3L)
             .setCreateDate(DATE)
             .setLastUpdateDate(DATE)
@@ -103,20 +103,20 @@ class GiftCertificateRepositoryImplTest {
             .build();
 
     private static Stream<Arguments> dataProvider() {
-         SearchSpecification findFirstAndFourth = new SearchSpecification("people", "e", "p");
-         SearchSpecification findFirstThirdAndFourth = new SearchSpecification(null, "e", "p");
-         SearchSpecification findFirstThirdAndFourthByDescription = new SearchSpecification(null, null, "p");
-         SearchSpecification findAll = new SearchSpecification(null, null, null);
-         SortSpecification nameSortAsc = new SortSpecification(null, SortDirection.ASC);
-         SortSpecification nameSortDesc = new SortSpecification(null, SortDirection.DESC);
-         SortSpecification nameDescriptionSortAsc = new SortSpecification(SortDirection.ASC, SortDirection.ASC);
-         return Stream.of(
-                  Arguments.of(findFirstAndFourth, nameSortAsc, List.of(FOURTH, FIRST)),
-                  Arguments.of(findFirstThirdAndFourth, nameSortAsc, List.of(FOURTH, THIRD, FIRST)),
-                  Arguments.of(findFirstThirdAndFourthByDescription, nameSortDesc, List.of(FIRST, THIRD, FOURTH )),
-                  Arguments.of(findAll, nameDescriptionSortAsc, List.of(FOURTH, SECOND, THIRD, FIRST))
-          );
-     }
+        SearchSpecification findFirstAndFourth = new SearchSpecification("people", "e", "p");
+        SearchSpecification findFirstThirdAndFourth = new SearchSpecification(null, "e", "p");
+        SearchSpecification findFirstThirdAndFourthByDescription = new SearchSpecification(null, null, "p");
+        SearchSpecification findAll = new SearchSpecification(null, null, null);
+        SortSpecification nameSortAsc = new SortSpecification(null, SortDirection.ASC);
+        SortSpecification nameSortDesc = new SortSpecification(null, SortDirection.DESC);
+        SortSpecification nameDescriptionSortAsc = new SortSpecification(SortDirection.ASC, SortDirection.ASC);
+        return Stream.of(
+                Arguments.of(findFirstAndFourth, nameSortAsc, List.of(FOURTH, FIRST)),
+                Arguments.of(findFirstThirdAndFourth, nameSortAsc, List.of(FOURTH, THIRD, FIRST)),
+                Arguments.of(findFirstThirdAndFourthByDescription, nameSortDesc, List.of(FIRST, THIRD, FOURTH)),
+                Arguments.of(findAll, nameDescriptionSortAsc, List.of(FOURTH, SECOND, THIRD, FIRST))
+        );
+    }
 
     @Autowired
     private GiftCertificateRepositoryImpl repository;
@@ -141,7 +141,7 @@ class GiftCertificateRepositoryImplTest {
     @Test
     @Rollback
     void testDeleteShouldReturnDeletedObjectsAmountWhenDeleted() {
-         int amount  = repository.delete(2L);
+        int amount = repository.delete(2L);
 
         assertThat(amount, is(EXPECTED_AMOUNT));
     }
@@ -149,7 +149,7 @@ class GiftCertificateRepositoryImplTest {
     @Test
     @Rollback
     void testUpdateShouldReturnUpdatedObjectsAmountWhenUpdated() {
-         int amount  = repository.update(FOR_UPDATING);
+        int amount = repository.update(FOR_UPDATING);
 
         assertThat(amount, is(EXPECTED_AMOUNT));
     }
@@ -158,9 +158,9 @@ class GiftCertificateRepositoryImplTest {
     @MethodSource("dataProvider")
     @Rollback
     void testFindBySpecificationShouldReturnListOfObjects(
-                SearchSpecification searchSpecification,
-                SortSpecification sortSpecification,
-                List<GiftCertificate> expectedCertificates) {
+            SearchSpecification searchSpecification,
+            SortSpecification sortSpecification,
+            List<GiftCertificate> expectedCertificates) {
         List<GiftCertificate> giftCertificates = repository.findBySpecification(searchSpecification, sortSpecification);
 
         assertThat(giftCertificates, is(expectedCertificates));

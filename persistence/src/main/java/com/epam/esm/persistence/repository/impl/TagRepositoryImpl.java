@@ -20,6 +20,7 @@ import java.util.Set;
 public class TagRepositoryImpl implements TagRepository {
 
     private static final String GET_BY_ID = "SELECT id, name FROM tags WHERE id = ?";
+    private static final String GET_BY_NAME = "SELECT id, name FROM tags WHERE name = ?";
     private static final String DELETE_TAG = "DELETE FROM tags WHERE id = ?";
     private static final String COMMA = ", ";
     private static final String GET_ALL_WHERE_NAME_IN = "SELECT id, name FROM tags WHERE name IN (%s)";
@@ -62,5 +63,10 @@ public class TagRepositoryImpl implements TagRepository {
         String sqlNamesPlaceHolder = String.join(COMMA, Collections.nCopies(tagNames.size(), "?"));
         String query = String.format(GET_ALL_WHERE_NAME_IN, sqlNamesPlaceHolder);
         return Set.copyOf(jdbc.query(query, mapper, tagNames.toArray()));
+    }
+
+    @Override
+    public Optional<Tag> findByName(String tagName) {
+        return Optional.ofNullable(DataAccessUtils.singleResult(jdbc.query(GET_BY_NAME, mapper, tagName)));
     }
 }

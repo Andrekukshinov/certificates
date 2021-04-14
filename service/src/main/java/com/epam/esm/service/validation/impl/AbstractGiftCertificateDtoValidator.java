@@ -48,5 +48,5 @@ public abstract class AbstractGiftCertificateDtoValidator {
         }
     }
 
-    protected abstract void validateCertificateTags(Set<TagDto> tags) throws ValidationException ;
+    protected abstract void validateCertificateTags(Set<TagDto> tags) throws ValidationException;
 }

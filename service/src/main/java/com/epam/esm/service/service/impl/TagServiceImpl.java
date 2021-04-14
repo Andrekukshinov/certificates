@@ -3,6 +3,7 @@ package com.epam.esm.service.service.impl;
 import com.epam.esm.persistence.entity.Tag;
 import com.epam.esm.persistence.repository.TagRepository;
 import com.epam.esm.service.dto.TagDto;
+import com.epam.esm.service.exception.EntityAlreadyExistsException;
 import com.epam.esm.service.exception.EntityNotFoundException;
 import com.epam.esm.service.exception.ValidationException;
 import com.epam.esm.service.service.TagGiftCertificateService;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class TagServiceImpl implements TagService {
 
     private static final String WRONG_TAG = "tag with id = %d not found";
+    private static final String ALREADY_EXISTS_PATTERN = "tag with name %s already exists!";
 
     private final TagRepository tagRepository;
     private final TagGiftCertificateService tagCertificateService;
@@ -37,6 +39,11 @@ public class TagServiceImpl implements TagService {
     public void saveTag(TagDto tagDto) throws ValidationException {
         saveValidator.validate(tagDto);
         Tag tag = modelMapper.map(tagDto, Tag.class);
+        String name = tag.getName();
+        Optional<Tag> tagOptional = tagRepository.findByName(name);
+        tagOptional.ifPresent((ignored) -> {
+            throw new EntityAlreadyExistsException(String.format(ALREADY_EXISTS_PATTERN, name));
+        });
         tagRepository.save(tag);
     }
 

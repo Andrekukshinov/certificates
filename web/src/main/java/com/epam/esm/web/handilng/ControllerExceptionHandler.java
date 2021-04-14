@@ -1,5 +1,6 @@
 package com.epam.esm.web.handilng;
 
+import com.epam.esm.service.exception.EntityAlreadyExistsException;
 import com.epam.esm.service.exception.EntityNotFoundException;
 import com.epam.esm.service.exception.ValidationException;
 import com.epam.esm.web.model.BindExceptionModel;
@@ -26,6 +27,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger LOGGER = LogManager.getLogger(ControllerExceptionHandler.class);
     private static final int INTERNAL_SERVER_ERROR = 500_01;
     private static final int ENTITY_NOT_FOUND_EXCEPTION = 404_01;
+    private static final int ENTITY_EXISTS_EXCEPTION = 409_01;
     private static final int NOT_FOUND_EXCEPTION = 404_00;
     private static final int BAD_REQUEST = 400_00;
     private static final String INTERNAL_SERVER_ERROR_MESSAGE = "Internal server error";
@@ -45,6 +47,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         LOGGER.error(ex.getMessage(), ex);
         ExceptionModel body = new ExceptionModel(ex.getMessage(), ENTITY_NOT_FOUND_EXCEPTION);
         return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = EntityAlreadyExistsException.class)
+    protected ResponseEntity<Object> handleConflict(EntityAlreadyExistsException ex, WebRequest request) {
+        LOGGER.error(ex.getMessage(), ex);
+        ExceptionModel body = new ExceptionModel(ex.getMessage(), ENTITY_EXISTS_EXCEPTION);
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
     @ExceptionHandler(value = ValidationException.class)

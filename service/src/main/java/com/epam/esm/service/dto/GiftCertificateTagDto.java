@@ -124,7 +124,8 @@ public class GiftCertificateTagDto {
         private Integer duration;
         private Set<TagDto> tags;
 
-        private Builder(){}
+        private Builder() {
+        }
 
         public Builder setId(Long id) {
             this.id = id;
@@ -166,7 +167,7 @@ public class GiftCertificateTagDto {
             return this;
         }
 
-        public GiftCertificateTagDto build(){
+        public GiftCertificateTagDto build() {
             return new GiftCertificateTagDto(id, createDate, lastUpdateDate, name, description, price, duration, tags);
         }
     }

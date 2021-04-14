@@ -138,7 +138,8 @@ public class GiftCertificatesNoTagDto {
         private BigDecimal price;
         private Integer duration;
 
-        private Builder(){}
+        private Builder() {
+        }
 
         public Builder setId(Long id) {
             this.id = id;
@@ -176,7 +177,7 @@ public class GiftCertificatesNoTagDto {
         }
 
 
-        public GiftCertificatesNoTagDto build(){
+        public GiftCertificatesNoTagDto build() {
             return new GiftCertificatesNoTagDto(id, createDate, lastUpdateDate, name, description, price, duration);
         }
     }

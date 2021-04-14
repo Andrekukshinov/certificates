@@ -17,7 +17,9 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class TagGiftCertificateServiceImplTest {
 
@@ -43,7 +45,7 @@ class TagGiftCertificateServiceImplTest {
     }
 
     @Test
-    void testSaveCertificateTagsShouldVerifyTagRepositorySaveCalls () {
+    void testSaveCertificateTagsShouldVerifyTagRepositorySaveCalls() {
         when(tagRepository.findTagsByNames(any())).thenReturn(new HashSet<>());
 
         service.saveCertificateTags(CERTIFICATE_ID_DEFAULT_ID, TAGS);
@@ -55,7 +57,7 @@ class TagGiftCertificateServiceImplTest {
     }
 
     @Test
-    void testSaveCertificateTagsShouldVerifyTagRepositoryNoCalls () {
+    void testSaveCertificateTagsShouldVerifyTagRepositoryNoCalls() {
         when(tagRepository.findTagsByNames(any())).thenReturn(TAGS);
 
         service.saveCertificateTags(CERTIFICATE_ID_DEFAULT_ID, TAGS);

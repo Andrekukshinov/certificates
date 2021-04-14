@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages={"com.epam.esm.persistence"})
+@ComponentScan(basePackages = {"com.epam.esm.persistence"})
 @Profile("test")
 public class TestConfiguration {
     @Bean

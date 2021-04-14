@@ -45,14 +45,14 @@ class GiftCertificateRowMapperTest {
         when(rs.getObject(CREATE_DATE, LocalDateTime.class)).thenReturn(DATE);
         when(rs.getObject(LAST_UPDATE_DATE, LocalDateTime.class)).thenReturn(DATE);
         GiftCertificate expected = GiftCertificate.getBuilder()
-                        .setId(LONG_VAL)
-                        .setCreateDate(DATE)
-                        .setLastUpdateDate(DATE)
-                        .setName(STRING_VAL)
-                        .setDescription(STRING_VAL)
-                        .setPrice(PRICE)
-                        .setDuration(shortVal)
-                        .build();
+                .setId(LONG_VAL)
+                .setCreateDate(DATE)
+                .setLastUpdateDate(DATE)
+                .setName(STRING_VAL)
+                .setDescription(STRING_VAL)
+                .setPrice(PRICE)
+                .setDuration(shortVal)
+                .build();
 
 
         GiftCertificate actual = mapper.mapRow(rs, 0);

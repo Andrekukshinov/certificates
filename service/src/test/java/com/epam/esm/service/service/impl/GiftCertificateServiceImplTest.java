@@ -33,7 +33,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class GiftCertificateServiceImplTest {
 
@@ -262,11 +265,11 @@ class GiftCertificateServiceImplTest {
         verify(modelMapper, times(3)).map(any(), any());
     }
 
-     @Test
-     void testDeleteCertificateShouldInvokeMethods () {
-         service.deleteCertificate(CERTIFICATE_ID_DEFAULT_ID);
+    @Test
+    void testDeleteCertificateShouldInvokeMethods() {
+        service.deleteCertificate(CERTIFICATE_ID_DEFAULT_ID);
 
-         verify(tagCertificateService, times(1)).deleteCertificateTags(1L);
-         verify(certificateRepository, times(1)).delete(1L);
-     }
+        verify(tagCertificateService, times(1)).deleteCertificateTags(1L);
+        verify(certificateRepository, times(1)).delete(1L);
+    }
 }

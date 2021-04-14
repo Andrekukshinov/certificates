@@ -10,6 +10,7 @@ import java.util.List;
 public interface SearchParametersExtractor {
     /**
      * Method for extracting values from search specification
+     *
      * @param specification to extract fields from
      * @return list of specification field values
      */

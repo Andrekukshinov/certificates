@@ -17,28 +17,28 @@ import static org.mockito.Mockito.when;
 
 class TagRowMapperTest {
 
-     private static final long ID = 1L;
-     private static final String NAME = "";
-     @Mock
-     private ResultSet rs;
+    private static final long ID = 1L;
+    private static final String NAME = "";
+    @Mock
+    private ResultSet rs;
 
-     @InjectMocks
-     private TagRowMapper mapper;
+    @InjectMocks
+    private TagRowMapper mapper;
 
-     @BeforeEach
-     void init() {
-          MockitoAnnotations.openMocks(this);
-     }
+    @BeforeEach
+    void init() {
+        MockitoAnnotations.openMocks(this);
+    }
 
-     @Test
-     void testMapRowShouldReturnTagObject () throws SQLException {
-          when(rs.getString(any())).thenReturn(NAME);
-          when(rs.getLong(any())).thenReturn(ID);
-          Tag expected = new Tag(ID, NAME);
+    @Test
+    void testMapRowShouldReturnTagObject() throws SQLException {
+        when(rs.getString(any())).thenReturn(NAME);
+        when(rs.getLong(any())).thenReturn(ID);
+        Tag expected = new Tag(ID, NAME);
 
-          Tag actual = mapper.mapRow(rs, 0);
+        Tag actual = mapper.mapRow(rs, 0);
 
-          assertThat(actual, is(expected));
-     }
+        assertThat(actual, is(expected));
+    }
 
 }

@@ -14,6 +14,7 @@ import java.util.List;
 public interface GiftCertificateService {
     /**
      * Method that performs validation for given dto object and saving of certificate
+     *
      * @param certificate dto to be validated and performed logics with
      * @throws ValidationException in case of validation error occur
      */
@@ -21,22 +22,25 @@ public interface GiftCertificateService {
 
     /**
      * Method that returns GiftCertificateTag dto based on received id
+     *
      * @param id to find object with
-     * @throws com.epam.esm.service.exception.EntityNotFoundException if entity with id not exists
      * @return GiftCertificateTag dto entity with specified id
+     * @throws com.epam.esm.service.exception.EntityNotFoundException if entity with id not exists
      */
     GiftCertificateTagDto getCertificateWithTagsById(Long id);
 
     /**
      * Method that deletes certificate
+     *
      * @param certificateId object id to perform logics with
      */
     void deleteCertificate(Long certificateId);
 
     /**
      * Method that performs validation for given dto object and performs update action
+     *
      * @param certificateDto dto to be validated and performed logics with
-     * @param updateId certificate param to be updated by
+     * @param updateId       certificate param to be updated by
      * @throws ValidationException in case of validation error occur
      */
     void updateCertificate(GiftCertificateTagDto certificateDto, Long updateId) throws ValidationException;
@@ -44,9 +48,10 @@ public interface GiftCertificateService {
     /**
      * Method that returns list of GiftCertificateTag dto entities based on
      * received specification dto object
+     *
      * @param searchSpecification to find object with
-     * @throws com.epam.esm.service.exception.EntityNotFoundException if entity with id not exists
      * @return list of GiftCertificateTag dto entity with specified id
+     * @throws com.epam.esm.service.exception.EntityNotFoundException if entity with id not exists
      */
     List<GiftCertificatesNoTagDto> getBySpecification(SpecificationDto searchSpecification);
 }

@@ -9,21 +9,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StringToSortDirectionConvertorTest {
 
-     @Test
-     void testConvertShouldConvertWhenValid () {
-         StringToSortDirectionConvertor convertor = new StringToSortDirectionConvertor();
+    @Test
+    void testConvertShouldConvertWhenValid() {
+        StringToSortDirectionConvertor convertor = new StringToSortDirectionConvertor();
 
-         SortDirection asc = convertor.convert("ASC");
+        SortDirection asc = convertor.convert("ASC");
 
-         assertThat(asc, is(SortDirection.ASC));
-     }
+        assertThat(asc, is(SortDirection.ASC));
+    }
 
-     @Test
-     void testConvertShouldThrowIllegalArgumentExceptionWhenInvalid () {
-         StringToSortDirectionConvertor convertor = new StringToSortDirectionConvertor();
+    @Test
+    void testConvertShouldThrowIllegalArgumentExceptionWhenInvalid() {
+        StringToSortDirectionConvertor convertor = new StringToSortDirectionConvertor();
 
-         assertThrows(IllegalArgumentException.class, () -> convertor.convert("ASCY"));
+        assertThrows(IllegalArgumentException.class, () -> convertor.convert("ASCY"));
 
-     }
+    }
 
 }

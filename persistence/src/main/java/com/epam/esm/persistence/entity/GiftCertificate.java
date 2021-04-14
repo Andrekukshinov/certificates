@@ -168,7 +168,8 @@ public class GiftCertificate {
         private Integer duration;
         private Set<Tag> tags;
 
-        private Builder(){}
+        private Builder() {
+        }
 
         public Builder setId(Long id) {
             this.id = id;
@@ -210,7 +211,7 @@ public class GiftCertificate {
             return this;
         }
 
-        public GiftCertificate build(){
+        public GiftCertificate build() {
             return new GiftCertificate(id, createDate, lastUpdateDate, name, description, price, duration, tags);
         }
     }

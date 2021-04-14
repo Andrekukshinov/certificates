@@ -23,7 +23,7 @@ class TagDtoSaveValidatorTest {
 
     @ParameterizedTest
     @MethodSource("dataProvider")
-     void testValidateShouldThrowValidationExceptionWhenInvalid (TagDto tagDto, String msg) {
-         assertThrows(ValidationException.class, () -> new TagDtoSaveValidator().validate(tagDto), msg);
-     }
+    void testValidateShouldThrowValidationExceptionWhenInvalid(TagDto tagDto, String msg) {
+        assertThrows(ValidationException.class, () -> new TagDtoSaveValidator().validate(tagDto), msg);
+    }
 }

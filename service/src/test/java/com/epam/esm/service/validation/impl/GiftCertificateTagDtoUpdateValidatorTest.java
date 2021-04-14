@@ -45,7 +45,7 @@ class GiftCertificateTagDtoUpdateValidatorTest {
                 .setPrice(new BigDecimal(754))
                 .setDuration(3)
                 .build();
-        GiftCertificateTagDto updateDateDateSpecified =  GiftCertificateTagDto.getBuilder()
+        GiftCertificateTagDto updateDateDateSpecified = GiftCertificateTagDto.getBuilder()
                 .setId(-1L)
                 .setLastUpdateDate(DATE)
                 .setName(SPA)

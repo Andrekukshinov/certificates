@@ -13,6 +13,7 @@ import java.util.List;
 public interface GiftCertificateRepository extends CRDRepository<GiftCertificate> {
     /**
      * Method for updating certificate entity in the data source
+     *
      * @param certificate object to be updated
      * @return amount of updated rows
      */
@@ -20,8 +21,9 @@ public interface GiftCertificateRepository extends CRDRepository<GiftCertificate
 
     /**
      * Method for returning list of certificates based on received specifications from data source
+     *
      * @param searchSpecification to search certificate with
-     * @param sortSpecification to sort certificate with
+     * @param sortSpecification   to sort certificate with
      * @return list of found certificates
      */
     List<GiftCertificate> findBySpecification(SearchSpecification searchSpecification, SortSpecification sortSpecification);
