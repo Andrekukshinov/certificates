@@ -94,7 +94,7 @@ class GiftCertificateControllerTest {
     void getGiftCertificateById() throws Exception {
         when(certificateService.getCertificateWithTagsById(1L)).thenReturn(OBJECT);
 
-        mockMvc.perform(get("/gifts/1"))
+        mockMvc.perform(get("/api/v1/certificates/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(1)))
@@ -116,7 +116,7 @@ class GiftCertificateControllerTest {
         byte[] bytes = MAPPER.writeValueAsBytes(OBJECT);
         doNothing().when(certificateService).save(any());
 
-        mockMvc.perform(post("/gifts").content(bytes).contentType(APPLICATION_JSON))
+        mockMvc.perform(post("/api/v1/certificates").content(bytes).contentType(APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         verify(certificateService, times(1)).save(OBJECT);
 
@@ -124,7 +124,7 @@ class GiftCertificateControllerTest {
 
     @Test
     void testDeleteCertificateAndExpectStatusOk() throws Exception {
-        mockMvc.perform(delete("/gifts/1"))
+        mockMvc.perform(delete("/api/v1/certificates/1"))
                 .andExpect(status().is2xxSuccessful());
 
         verify(certificateService, times(1)).deleteCertificate(1L);
@@ -135,7 +135,7 @@ class GiftCertificateControllerTest {
     void testUpdateCertificateShouldReturnStatusOk() throws Exception {
         byte[] bytes = MAPPER.writeValueAsBytes(OBJECT);
 
-        mockMvc.perform(put("/gifts/1").content(bytes).contentType(APPLICATION_JSON))
+        mockMvc.perform(put("/api/v1/certificates/1").content(bytes).contentType(APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         verify(certificateService, times(1)).updateCertificate(OBJECT, 1L);
     }
@@ -147,7 +147,7 @@ class GiftCertificateControllerTest {
         when(certificateService.getBySpecification(specificationDto)).thenReturn(List.of(OBJECT_NO_TAGS, OBJECT_NO_TAGS));
         MultiValueMap<String, String> map = getRequestSpecificationMap();
 
-        mockMvc.perform(get("/gifts/search")
+        mockMvc.perform(get("/api/v1/certificates")
                 .params(map)
         )
                 .andExpect(status().isOk())

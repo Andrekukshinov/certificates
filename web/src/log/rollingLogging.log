@@ -10422,3 +10422,79 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2021-04-12 17:56:04 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
 2021-04-12 17:56:04 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
 2021-04-12 17:56:04 INFO  TestDispatcherServlet:547 - Completed initialization in 1 ms
+2021-04-14 21:28:06 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:547 - Completed initialization in 3 ms
+2021-04-14 21:28:06 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:28:06 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:28:06 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:28:06 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:28:06 WARN  PageNotFound:1271 - No mapping for GET /gifts/search
+2021-04-14 21:28:06 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:28:06 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:28:06 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:06 INFO  TestDispatcherServlet:547 - Completed initialization in 1 ms
+2021-04-14 21:28:56 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:28:56 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:28:56 INFO  TestDispatcherServlet:547 - Completed initialization in 3 ms
+2021-04-14 21:30:29 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:30:29 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:30:29 INFO  TestDispatcherServlet:547 - Completed initialization in 4 ms
+2021-04-14 21:30:29 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:30:29 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:30:29 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:30:29 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:30:29 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:30:29 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:30:42 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:547 - Completed initialization in 3 ms
+2021-04-14 21:30:42 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:30:42 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:547 - Completed initialization in 1 ms
+2021-04-14 21:30:42 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:547 - Completed initialization in 1 ms
+2021-04-14 21:30:42 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:30:42 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:31:30 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:31:30 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:31:30 INFO  TestDispatcherServlet:547 - Completed initialization in 4 ms
+2021-04-14 21:31:31 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:31:31 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:31:31 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:31:31 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:547 - Completed initialization in 1 ms
+2021-04-14 21:31:31 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:31:31 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms
+2021-04-14 21:31:31 INFO  MockServletContext:455 - Initializing Spring TestDispatcherServlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:525 - Initializing Servlet ''
+2021-04-14 21:31:31 INFO  TestDispatcherServlet:547 - Completed initialization in 0 ms

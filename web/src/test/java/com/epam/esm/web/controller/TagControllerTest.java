@@ -56,7 +56,7 @@ class TagControllerTest {
     void testSaveTagReturnOkStatus() throws Exception {
         byte[] bytes = MAPPER.writeValueAsBytes(TAG_DTO);
 
-        mockMvc.perform(post("/tags").content(bytes).contentType(APPLICATION_JSON))
+        mockMvc.perform(post("/api/v1/tags").content(bytes).contentType(APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
         verify(service, times(1)).saveTag(TAG_DTO);
     }
@@ -65,7 +65,7 @@ class TagControllerTest {
     void testGetTagByIdShouldReturnTagDto() throws Exception {
         when(service.getTag(1L)).thenReturn(TAG_DTO);
 
-        mockMvc.perform(get("/tags/1"))
+        mockMvc.perform(get("/api/v1/tags/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.name", is("name")));
@@ -74,7 +74,7 @@ class TagControllerTest {
 
     @Test
     void testDeleteTagShouldReturnOkStatus() throws Exception {
-        mockMvc.perform(delete("/tags/1"))
+        mockMvc.perform(delete("/api/v1//tags/1"))
                 .andExpect(status().is2xxSuccessful());
 
         verify(service, times(1)).deleteTag(1L);

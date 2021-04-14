@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/certificates")
+@RequestMapping("/api/v1/certificates")
 public class GiftCertificateController {
     private static final String ID = "id";
 
