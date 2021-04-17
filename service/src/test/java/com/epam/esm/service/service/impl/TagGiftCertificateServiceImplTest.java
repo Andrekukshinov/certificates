@@ -26,7 +26,7 @@ class TagGiftCertificateServiceImplTest {
     private static final long CERTIFICATE_ID_DEFAULT_ID = 1L;
     private static final Tag PEOPLE_TAG = new Tag(CERTIFICATE_ID_DEFAULT_ID, "PEOPLE");
     private static final Set<Tag> TAGS = Set.of(PEOPLE_TAG);
-    private static final TagDto PEOPLE_TAG_DTO = new TagDto("PEOPLE");
+    private static final TagDto PEOPLE_TAG_DTO = new TagDto(1L, "PEOPLE");
     private static final Set<TagDto> TAGS_DTO = Set.of(PEOPLE_TAG_DTO);
 
 

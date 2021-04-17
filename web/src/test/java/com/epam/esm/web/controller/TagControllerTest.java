@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 class TagControllerTest {
 
-    private static final TagDto TAG_DTO = new TagDto("name");
+    private static final TagDto TAG_DTO = new TagDto(1L, "name");
     private static final MediaType APPLICATION_JSON = MediaType.APPLICATION_JSON;
     private static final JavaTimeModule MODULE = new JavaTimeModule();
     private static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder.json()

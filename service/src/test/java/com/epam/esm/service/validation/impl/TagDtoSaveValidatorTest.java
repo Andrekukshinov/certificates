@@ -15,7 +15,7 @@ class TagDtoSaveValidatorTest {
 
     private static Stream<Arguments> dataProvider() {
         String tooLongName = "123456789012345678901234567890123456789012345678901";
-        TagDto longName = new TagDto(tooLongName);
+        TagDto longName = new TagDto(1L, tooLongName);
         return Stream.of(
                 Arguments.of(longName, "name cannot be longer than 50 symbols!")
         );
