@@ -25,4 +25,9 @@ public interface TagRepository extends CRDRepository<Tag> {
      * @return optional of tag
      */
     Optional<Tag> findByName(String tagName);
+
+    /**Method that returns all tags from data source
+     * @return list of tags
+     */
+    Set<Tag> findAll();
 }

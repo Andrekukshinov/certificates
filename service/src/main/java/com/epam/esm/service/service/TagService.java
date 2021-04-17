@@ -3,6 +3,8 @@ package com.epam.esm.service.service;
 import com.epam.esm.service.dto.TagDto;
 import com.epam.esm.service.exception.ValidationException;
 
+import java.util.Set;
+
 /**
  * Interface for performing business logics for Tag and Tag Dtos
  */
@@ -30,4 +32,10 @@ public interface TagService {
      * @throws com.epam.esm.service.exception.EntityNotFoundException if entity with id not exists
      */
     TagDto getTag(Long id);
+
+    /**
+     * Method for returning list of all tag dtos that are present in the system
+     * @return list of tag dtos
+     */
+    Set<TagDto> getAll();
 }

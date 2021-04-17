@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TagServiceImpl implements TagService {
@@ -59,5 +61,13 @@ public class TagServiceImpl implements TagService {
         Optional<Tag> tagOptional = tagRepository.findById(id);
         Tag tag = tagOptional.orElseThrow(() -> new EntityNotFoundException(String.format(WRONG_TAG, id)));
         return modelMapper.map(tag, TagDto.class);
+    }
+
+    @Override
+    public Set<TagDto> getAll() {
+        return tagRepository.findAll()
+                .stream()
+                .map((tag) -> modelMapper.map(tag, TagDto.class))
+                .collect(Collectors.toSet());
     }
 }

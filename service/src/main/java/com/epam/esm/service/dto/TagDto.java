@@ -1,14 +1,18 @@
 package com.epam.esm.service.dto;
 
+import java.util.Objects;
+
 public class TagDto {
 
+    private Long id;
     private String name;
 
-    public TagDto(String name) {
-        this.name = name;
+    public Long getId() {
+        return id;
     }
 
-    public TagDto() {
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -20,6 +24,14 @@ public class TagDto {
     }
 
     @Override
+    public String toString() {
+        return "TagDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -27,14 +39,12 @@ public class TagDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         TagDto tagDto = (TagDto) o;
-
-        return getName() != null ? getName().equals(tagDto.getName()) : tagDto.getName() == null;
+        return Objects.equals(getId(), tagDto.getId()) && Objects.equals(getName(), tagDto.getName());
     }
 
     @Override
     public int hashCode() {
-        return getName() != null ? getName().hashCode() : 0;
+        return Objects.hash(getId(), getName());
     }
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api/v1/tags")
 public class TagController {
@@ -42,6 +44,11 @@ public class TagController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTag(@PathVariable Long id) {
         tagService.deleteTag(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<Set<TagDto>> getAll() {
+        return ResponseEntity.ok(tagService.getAll());
     }
 
 }

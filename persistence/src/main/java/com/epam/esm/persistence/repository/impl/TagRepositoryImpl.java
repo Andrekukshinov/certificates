@@ -20,6 +20,7 @@ import java.util.Set;
 public class TagRepositoryImpl implements TagRepository {
 
     private static final String GET_BY_ID = "SELECT id, name FROM tags WHERE id = ?";
+    private static final String GET_ALL = "SELECT id, name FROM tags ";
     private static final String GET_BY_NAME = "SELECT id, name FROM tags WHERE name = ?";
     private static final String DELETE_TAG = "DELETE FROM tags WHERE id = ?";
     private static final String COMMA = ", ";
@@ -68,5 +69,10 @@ public class TagRepositoryImpl implements TagRepository {
     @Override
     public Optional<Tag> findByName(String tagName) {
         return Optional.ofNullable(DataAccessUtils.singleResult(jdbc.query(GET_BY_NAME, mapper, tagName)));
+    }
+
+    @Override
+    public Set<Tag> findAll() {
+        return Set.copyOf(jdbc.query(GET_ALL, mapper));
     }
 }
